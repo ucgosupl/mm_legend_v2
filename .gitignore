@@ -1,0 +1,34 @@
+# gerber files generated from board schematic
+*gerber
+
+# temporary eagle files
+*.*#*
+
+# compressed files
+*.zip
+
+# generated images
+*.png
+*.jpg
+
+# latex generated files
+build
+
+# eclipse workspace files
+.metadata
+RemoteSystemsTempFiles
+
+# eclipse project files
+.project
+.cproject
+
+# compilation output
+out
+lib
+
+# test reports
+src/test/pc_test/*/test_results.txt
+
+# doxygen output
+latex
+html
