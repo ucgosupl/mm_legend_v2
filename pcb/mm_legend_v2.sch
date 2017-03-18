@@ -15781,7 +15781,7 @@ ULN and UDN Series&lt;p&gt;
 <part name="GND21" library="supply1" deviceset="GND" device=""/>
 <part name="SUPPLY21" library="supply2" deviceset="VCC" device=""/>
 <part name="SUPPLY22" library="supply2" deviceset="+5V/1" device="" value="3V3"/>
-<part name="C17" library="resistor" deviceset="C-EU" device="C0805K" value="100u"/>
+<part name="C17" library="resistor" deviceset="C-EU" device="C0805K" value="100n"/>
 <part name="R17" library="resistor" deviceset="R-EU_" device="R0805W" value="10k"/>
 <part name="SUPPLY23" library="supply2" deviceset="+5V/1" device="" value="3V3"/>
 <part name="GND22" library="supply1" deviceset="GND" device=""/>
