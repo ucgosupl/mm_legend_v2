@@ -75,7 +75,7 @@ run:
 	$(ECHO) 'Date and time:'
 	@date +'%y.%m.%d %H:%M:%S'
 	$(ECHO) ''
-	$(OUT_DIR)bin/$(TARGET_NAME)
+	-$(OUT_DIR)bin/$(TARGET_NAME)
 	$(ECHO) ''
 
 # Creating resulting binary file

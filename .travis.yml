@@ -1,0 +1,22 @@
+################################################################################
+# File:     .travis.yml
+# Author:   GAndaLF
+# Brief:    Configuration file for Travis-CI continuous integration tool.
+################################################################################
+
+# Container base build machine
+sudo: false
+
+dist: trusty
+
+# install newer version of GCC
+addons:
+  apt:
+    packages:
+    - gcc-4.8
+
+# C language setup contains gcc, make and autotools.
+language: c
+
+script:
+  - make all
