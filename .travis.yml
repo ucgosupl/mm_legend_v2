@@ -4,19 +4,36 @@
 # Brief:    Configuration file for Travis-CI continuous integration tool.
 ################################################################################
 
-# Container base build machine
 sudo: false
 
-dist: trusty
+# Cache storing toolchain compiled from source
+cache:
+  directories:
+    - "${HOME}/cache"
 
-# install newer version of GCC
+# Turn off default travis email notifications
+notifications:
+  email: false
+
+# install packages needed by toolchain and gcc-4.8 with gnu++11 support.
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
     packages:
-    - gcc-4.8
+      - gcc-4.8
+      - g++-4.8
+      - texinfo
+      - texlive
 
-# C language setup contains gcc, make and autotools.
-language: c
+language: generic
 
 script:
-  - make all
+  - chmod +x scripts/install_bleeding_edge_toolchain.sh
+  - ./scripts/install_bleeding_edge_toolchain.sh
+  - export PATH=$PATH:$HOME/toolchains/arm-none-eabi-gcc-6.3.0-170409/bin
+  - make
+
+after_failure:
+  - tail -n 1000 /tmp/stdout.log
+  - tail -n 1000 /tmp/stderr.log
