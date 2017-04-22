@@ -31,7 +31,7 @@ language: generic
 script:
   - chmod +x scripts/install_bleeding_edge_toolchain.sh
   - ./scripts/install_bleeding_edge_toolchain.sh
-  - export PATH=$PATH:$HOME/toolchains/arm-none-eabi-gcc-6.3.0-170409/bin
+  - cd ${HOME}/toolchains/arm-none-eabi-gcc-6.3.0-*/bin; export PATH=$PATH:$(pwd); echo $PATH; cd ${TRAVIS_BUILD_DIR}
   - make
 
 after_failure:
