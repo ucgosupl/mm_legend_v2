@@ -18,14 +18,18 @@ void hbridge_init(void);
  * Set speed for left motor.
  *
  * @param speed         Speed in percent from -100 to 100.
+ *
+ * @return              Error code.
  */
-void hbridge_left_speed_set(int32_t speed);
+uint32_t hbridge_left_speed_set(int32_t speed);
 
 /**
  * Set speed for right motor.
  *
  * @param speed         Speed in percent from -100 to 100.
+ *
+ * @return              Error code.
  */
-void hbridge_right_speed_set(int32_t speed);
+uint32_t hbridge_right_speed_set(int32_t speed);
 
 #endif /* _HBRIDGE_H_ */
