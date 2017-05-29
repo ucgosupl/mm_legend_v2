@@ -23,7 +23,7 @@
 /** External crystal frequency */
 #define HSE_FREQ              8000000ULL
 /** Core clock frequency */
-#define MCU_CLOCK_FREQ        168000000ULL
+#define MCU_CLOCK_FREQ        84000000ULL
 /** AHB bus frequency */
 #define AHB_CLOCK_FREQ        MCU_CLOCK_FREQ
 /** APB2 bus frequency */
