@@ -41,6 +41,8 @@ diag_task(void * params)
 {
     (void)params;
 
+    console_task_init();
+
     /* It is possible to decrease priority after initialization. */
 
     while (1) {
