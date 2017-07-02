@@ -1,14 +1,14 @@
 ################################################################################
 # File:     conf.mk
 # Author:   GAndaLF
-# Brief:    Makefile configuration script for hw_test_hbridge target.
+# Brief:    Makefile configuration script for hw_test_logger target.
 #
-# This file contains configuration variables for hw_test_hbridge target.
+# This file contains configuration variables for hw_test_logger target.
 # After setting these variables, actual build script is called.
 ################################################################################
 
 # Name for output files.
-TARGET_NAME := hbridge
+TARGET_NAME := logger
 
 # Directory containing compilation result.
 OUT_DIR := out/
@@ -34,12 +34,13 @@ INC_DIRS := \
 # In these paths source files are searched recursively in the subfolders.
 SRC_DIRS := \
 ./ \
+../../../src/code/logger \
 ../../../src/hw/core_init \
 ../../../src/hw/startup \
 ../../../src/hw/gpio_f4 \
-../../../src/hw/hbridge \
+../../../src/hw/usart \
 ../../../src/utils \
-../../../src/external/FreeRTOS \
+../../../src/external/FreeRTOS/ \
 
 # Additional C++ source files to compile.
 CXX_SRC_FILES := \

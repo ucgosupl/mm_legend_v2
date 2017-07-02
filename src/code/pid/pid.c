@@ -5,8 +5,6 @@
  */
 
 #include "platform_specific.h"
-#include "stm32f4xx.h"
-#include <stddef.h>
 
 #include "pid.h"
 

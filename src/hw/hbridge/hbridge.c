@@ -5,8 +5,6 @@
  */
 
 #include "platform_specific.h"
-#include "stm32f4xx.h"
-#include <errno.h>
 
 #include "gpio_f4/gpio_f4.h"
 
