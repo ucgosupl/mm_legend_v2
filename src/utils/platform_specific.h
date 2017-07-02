@@ -221,6 +221,9 @@ typedef void * sem_t;
 /** Type of RTOS mutex. */
 typedef void * mutex_t;
 
+/** Type of RTOS tick. */
+typedef TickType_t tick_t;
+
 /**
  * @}
  */

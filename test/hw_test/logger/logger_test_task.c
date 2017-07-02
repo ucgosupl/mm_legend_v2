@@ -4,6 +4,8 @@
  * brief:	Task for testing H-bridge functionality.
  */
 
+#include <stdio.h>
+
 #include "logger_test_task.h"
 
 #include "platform_specific.h"
@@ -24,7 +26,7 @@ void logger_test_task_init(void)
 {
     usart_init();
 
-    rtos_task_create(logger_test_task, "logger",
+    rtos_task_create(logger_test_task, "loggert",
                      LOGGER_TEST_TASK_STACKSIZE, LOGGER_TEST_TASK_PRIORITY);
 }
 
@@ -41,7 +43,14 @@ static void logger_test_task(void *params)
 
     while (1)
     {
+        printf("Wlasny printf dziala!\r\n");
+        printf("Jakis dodatkowy tekst dla wypelnienia\r\n");
+        printf("I jeszcze jeden\r\n");
+        printf("A teraz liczby: %d, %f, %X\r\n", 5, 0.5, 0xAAAAAAAA);
+        rtos_delay(5000);
+
         usart_send_buf(test_buf, BUF_SIZE);
-        rtos_delay(10000);
+        rtos_delay(5000);
+
     }
 }

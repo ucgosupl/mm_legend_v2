@@ -8,6 +8,7 @@
 #include "platform_specific.h"
 
 #include "core_init/core_init.h"
+#include "logger/logger.h"
 #include "logger_test_task.h"
 
 int main(void)
@@ -15,6 +16,7 @@ int main(void)
     core_init();
 
     /* Place your initialisation code here. */
+    logger_task_init();
     logger_test_task_init();
 
     /* Place your application code here. */

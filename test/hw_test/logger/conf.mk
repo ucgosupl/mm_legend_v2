@@ -34,6 +34,7 @@ INC_DIRS := \
 # In these paths source files are searched recursively in the subfolders.
 SRC_DIRS := \
 ./ \
+../../../src/code/logger \
 ../../../src/hw/core_init \
 ../../../src/hw/startup \
 ../../../src/hw/gpio_f4 \
