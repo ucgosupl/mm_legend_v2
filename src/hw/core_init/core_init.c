@@ -45,7 +45,7 @@ core_init(void)
 	while (!(RCC->CR & RCC_CR_PLLRDY))
 		;
 
-	/* PLL as core source clock, prescaler 1 for APB2, prescaler 2 for APB1 */
+	/* PLL as core source clock, prescaler 2 for APB2, prescaler 4 for APB1 */
 	RCC->CFGR |= RCC_CFGR_PPRE1_DIV4 | RCC_CFGR_PPRE2_DIV2 | RCC_CFGR_SW_PLL;
 	while (!(RCC->CFGR & RCC_CFGR_SWS_PLL))
 		;

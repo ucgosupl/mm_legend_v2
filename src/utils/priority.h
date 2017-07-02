@@ -18,6 +18,11 @@
 /** Diagnostic task priority */
 #define DIAG_PRIORITY               (tskIDLE_PRIORITY + 5)
 
+/** Console task stacksize */
+#define CONSOLE_STACKSIZE           (configMINIMAL_STACK_SIZE)
+/** Console task priority */
+#define CONSOLE_PRIORITY            (tskIDLE_PRIORITY + 4)
+
 /**
  * @}
  */
