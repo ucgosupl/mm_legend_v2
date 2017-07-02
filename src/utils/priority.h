@@ -23,6 +23,9 @@
 /** Console task priority */
 #define CONSOLE_PRIORITY            (tskIDLE_PRIORITY + 4)
 
+/** Logger USART HW priority */
+#define LOGGER_USART_PRIORITY           10
+
 /**
  * @}
  */

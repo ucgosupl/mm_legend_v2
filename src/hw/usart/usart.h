@@ -22,7 +22,7 @@ void usart_init(void);
  *
  * @return              Error code.
  */
-int32_t usart_send_buf(uint8_t buf, int32_t len);
+int32_t usart_send_buf(uint8_t *buf, int32_t len);
 
 /**
  * Check if received data is ready to be read.

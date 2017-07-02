@@ -7,10 +7,12 @@
 all : \
 template \
 hbridge \
+logger \
 
 clean : \
 template_clean \
 hbridge_clean \
+logger_clean \
 
 ################################################################################
 # Template HW test target
@@ -33,6 +35,12 @@ hbridge :
 hbridge_clean :
 	@make -C hbridge -f conf.mk clean
 
+logger :
+	@make -C logger -f conf.mk
+
+logger_clean :
+	@make -C logger -f conf.mk clean
+	
 #
 ################################################################################
 
@@ -40,3 +48,4 @@ hbridge_clean :
 
 .PHONY: template template_clean
 .PHONY: hbridge hbridge_clean
+.PHONY: logger logger_clean
