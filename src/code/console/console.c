@@ -5,14 +5,6 @@
  */
 
 #include "platform_specific.h"
-#include "priority.h"
-
-#include "FreeRTOSConfig.h"
-#include "FreeRTOS.h"
-#include "task.h"
-#include "queue.h"
-#include "timers.h"
-#include "semphr.h"
 
 #include "usart/usart.h"
 #include "logger/logger.h"

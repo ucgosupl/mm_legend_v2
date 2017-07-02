@@ -28,6 +28,7 @@ INC_DIRS := \
 ../../../src/utils \
 ../../../src/external/stm32 \
 ../../../src/external/cmsis \
+../../../src/external/FreeRTOS/include \
 
 # Paths to source files (.c and .S).
 # In these paths source files are searched recursively in the subfolders.

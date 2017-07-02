@@ -6,14 +6,6 @@
 
 #include "platform_specific.h"
 
-/* FreeRTOS includes */
-#include "FreeRTOSConfig.h"
-#include "FreeRTOS.h"
-#include "task.h"
-#include "queue.h"
-#include "timers.h"
-#include "semphr.h"
-
 /* Project includes */
 #include "hbridge/hbridge.h"
 

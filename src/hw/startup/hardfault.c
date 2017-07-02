@@ -4,7 +4,6 @@
  * Brief:   Hardfault handler including core register dump.
  */
 
-#include "stm32f4xx.h"
 #include "platform_specific.h"
 
 /**

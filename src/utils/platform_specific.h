@@ -7,6 +7,23 @@
 #ifndef _PLATFORM_SPECIFIC_H_
 #define _PLATFORM_SPECIFIC_H_
 
+/* System includes */
+#include <stddef.h>
+#include <errno.h>
+#include <stdbool.h>
+
+/* Platform includes */
+#include "priority.h"
+#include "stm32f4xx.h"
+
+/* RTOS includes */
+#include "FreeRTOSConfig.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "timers.h"
+#include "semphr.h"
+
 /**
  * @defgroup utils_platform
  * @{
@@ -119,10 +136,10 @@
 /**
  * Create RTOS semaphore.
  *
- * @param sem_ptr       Handle to semaphore to be created.
+ * @return              Handle to semaphore to be created.
  */
-#define rtos_sem_bin_create(sem_ptr)                                           \
-   vSemaphoreCreateBinary(sem_ptr)
+#define rtos_sem_bin_create()                                           \
+   xSemaphoreCreateBinary()
 
 /**
  * Acquire semaphore.
@@ -194,6 +211,15 @@
 #define rtos_mutex_give(mutex_ptr)                                             \
    xSemaphoreGive(mutex_ptr)
 /* Mutexes should not be given/taken from ISR */
+
+/** Type of RTOS queue. */
+typedef void * queue_t;
+
+/** Type of RTOS semaphore. */
+typedef void * sem_t;
+
+/** Type of RTOS mutex. */
+typedef void * mutex_t;
 
 /**
  * @}
