@@ -15,10 +15,11 @@ echo "travis_fold:start:bleeding-edge-toolchain"
 echo "Bleeding edge toolchain"
 mkdir -p "${HOME}/cache"
 mkdir -p "${HOME}/toolchains"
+
 cd "${HOME}/toolchains"
 
 # If toolchain doesn't exist in cache - build it from sources.
-if [ ! -e "${HOME}"/cache/arm-none-eabi-gcc-6.3.0-*.tar.xz ]; then
+if [ ! -e "${HOME}"/cache/arm-none-eabi-gcc-*.tar.xz ]; then
 (
 	git clone https://github.com/FreddieChopin/bleeding-edge-toolchain
 	cd bleeding-edge-toolchain
@@ -28,10 +29,10 @@ if [ ! -e "${HOME}"/cache/arm-none-eabi-gcc-6.3.0-*.tar.xz ]; then
 	timeout -k 1m 50m ./build-bleeding-edge-toolchain.sh --skip-nano-libraries > >(tee /tmp/stdout.log) 2> /tmp/stderr.log | grep '[*-]\{10,10\} '
 	kill "${keepAlivePid}"
 	wait "${keepAlivePid}" || true
-	cp arm-none-eabi-gcc-6.3.0-*.tar.xz "${HOME}/cache"
+	cp arm-none-eabi-gcc-*.tar.xz "${HOME}/cache"
 )
 fi
-echo 'Extracting arm-none-eabi-gcc-6.3.0-*.tar.xz...'
-tar -xf ${HOME}/cache/arm-none-eabi-gcc-6.3.0-*.tar.xz
+echo 'Extracting arm-none-eabi-gcc-*.tar.xz...'
+tar -xf ${HOME}/cache/arm-none-eabi-gcc-*.tar.xz
 
 echo "travis_fold:end:bleeding-edge-toolchain"
