@@ -6,6 +6,10 @@
 
 sudo: false
 
+# Trusty becomes default distribution due to end of support for precise
+# For now trusty cannot be used for this project due to exceeding build time limit.
+dist: precise
+
 # Cache storing toolchain compiled from source
 cache:
   directories:
@@ -15,6 +19,10 @@ cache:
 notifications:
   email: false
 
+# environmental variables
+env:
+  - XZ_OPT="-0 -T 0 -v"
+  
 # install packages needed by toolchain and gcc-4.8 with gnu++11 support.
 addons:
   apt:
@@ -31,7 +39,7 @@ language: generic
 script:
   - chmod +x scripts/install_bleeding_edge_toolchain.sh
   - ./scripts/install_bleeding_edge_toolchain.sh
-  - cd ${HOME}/toolchains/arm-none-eabi-gcc-6.3.0-*/bin; export PATH=$PATH:$(pwd); echo $PATH; cd ${TRAVIS_BUILD_DIR}
+  - cd ${HOME}/toolchains/arm-none-eabi-gcc-*/bin; export PATH=$PATH:$(pwd); echo $PATH; cd ${TRAVIS_BUILD_DIR}
   - make
 
 after_failure:
