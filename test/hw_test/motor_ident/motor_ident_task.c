@@ -16,7 +16,7 @@
 #include "motor_ident_task.h"
 
 #define MOTOR_SPEED         20
-#define IMPULSE_LEN_MS      1000
+#define SAMPLE_CNT          100
 
 #define MOTOR_IDENT_TASK_STACKSIZE          (configMINIMAL_STACK_SIZE * 8)
 #define MOTOR_IDENT_TASK_PRIORITY           (tskIDLE_PRIORITY + 2)
@@ -27,7 +27,7 @@ struct encoder_params
     int32_t right;
 };
 
-static struct encoder_params read_data[IMPULSE_LEN_MS];
+static struct encoder_params read_data[SAMPLE_CNT];
 
 static void motor_ident_task(void *params);
 
@@ -61,21 +61,21 @@ static void motor_ident_task(void *params)
             hbridge_left_speed_set(MOTOR_SPEED);
             hbridge_right_speed_set(MOTOR_SPEED);
 
-            /* Collect encoder data every 1ms */
-            for (i = 0; i < IMPULSE_LEN_MS; i++)
+            /* Collect encoder data every 10ms */
+            for (i = 0; i < SAMPLE_CNT; i++)
             {
                 last = rtos_tick_count_get();
 
                 read_data[i].left = encoder_left_read();
                 read_data[i].right = encoder_right_read();
 
-                rtos_delay_until(&last, 1);
+                rtos_delay_until(&last, 10);
             }
 
             hbridge_left_speed_set(0);
             hbridge_right_speed_set(0);
 
-            for (i = 0; i < IMPULSE_LEN_MS; i++)
+            for (i = 0; i < SAMPLE_CNT; i++)
             {
                 printf("%d\t%d\n", read_data[i].left, read_data[i].right);
             }
