@@ -81,6 +81,11 @@ static void motor_ident_task(void *params)
             }
         }
 
+        if (0 != button_2_get())
+        {
+            rtos_delay(10);
+        }
+
         rtos_delay(10);
     }
 }
