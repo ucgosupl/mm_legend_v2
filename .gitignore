@@ -22,6 +22,9 @@ RemoteSystemsTempFiles
 .project
 .cproject
 
+# pycharm project files
+.idea
+
 # compilation output
 out
 lib
