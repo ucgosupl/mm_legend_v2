@@ -28,6 +28,11 @@
 /** Logger task priority */
 #define LOGGER_PRIORITY            (tskIDLE_PRIORITY + 4)
 
+/** Motor task stacksize */
+#define MOTOR_STACKSIZE           (configMINIMAL_STACK_SIZE * 2)
+/** Motor task priority */
+#define MOTOR_PRIORITY            (tskIDLE_PRIORITY + 3)
+
 /** Logger USART HW priority */
 #define LOGGER_USART_PRIORITY           10
 

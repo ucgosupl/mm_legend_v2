@@ -8,7 +8,7 @@
 #define _PID_H_
 
 /** Structure contining PID controller parameters. */
-struct pid_params_s
+struct pid_params
 {
     float p;            /** Proportional gain. */
     float i;            /** Integral gain. */
@@ -18,7 +18,7 @@ struct pid_params_s
 };
 
 /** Object containing PID controller internal parameters. */
-typedef struct pid_params_s * pid_params_t;
+typedef struct pid_params * pid_params_t;
 
 /**
  * Create PID controller object with given parameters.
