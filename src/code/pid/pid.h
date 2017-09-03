@@ -7,19 +7,30 @@
 #ifndef _PID_H_
 #define _PID_H_
 
+/** Structure contining PID controller parameters. */
+struct pid_params_s
+{
+    float p;            /** Proportional gain. */
+    float i;            /** Integral gain. */
+    float d;            /** Derivative gain. */
+    float err_last;     /** Last error value. */
+    float err_sum;      /** Sum of errors from all iterations. */
+};
+
 /** Object containing PID controller internal parameters. */
 typedef struct pid_params_s * pid_params_t;
 
 /**
  * Create PID controller object with given parameters.
  *
+ * @param pid           PID object to be initialized.
  * @param p             Proportional gain.
  * @param i             Integral gain.
  * @param d             Derivative gain.
  *
- * @return          Created PID object.
+ * @return              Error code.
  */
-pid_params_t pid_create(float p, float i, float d);
+int32_t pid_init(pid_params_t pid, float p, float i, float d);
 
 /**
  * Calculate single iteration of PID controller.
@@ -27,7 +38,8 @@ pid_params_t pid_create(float p, float i, float d);
  * @param pid           PID controller object.
  * @param setval        Expected value.
  * @param output        Feedback output value.
- * @return
+ *
+ * @return              Calculated control value.
  */
 float pid_iter(pid_params_t pid, float setval, float output);
 
