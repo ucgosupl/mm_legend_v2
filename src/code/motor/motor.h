@@ -40,4 +40,7 @@ void motor_vlinear_set(float val);
  */
 void motor_vangular_set(float val);
 
+int32_t motor_uleft_get(void);
+int32_t motor_uright_get(void);
+
 #endif /* _MOTOR_H_ */
