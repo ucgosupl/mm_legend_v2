@@ -5,45 +5,159 @@
  */
 
 #include "platform_specific.h"
+#include <string.h>
+#include <stdlib.h>
+
+#include "encoder/encoder.h"
+#include "hbridge/hbridge.h"
+#include "pid/pid.h"
 
 #include "motor.h"
 
+/** Maximum allowed motor power. */
+#define MOTOR_POWER_MAX     100
+
+/** Minimum allowed motor power. */
+#define MOTOR_POWER_MIN     15
+
+/** Number of cogs in motor gear. */
+#define GEAR_MOTOR              10
+/** Number of cogs in wheel gear. */
+#define GEAR_WHEEL              40
+/** Number of encoder ticks per full motor cycle. */
+#define TICKS_PER_MOTOR_CYCLE   16
+/** Circumference of the wheel. */
+#define WHEEL_CIRC_MM           69
+
+/** Convert encoder ticks to mm. */
+#define TICKS_TO_MM(ticks)      \
+    (((ticks) * GEAR_MOTOR * WHEEL_CIRC_MM) / (GEAR_WHEEL * TICKS_PER_MOTOR_CYCLE))
+
+/** Convert mm to encoder ticks. */
+#define MM_TO_TICKS(mm)         \
+    (((mm) * GEAR_WHEEL * TICKS_PER_MOTOR_CYCLE) / (GEAR_MOTOR * WHEEL_CIRC_MM))
+
+/** PID proportional gain. */
+#define PID_P   6.6869f
+/** PID integral gain. */
+#define PID_I   0.0f
+/** PID derivative gain. */
+#define PID_D   0.03639f
+
+struct motor_params
+{
+    int32_t vlinear;
+    int32_t vangular;
+
+    int32_t vleft_read;
+    int32_t vright_read;
+
+    int32_t u_left;
+    int32_t u_right;
+};
+
+static struct motor_params motor_params;
+static struct pid_params pid_left;
+static struct pid_params pid_right;
+
 static void motor_task(void *params);
+static int32_t motor_power_limits(float u);
 
 void motor_task_init(void)
 {
+    memset(&motor_params, 0, sizeof(struct motor_params));
+    pid_init(&pid_left, PID_P, PID_I, PID_D);
+    pid_init(&pid_right, PID_P, PID_I, PID_D);
 
+    encoder_init();
+    hbridge_init();
+
+    rtos_task_create(motor_task, "motor", MOTOR_STACKSIZE, MOTOR_PRIORITY);
 }
 
 int32_t motor_vleft_get(void)
 {
-    //todo: return last read encoder value converted to mm/s.
-    return 0;
+    return TICKS_TO_MM(motor_params.vleft_read);
 }
 
 int32_t motor_vright_get(void)
 {
-    //todo: return last read encoder value converted to mm/s.
-    return 0;
+    return TICKS_TO_MM(motor_params.vright_read);
 }
 
 void motor_vlinear_set(float val)
 {
-    //todo: store expected value
-    (void)val;
+    motor_params.vlinear = MM_TO_TICKS(val);
 }
 
 void motor_vangular_set(float val)
 {
-    //todo: store expected value
-    (void)val;
+    motor_params.vangular = MM_TO_TICKS(val);
+}
+
+int32_t motor_uleft_get(void)
+{
+    return motor_params.u_left;
+}
+
+int32_t motor_uright_get(void)
+{
+    return motor_params.u_right;
 }
 
 static void motor_task(void *params)
 {
     (void) params;
 
-    //todo: read data from encoders
-    //todo: calculate new speeds for motors using pid
-    //todo: set motor speeds
+    float u_left_f;
+    float u_right_f;
+    tick_t last;
+
+    while (1)
+    {
+        last = rtos_tick_count_get();
+
+        motor_params.vleft_read = encoder_left_read();
+        motor_params.vright_read = -encoder_right_read();
+
+        u_left_f = pid_iter(&pid_left, motor_params.vlinear, motor_params.vleft_read);
+        u_right_f = pid_iter(&pid_right, motor_params.vlinear, motor_params.vright_read);
+
+        motor_params.u_left = motor_power_limits(u_left_f);
+        motor_params.u_right = motor_power_limits(u_right_f);
+
+        hbridge_left_speed_set(motor_params.u_left);
+        hbridge_right_speed_set(motor_params.u_right);
+
+        rtos_delay_until(&last, 10);
+    }
+}
+
+static int32_t motor_power_limits(float u)
+{
+    int32_t retval;
+    int32_t u_int;
+
+    u_int = (int32_t)u;
+
+    /* Maximum motor power value conditions - bigger values are not handled. */
+    if (MOTOR_POWER_MAX < u_int)
+    {
+        retval = MOTOR_POWER_MAX;
+    }
+    else if (-MOTOR_POWER_MAX > u_int)
+    {
+        retval = -MOTOR_POWER_MAX;
+    }
+    /* Minimum nonzero value condition - lower values might damage motor. */
+    else if (MOTOR_POWER_MIN > abs(u_int))
+    {
+        retval = 0;
+    }
+    else {
+        /* Input value correct, don't need to do anything. */
+        retval = u_int;
+    }
+
+    return retval;
 }

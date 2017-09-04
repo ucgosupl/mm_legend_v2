@@ -12,20 +12,20 @@ r60 = motor60(:,2);
 
 time = 0.01:0.01:1;
 
-l20_steady = 28.5;
-r20_steady = 21.1;
-l20_ts = 0.3014;
-r20_ts = 0.2432;
+l20_steady = 24.75;
+r20_steady = 22.75;
+l20_ts = 0.3496;
+r20_ts = 0.3390;
 
-l40_steady = 67.3;
-r40_steady = 63.6;
-l40_ts = 0.2742;
-r40_ts = 0.2222;
+l40_steady = 58.1;
+r40_steady = 56.0;
+l40_ts = 0.2739;
+r40_ts = 0.2150;
 
-l60_steady = 96.6;
-r60_steady = 89.45;
-l60_ts = 0.1449;
-r60_ts = 0.1359;
+l60_steady = 90.1;
+r60_steady = 83.7;
+l60_ts = 0.1763;
+r60_ts = 0.1506;
 
 [l20_tf, r20_tf] = calc_tf(20, l20_steady, r20_steady, l20_ts, r20_ts);
 

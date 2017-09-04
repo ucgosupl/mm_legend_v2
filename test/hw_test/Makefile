@@ -9,12 +9,14 @@ template \
 hbridge \
 logger \
 motor_ident \
+motor_linear \
 
 clean : \
 template_clean \
 hbridge_clean \
 logger_clean \
 motor_ident_clean \
+motor_linear_clean \
 
 ################################################################################
 # Template HW test target
@@ -48,6 +50,12 @@ motor_ident :
 
 motor_ident_clean :
 	@make -C motor_ident -f conf.mk clean
+
+motor_linear :
+	@make -C motor_linear -f conf.mk
+
+motor_linear_clean :
+	@make -C motor_linear -f conf.mk clean
 	
 #
 ################################################################################
@@ -58,3 +66,4 @@ motor_ident_clean :
 .PHONY: hbridge hbridge_clean
 .PHONY: logger logger_clean
 .PHONY: motor_ident motor_ident_clean
+.PHONY: motor_linear motor_linear_clean

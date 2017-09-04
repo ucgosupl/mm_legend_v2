@@ -45,12 +45,18 @@ hw_test_logger :
 hw_test_logger_clean :
 	@make -C test/hw_test logger_clean
 
-
 hw_test_motor_ident :
 	@make -C test/hw_test motor_ident
 
 hw_test_motor_ident_clean :
 	@make -C test/hw_test motor_ident_clean
+
+
+hw_test_motor_linear :
+	@make -C test/hw_test motor_linear
+
+hw_test_motor_linear_clean :
+	@make -C test/hw_test motor_linear_clean
 
 #
 ###############################################################################
@@ -60,3 +66,4 @@ hw_test_motor_ident_clean :
 .PHONY: hw_test_hbridge hw_test_hbridge_clean
 .PHONY: hw_test_logger hw_test_logger_clean
 .PHONY: hw_test_motor_ident hw_test_motor_ident_clean
+.PHONY: hw_test_motor_linear hw_test_motor_linear_clean
