@@ -18,7 +18,7 @@ int main(void)
 
     /* Place your initialisation code here. */
     logger_task_init();
-    imu_task_init();
+    imu_test_task_init();
 
     /* Place your application code here. */
     vTaskStartScheduler();
