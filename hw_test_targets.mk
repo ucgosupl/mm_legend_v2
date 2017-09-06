@@ -31,13 +31,17 @@ hw_test_template_clean :
 ###############################################################################
 # HW test targets
 
-
 hw_test_hbridge :
 	@make -C test/hw_test hbridge
 
 hw_test_hbridge_clean :
 	@make -C test/hw_test hbridge_clean
 
+hw_test_imu :
+	@make -C test/hw_test imu
+
+hw_test_imu_clean :
+	@make -C test/hw_test imu_clean
 
 hw_test_logger :
 	@make -C test/hw_test logger
@@ -64,6 +68,7 @@ hw_test_motor_linear_clean :
 .PHONY: hw_test hw_test_clean
 .PHONY: hw_test_template hw_test_template_clean
 .PHONY: hw_test_hbridge hw_test_hbridge_clean
+.PHONY: hw_test_imu hw_test_imu_clean
 .PHONY: hw_test_logger hw_test_logger_clean
 .PHONY: hw_test_motor_ident hw_test_motor_ident_clean
 .PHONY: hw_test_motor_linear hw_test_motor_linear_clean
