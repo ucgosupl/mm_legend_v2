@@ -1,7 +1,7 @@
 /*
- * file:	motor_ident_task.c
- * author:	GAndaLF
- * brief:	Task for motor characteristics identification.
+ * file:    motor_linear_task.c
+ * author:  GAndaLF
+ * brief:   Task for checking linear velocity control loop.
  */
 
 #include "motor_linear_task.h"
