@@ -40,7 +40,9 @@ SRC_DIRS := \
 ../../../src/hw/button \
 ../../../src/hw/encoder \
 ../../../src/hw/hbridge \
+../../../src/hw/i2c_master \
 ../../../src/hw/usart \
+../../../src/code/imu \
 ../../../src/code/logger \
 ../../../src/utils \
 ../../../src/external/FreeRTOS \
