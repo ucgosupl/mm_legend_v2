@@ -172,6 +172,8 @@ static void imu_task(void *params)
 
     (void) params;
 
+    rtos_delay(1000);
+
     /*
      * Gyro:
      * - enable axes X, Y and Z
