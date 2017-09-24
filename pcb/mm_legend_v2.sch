@@ -15795,7 +15795,6 @@ ULN and UDN Series&lt;p&gt;
 <part name="MOTOR1" library="pinhead" deviceset="PINHD-2X3" device=""/>
 <part name="MOTOR2" library="pinhead" deviceset="PINHD-2X3" device=""/>
 <part name="GND25" library="supply1" deviceset="GND" device=""/>
-<part name="SUPPLY26" library="supply2" deviceset="+5V/1" device="" value="3V3"/>
 <part name="PHOTO_FRONT_R" library="photo_transistor_5mm" deviceset="PHOTO_TRANSISTOR_5MM" device="" value=""/>
 <part name="PHOTO_FRONT_L" library="photo_transistor_5mm" deviceset="PHOTO_TRANSISTOR_5MM" device="" value=""/>
 <part name="PHOTO_DIAG_R" library="photo_transistor_5mm" deviceset="PHOTO_TRANSISTOR_5MM" device="" value=""/>
@@ -15820,6 +15819,7 @@ ULN and UDN Series&lt;p&gt;
 <part name="SUPPLY30" library="supply2" deviceset="+5V/2" device="" value="AVDD"/>
 <part name="SUPPLY31" library="supply2" deviceset="+5V/2" device="" value="AVDD"/>
 <part name="SUPPLY32" library="supply2" deviceset="+5V/2" device="" value="AVDD"/>
+<part name="SUPPLY26" library="supply2" deviceset="+5V/1" device="" value="3V3"/>
 </parts>
 <sheets>
 <sheet>
@@ -15943,10 +15943,9 @@ ULN and UDN Series&lt;p&gt;
 <instance part="SUPPLY24" gate="G$1" x="223.52" y="-22.86"/>
 <instance part="SUPPLY25" gate="G$1" x="208.28" y="-22.86"/>
 <instance part="GND24" gate="1" x="208.28" y="-45.72"/>
-<instance part="MOTOR1" gate="A" x="337.82" y="-5.08"/>
+<instance part="MOTOR1" gate="A" x="337.82" y="-2.54"/>
 <instance part="MOTOR2" gate="A" x="337.82" y="-27.94"/>
-<instance part="GND25" gate="1" x="312.42" y="-45.72"/>
-<instance part="SUPPLY26" gate="G$1" x="370.84" y="17.78"/>
+<instance part="GND25" gate="1" x="375.92" y="-43.18"/>
 <instance part="PHOTO_FRONT_R" gate="G$1" x="190.5" y="144.78"/>
 <instance part="PHOTO_FRONT_L" gate="G$1" x="226.06" y="144.78"/>
 <instance part="PHOTO_DIAG_R" gate="G$1" x="261.62" y="144.78"/>
@@ -15971,6 +15970,7 @@ ULN and UDN Series&lt;p&gt;
 <instance part="SUPPLY30" gate="G$1" x="294.64" y="157.48"/>
 <instance part="SUPPLY31" gate="G$1" x="330.2" y="157.48"/>
 <instance part="SUPPLY32" gate="G$1" x="365.76" y="157.48"/>
+<instance part="SUPPLY26" gate="G$1" x="375.92" y="17.78"/>
 </instances>
 <busses>
 </busses>
@@ -16213,16 +16213,6 @@ ULN and UDN Series&lt;p&gt;
 <junction x="208.28" y="-40.64"/>
 </segment>
 <segment>
-<pinref part="GND25" gate="1" pin="GND"/>
-<wire x1="312.42" y1="-43.18" x2="312.42" y2="-27.94" width="0.1524" layer="91"/>
-<pinref part="MOTOR2" gate="A" pin="3"/>
-<wire x1="312.42" y1="-27.94" x2="335.28" y2="-27.94" width="0.1524" layer="91"/>
-<wire x1="312.42" y1="-27.94" x2="312.42" y2="-5.08" width="0.1524" layer="91"/>
-<pinref part="MOTOR1" gate="A" pin="3"/>
-<wire x1="312.42" y1="-5.08" x2="335.28" y2="-5.08" width="0.1524" layer="91"/>
-<junction x="312.42" y="-27.94"/>
-</segment>
-<segment>
 <pinref part="GND26" gate="1" pin="GND"/>
 <pinref part="R18" gate="G$1" pin="1"/>
 <wire x1="190.5" y1="119.38" x2="190.5" y2="124.46" width="0.1524" layer="91"/>
@@ -16251,6 +16241,18 @@ ULN and UDN Series&lt;p&gt;
 <pinref part="GND31" gate="1" pin="GND"/>
 <pinref part="R23" gate="G$1" pin="1"/>
 <wire x1="365.76" y1="119.38" x2="365.76" y2="124.46" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="MOTOR2" gate="A" pin="4"/>
+<pinref part="GND25" gate="1" pin="GND"/>
+<wire x1="342.9" y1="-27.94" x2="375.92" y2="-27.94" width="0.1524" layer="91"/>
+<wire x1="375.92" y1="-27.94" x2="375.92" y2="-40.64" width="0.1524" layer="91"/>
+<wire x1="375.92" y1="-27.94" x2="375.92" y2="-15.24" width="0.1524" layer="91"/>
+<wire x1="375.92" y1="-15.24" x2="327.66" y2="-15.24" width="0.1524" layer="91"/>
+<wire x1="327.66" y1="-15.24" x2="327.66" y2="-2.54" width="0.1524" layer="91"/>
+<pinref part="MOTOR1" gate="A" pin="3"/>
+<wire x1="327.66" y1="-2.54" x2="335.28" y2="-2.54" width="0.1524" layer="91"/>
+<junction x="375.92" y="-27.94"/>
 </segment>
 </net>
 <net name="N$3" class="0">
@@ -16406,13 +16408,15 @@ ULN and UDN Series&lt;p&gt;
 </segment>
 <segment>
 <pinref part="SUPPLY26" gate="G$1" pin="+5V/1"/>
-<wire x1="370.84" y1="15.24" x2="370.84" y2="-5.08" width="0.1524" layer="91"/>
+<wire x1="375.92" y1="15.24" x2="375.92" y2="-2.54" width="0.1524" layer="91"/>
 <pinref part="MOTOR1" gate="A" pin="4"/>
-<wire x1="370.84" y1="-5.08" x2="342.9" y2="-5.08" width="0.1524" layer="91"/>
-<wire x1="370.84" y1="-5.08" x2="370.84" y2="-27.94" width="0.1524" layer="91"/>
-<pinref part="MOTOR2" gate="A" pin="4"/>
-<wire x1="370.84" y1="-27.94" x2="342.9" y2="-27.94" width="0.1524" layer="91"/>
-<junction x="370.84" y="-5.08"/>
+<wire x1="375.92" y1="-2.54" x2="342.9" y2="-2.54" width="0.1524" layer="91"/>
+<pinref part="MOTOR2" gate="A" pin="3"/>
+<wire x1="335.28" y1="-27.94" x2="309.88" y2="-27.94" width="0.1524" layer="91"/>
+<wire x1="309.88" y1="-27.94" x2="309.88" y2="-10.16" width="0.1524" layer="91"/>
+<wire x1="309.88" y1="-10.16" x2="375.92" y2="-10.16" width="0.1524" layer="91"/>
+<wire x1="375.92" y1="-10.16" x2="375.92" y2="-2.54" width="0.1524" layer="91"/>
+<junction x="375.92" y="-2.54"/>
 </segment>
 </net>
 <net name="AVDD" class="0">
@@ -16989,8 +16993,8 @@ ULN and UDN Series&lt;p&gt;
 <net name="ENC1_B" class="0">
 <segment>
 <pinref part="MOTOR1" gate="A" pin="1"/>
-<wire x1="335.28" y1="-2.54" x2="325.12" y2="-2.54" width="0.1524" layer="91"/>
-<label x="314.96" y="-2.54" size="1.778" layer="95"/>
+<wire x1="335.28" y1="0" x2="325.12" y2="0" width="0.1524" layer="91"/>
+<label x="314.96" y="0" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="STM1" gate="PORT_B_L" pin="PB05"/>
@@ -17001,8 +17005,8 @@ ULN and UDN Series&lt;p&gt;
 <net name="ENC1_A" class="0">
 <segment>
 <pinref part="MOTOR1" gate="A" pin="2"/>
-<wire x1="342.9" y1="-2.54" x2="353.06" y2="-2.54" width="0.1524" layer="91"/>
-<label x="355.6" y="-2.54" size="1.778" layer="95"/>
+<wire x1="342.9" y1="0" x2="353.06" y2="0" width="0.1524" layer="91"/>
+<label x="355.6" y="0" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="STM1" gate="PORT_B_L" pin="PB04"/>
@@ -17012,26 +17016,26 @@ ULN and UDN Series&lt;p&gt;
 </net>
 <net name="ENC2_B" class="0">
 <segment>
-<pinref part="MOTOR2" gate="A" pin="1"/>
-<wire x1="335.28" y1="-25.4" x2="325.12" y2="-25.4" width="0.1524" layer="91"/>
-<label x="314.96" y="-25.4" size="1.778" layer="95"/>
-</segment>
-<segment>
 <pinref part="STM1" gate="PORT_B_L" pin="PB07"/>
 <wire x1="129.54" y1="63.5" x2="137.16" y2="63.5" width="0.1524" layer="91"/>
 <label x="139.7" y="63.5" size="1.778" layer="95"/>
 </segment>
-</net>
-<net name="ENC2_A" class="0">
 <segment>
 <pinref part="MOTOR2" gate="A" pin="2"/>
 <wire x1="342.9" y1="-25.4" x2="353.06" y2="-25.4" width="0.1524" layer="91"/>
 <label x="355.6" y="-25.4" size="1.778" layer="95"/>
 </segment>
+</net>
+<net name="ENC2_A" class="0">
 <segment>
 <pinref part="STM1" gate="PORT_B_L" pin="PB06"/>
 <wire x1="129.54" y1="66.04" x2="137.16" y2="66.04" width="0.1524" layer="91"/>
 <label x="139.7" y="66.04" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="MOTOR2" gate="A" pin="1"/>
+<wire x1="335.28" y1="-25.4" x2="325.12" y2="-25.4" width="0.1524" layer="91"/>
+<label x="314.96" y="-25.4" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$24" class="0">
@@ -17045,8 +17049,8 @@ ULN and UDN Series&lt;p&gt;
 <junction x="269.24" y="-15.24"/>
 <wire x1="292.1" y1="-15.24" x2="292.1" y2="7.62" width="0.1524" layer="91"/>
 <pinref part="MOTOR1" gate="A" pin="6"/>
-<wire x1="368.3" y1="7.62" x2="368.3" y2="-7.62" width="0.1524" layer="91"/>
-<wire x1="368.3" y1="-7.62" x2="342.9" y2="-7.62" width="0.1524" layer="91"/>
+<wire x1="368.3" y1="7.62" x2="368.3" y2="-5.08" width="0.1524" layer="91"/>
+<wire x1="368.3" y1="-5.08" x2="342.9" y2="-5.08" width="0.1524" layer="91"/>
 <wire x1="292.1" y1="7.62" x2="368.3" y2="7.62" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -17058,9 +17062,9 @@ ULN and UDN Series&lt;p&gt;
 <pinref part="IC2" gate="G$1" pin="BO1@1"/>
 <wire x1="266.7" y1="-22.86" x2="269.24" y2="-22.86" width="0.1524" layer="91"/>
 <wire x1="269.24" y1="-22.86" x2="297.18" y2="-22.86" width="0.1524" layer="91"/>
-<wire x1="297.18" y1="-22.86" x2="297.18" y2="-15.24" width="0.1524" layer="91"/>
-<wire x1="297.18" y1="-15.24" x2="368.3" y2="-15.24" width="0.1524" layer="91"/>
-<wire x1="368.3" y1="-15.24" x2="368.3" y2="-30.48" width="0.1524" layer="91"/>
+<wire x1="297.18" y1="-22.86" x2="297.18" y2="-17.78" width="0.1524" layer="91"/>
+<wire x1="297.18" y1="-17.78" x2="368.3" y2="-17.78" width="0.1524" layer="91"/>
+<wire x1="368.3" y1="-17.78" x2="368.3" y2="-30.48" width="0.1524" layer="91"/>
 <pinref part="MOTOR2" gate="A" pin="6"/>
 <wire x1="368.3" y1="-30.48" x2="342.9" y2="-30.48" width="0.1524" layer="91"/>
 <junction x="269.24" y="-22.86"/>
@@ -17178,12 +17182,14 @@ ULN and UDN Series&lt;p&gt;
 <segment>
 <pinref part="IC2" gate="G$1" pin="AO1@1"/>
 <wire x1="266.7" y1="-7.62" x2="269.24" y2="-7.62" width="0.1524" layer="91"/>
-<junction x="269.24" y="-7.62"/>
 <wire x1="269.24" y1="-10.16" x2="269.24" y2="-7.62" width="0.1524" layer="91"/>
 <pinref part="IC2" gate="G$1" pin="AO1@2"/>
 <wire x1="266.7" y1="-10.16" x2="269.24" y2="-10.16" width="0.1524" layer="91"/>
 <pinref part="MOTOR1" gate="A" pin="5"/>
-<wire x1="335.28" y1="-7.62" x2="269.24" y2="-7.62" width="0.1524" layer="91"/>
+<wire x1="335.28" y1="-5.08" x2="276.86" y2="-5.08" width="0.1524" layer="91"/>
+<wire x1="276.86" y1="-5.08" x2="276.86" y2="-7.62" width="0.1524" layer="91"/>
+<wire x1="276.86" y1="-7.62" x2="269.24" y2="-7.62" width="0.1524" layer="91"/>
+<junction x="269.24" y="-7.62"/>
 </segment>
 </net>
 <net name="N$8" class="0">
