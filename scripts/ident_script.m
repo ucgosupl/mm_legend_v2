@@ -12,20 +12,20 @@ r60 = motor60(:,2);
 
 time = 0.01:0.01:1;
 
-l20_steady = 24.75;
-r20_steady = 22.75;
-l20_ts = 0.3496;
-r20_ts = 0.3390;
+l20_steady = -31.65;
+r20_steady = -32.65;
+l20_ts = 0.33721;
+r20_ts = 0.208632;
 
-l40_steady = 58.1;
-r40_steady = 56.0;
-l40_ts = 0.2739;
-r40_ts = 0.2150;
+l40_steady = -56.8;
+r40_steady = -62.05;
+l40_ts = 0.106716;
+r40_ts = 0.103474;
 
-l60_steady = 90.1;
-r60_steady = 83.7;
-l60_ts = 0.1763;
-r60_ts = 0.1506;
+l60_steady = -89.05;
+r60_steady = -95.25;
+l60_ts = 0.054005;
+r60_ts = 0.052643;
 
 [l20_tf, r20_tf] = calc_tf(20, l20_steady, r20_steady, l20_ts, r20_ts);
 
@@ -35,7 +35,7 @@ xlabel('time [s]')
 ylabel('speed [ticks]')
 legend('data', 'model')
 
-print_plots(time, r20_tf, -r20, -r40, -r60);
+print_plots(time, r20_tf, r20, r40, r60);
 title('Model for right motor - 20% power')
 xlabel('time [s]')
 ylabel('speed [ticks]')
@@ -49,7 +49,7 @@ xlabel('time [s]')
 ylabel('speed [ticks]')
 legend('data', 'model')
 
-print_plots(time, r40_tf, -r20, -r40, -r60);
+print_plots(time, r40_tf, r20, r40, r60);
 title('Model for right motor - 40% power')
 xlabel('time [s]')
 ylabel('speed [ticks]')
@@ -63,7 +63,7 @@ xlabel('time [s]')
 ylabel('speed [ticks]')
 legend('data', 'model')
 
-print_plots(time, r60_tf, -r20, -r40, -r60);
+print_plots(time, r60_tf, r20, r40, r60);
 title('Model for right motor - 60% power')
 xlabel('time [s]')
 ylabel('speed [ticks]')

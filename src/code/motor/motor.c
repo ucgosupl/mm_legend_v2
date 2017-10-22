@@ -118,7 +118,7 @@ static void motor_task(void *params)
         last = rtos_tick_count_get();
 
         motor_params.vleft_read = encoder_left_read();
-        motor_params.vright_read = -encoder_right_read();
+        motor_params.vright_read = encoder_right_read();
 
         u_left_f = pid_iter(&pid_left, motor_params.vlinear, motor_params.vleft_read);
         u_right_f = pid_iter(&pid_right, motor_params.vlinear, motor_params.vright_read);

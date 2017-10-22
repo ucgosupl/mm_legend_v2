@@ -15,7 +15,6 @@ def draw_plots(file, mean_samples, rise_time_samples, time_const_samples):
     print("\nDrawing plot from data file: {}".format(file))
 
     left, right = np.loadtxt(file, dtype=int, unpack=True)
-    right = -right
 
     step = 0.01
     time = np.linspace(step, 1, 1 / step)

@@ -75,7 +75,7 @@ int32_t encoder_left_read(void)
 {
     int16_t val;
 
-    val = TIM3->CNT;
+    val = -TIM3->CNT;
     TIM3->CNT = 0;
 
     return (int32_t) val;
@@ -85,7 +85,7 @@ int32_t encoder_right_read(void)
 {
     int16_t val;
 
-    val = TIM4->CNT;
+    val = -TIM4->CNT;
     TIM4->CNT = 0;
 
     return (int32_t) val;
