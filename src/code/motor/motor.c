@@ -38,11 +38,11 @@
     (((mm) * GEAR_WHEEL * TICKS_PER_MOTOR_CYCLE) / (GEAR_MOTOR * WHEEL_CIRC_MM))
 
 /** PID proportional gain. */
-#define PID_P   6.6869f
+#define PID_P   1.5496f
 /** PID integral gain. */
 #define PID_I   0.0f
 /** PID derivative gain. */
-#define PID_D   0.03639f
+#define PID_D   0.01f
 
 struct motor_params
 {
