@@ -186,14 +186,14 @@ static void timer_init(void)
 
 static void motor_left_forward(void)
 {
-    GPIOC->BSRRH = (1 << MOTOR1_CH1_PIN);
-    GPIOC->BSRRL = (1 << MOTOR1_CH2_PIN);
+    GPIOC->BSRRL = (1 << MOTOR1_CH1_PIN);
+    GPIOC->BSRRH = (1 << MOTOR1_CH2_PIN);
 }
 
 static void motor_left_backward(void)
 {
-    GPIOC->BSRRL = (1 << MOTOR1_CH1_PIN);
-    GPIOC->BSRRH = (1 << MOTOR1_CH2_PIN);
+    GPIOC->BSRRH = (1 << MOTOR1_CH1_PIN);
+    GPIOC->BSRRL = (1 << MOTOR1_CH2_PIN);
 }
 
 static void motor_left_stop(void)
@@ -204,14 +204,14 @@ static void motor_left_stop(void)
 
 static void motor_right_forward(void)
 {
-    GPIOC->BSRRH = (1 << MOTOR2_CH1_PIN);
-    GPIOC->BSRRL = (1 << MOTOR2_CH2_PIN);
+    GPIOC->BSRRL = (1 << MOTOR2_CH1_PIN);
+    GPIOC->BSRRH = (1 << MOTOR2_CH2_PIN);
 }
 
 static void motor_right_backward(void)
 {
-    GPIOC->BSRRL = (1 << MOTOR2_CH1_PIN);
-    GPIOC->BSRRH = (1 << MOTOR2_CH2_PIN);
+    GPIOC->BSRRH = (1 << MOTOR2_CH1_PIN);
+    GPIOC->BSRRL = (1 << MOTOR2_CH2_PIN);
 }
 
 static void motor_right_stop(void)
