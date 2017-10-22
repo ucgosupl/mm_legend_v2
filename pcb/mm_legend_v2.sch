@@ -15713,8 +15713,8 @@ ULN and UDN Series&lt;p&gt;
 <part name="GND9" library="supply1" deviceset="GND" device=""/>
 <part name="SUPPLY5" library="supply2" deviceset="VCC" device=""/>
 <part name="L1" library="inductors" deviceset="DR74" device="" value="4u7"/>
-<part name="R3" library="resistor" deviceset="R-EU_" device="R0805W" value="100k"/>
-<part name="R4" library="resistor" deviceset="R-EU_" device="R0805W" value="20k"/>
+<part name="R3" library="resistor" deviceset="R-EU_" device="R0805W" value="68k"/>
+<part name="R4" library="resistor" deviceset="R-EU_" device="R0805W" value="13k"/>
 <part name="C11" library="resistor" deviceset="CPOL-EU" device="B/3528-21W" value="47u"/>
 <part name="GND10" library="supply1" deviceset="GND" device=""/>
 <part name="SUPPLY6" library="supply2" deviceset="+5V" device=""/>
