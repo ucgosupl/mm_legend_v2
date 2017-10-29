@@ -17,9 +17,9 @@
 #include "motor_ident_task.h"
 
 /* Base speed passed to both motors - responsible for linear velocity. */
-#define MOTOR_SPEED_BASE        60
+#define MOTOR_SPEED_BASE        40
 /* Speed added to left motor and subtracted from right - responsible for angular velocity. */
-#define MOTOR_SPEED_OFFSET      20
+#define MOTOR_SPEED_OFFSET      10
 /* Number of samples gathered in a single measurement. */
 #define SAMPLE_CNT              100
 
