@@ -7,10 +7,18 @@
 all : \
 template \
 hbridge \
+imu \
+logger \
+motor_ident \
+motor_linear \
 
 clean : \
 template_clean \
 hbridge_clean \
+imu_clean \
+logger_clean \
+motor_ident_clean \
+motor_linear_clean \
 
 ################################################################################
 # Template HW test target
@@ -32,7 +40,31 @@ hbridge :
 
 hbridge_clean :
 	@make -C hbridge -f conf.mk clean
+	
+imu :
+	@make -C imu -f conf.mk
 
+imu_clean :
+	@make -C imu -f conf.mk clean
+
+logger :
+	@make -C logger -f conf.mk
+
+logger_clean :
+	@make -C logger -f conf.mk clean
+
+motor_ident :
+	@make -C motor_ident -f conf.mk
+
+motor_ident_clean :
+	@make -C motor_ident -f conf.mk clean
+
+motor_linear :
+	@make -C motor_linear -f conf.mk
+
+motor_linear_clean :
+	@make -C motor_linear -f conf.mk clean
+	
 #
 ################################################################################
 
@@ -40,3 +72,7 @@ hbridge_clean :
 
 .PHONY: template template_clean
 .PHONY: hbridge hbridge_clean
+.PHONY: imu imu_clean
+.PHONY: logger logger_clean
+.PHONY: motor_ident motor_ident_clean
+.PHONY: motor_linear motor_linear_clean

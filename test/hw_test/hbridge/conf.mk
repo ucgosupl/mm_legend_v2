@@ -1,9 +1,9 @@
 ################################################################################
 # File:     conf.mk
 # Author:   GAndaLF
-# Brief:    Makefile configuration script for hw_test_template target.
+# Brief:    Makefile configuration script for hw_test_hbridge target.
 #
-# This file contains configuration variables for hw_test_template target.
+# This file contains configuration variables for hw_test_hbridge target.
 # After setting these variables, actual build script is called.
 ################################################################################
 

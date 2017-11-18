@@ -5,6 +5,7 @@
 ################################################################################
 
 sudo: false
+dist: trusty
 
 # Cache storing toolchain compiled from source
 cache:
@@ -15,6 +16,10 @@ cache:
 notifications:
   email: false
 
+# environmental variables
+env:
+  - XZ_OPT="-0 -T 0 -v"
+  
 # install packages needed by toolchain and gcc-4.8 with gnu++11 support.
 addons:
   apt:
@@ -31,7 +36,7 @@ language: generic
 script:
   - chmod +x scripts/install_bleeding_edge_toolchain.sh
   - ./scripts/install_bleeding_edge_toolchain.sh
-  - cd ${HOME}/toolchains/arm-none-eabi-gcc-6.3.0-*/bin; export PATH=$PATH:$(pwd); echo $PATH; cd ${TRAVIS_BUILD_DIR}
+  - export PATH=$PATH:${HOME}/toolchains/arm-none-eabi-gcc/bin; echo $PATH;
   - make
 
 after_failure:

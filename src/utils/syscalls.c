@@ -7,6 +7,10 @@ extern "C"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/times.h>
+#include <unistd.h>
+
+#include "platform_specific.h"
+#include "logger/logger.h"
 
 char *environ_initial[1] = { 0 };
 char **environ = environ_initial;
@@ -182,9 +186,54 @@ pid_t _wait_r(struct _reent *r, int *stat_loc)
 ssize_t _write_r(struct _reent *r, int file, const void *buf, size_t nbyte)
 {
     (void) r;
-    (void) file;
-    (void) buf;
-    (void) nbyte;
+
+    int32_t ret;
+    uint32_t offset;
+    uint8_t *buf_ptr;
+
+    switch (file)
+    {
+    case STDOUT_FILENO:
+        offset = 0;
+        buf_ptr = (uint8_t *)buf;
+
+        do
+        {
+            ret = logger_write_buffer(buf_ptr + offset, nbyte - offset);
+
+            /* Error while sending */
+            if (ret == -EINVAL)
+            {
+                return ret;
+            }
+            else if (ret == -EBUSY)
+            {
+                /* need to restart transmission */
+                return ret;
+            }
+            else if (ret >= 0)
+            {
+                offset += ret;
+            }
+            else
+            {
+                /* unexpected behavior */
+                return ret;
+            }
+
+            /* Could not send all the data, wait for USART to be free */
+            if (offset < nbyte)
+            {
+                rtos_delay(5);
+            }
+        } while (offset < nbyte);
+
+        break;
+    case STDERR_FILENO:
+        break;
+    default:
+        break;
+    }
 
     return 0;
 }

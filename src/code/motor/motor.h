@@ -17,14 +17,14 @@ void motor_task_init(void);
  *
  * @return          Velocity in mm/s.
  */
-int32_t motor_vleft_get(void);
+float motor_vleft_get(void);
 
 /**
  * Get current velocity of the right motor.
  *
  * @return          Velocity in mm/s.
  */
-int32_t motor_vright_get(void);
+float motor_vright_get(void);
 
 /**
  * Set expected value of linear velocity.
@@ -39,5 +39,8 @@ void motor_vlinear_set(float val);
  * @param val       Expected linear velocity.
  */
 void motor_vangular_set(float val);
+
+float motor_uleft_get(void);
+float motor_uright_get(void);
 
 #endif /* _MOTOR_H_ */

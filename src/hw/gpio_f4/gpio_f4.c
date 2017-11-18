@@ -5,7 +5,6 @@
  */
 
 #include "platform_specific.h"
-#include "stm32f4xx.h"
 
 #include "gpio_f4.h"
 
