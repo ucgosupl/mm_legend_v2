@@ -172,26 +172,27 @@ static void imu_task(void *params)
 
     (void) params;
 
+    rtos_delay(1000);
+
     /*
      * Gyro:
      * - enable axes X, Y and Z
      * - power on
-     * - sampling frequency 1666 Hz
-     * - cutoff 12.5 Hz
+     * - sampling frequency 104 Hz
      * - range +/- 2000dps
      */
     write_reg(GYRO_ADDR, LSM6DS33_CTRL10_C, 0x38);
-    write_reg(GYRO_ADDR, LSM6DS33_CTRL2_G, 0x8C);
+    write_reg(GYRO_ADDR, LSM6DS33_CTRL2_G, 0x4C);
 
     /*
      * Accelerometer:
      * - enable axes X, Y and Z
-     * - sampling frequency 1666 Hz
+     * - sampling frequency 104 Hz
      * - range +/- 2g
      * - filter bandwith 400 Hz
      */
     write_reg(GYRO_ADDR, LSM6DS33_CTRL9_XL, 0x38);
-    write_reg(ACC_ADDR, LSM6DS33_CTRL1_XL, 0x80);
+    write_reg(ACC_ADDR, LSM6DS33_CTRL1_XL, 0x40);
 
     while (1) {
         ticks = rtos_tick_count_get();
