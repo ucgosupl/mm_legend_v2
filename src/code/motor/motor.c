@@ -21,13 +21,13 @@
 #define MOTOR_POWER_MIN     150
 
 /** Number of cogs in motor gear. */
-#define GEAR_MOTOR              10
+#define GEAR_MOTOR              10.0f
 /** Number of cogs in wheel gear. */
-#define GEAR_WHEEL              40
+#define GEAR_WHEEL              40.0f
 /** Number of encoder ticks per full motor cycle. */
-#define TICKS_PER_MOTOR_CYCLE   16
+#define TICKS_PER_MOTOR_CYCLE   16.0f
 /** Circumference of the wheel. */
-#define WHEEL_CIRC_MM           69
+#define WHEEL_CIRC_MM           69.0f
 
 /** Convert encoder ticks to mm. */
 #define TICKS_TO_MM(ticks)      \
@@ -46,14 +46,14 @@
 
 struct motor_params
 {
-    int32_t vlinear;
-    int32_t vangular;
+    float vlinear;
+    float vangular;
 
     int32_t vleft_read;
     int32_t vright_read;
 
-    int32_t u_left;
-    int32_t u_right;
+    float u_left;
+    float u_right;
 };
 
 static struct motor_params motor_params;
@@ -76,12 +76,12 @@ void motor_task_init(void)
     rtos_task_create(motor_task, "motor", MOTOR_STACKSIZE, MOTOR_PRIORITY);
 }
 
-int32_t motor_vleft_get(void)
+float motor_vleft_get(void)
 {
     return TICKS_TO_MM(motor_params.vleft_read);
 }
 
-int32_t motor_vright_get(void)
+float motor_vright_get(void)
 {
     return TICKS_TO_MM(motor_params.vright_read);
 }
@@ -96,12 +96,12 @@ void motor_vangular_set(float val)
     motor_params.vangular = MM_TO_TICKS(val);
 }
 
-int32_t motor_uleft_get(void)
+float motor_uleft_get(void)
 {
     return motor_params.u_left;
 }
 
-int32_t motor_uright_get(void)
+float motor_uright_get(void)
 {
     return motor_params.u_right;
 }

@@ -61,11 +61,11 @@ static void motor_linear_task(void *params)
             {
                 last = rtos_tick_count_get();
 
-                encoder_data[i].left = motor_vleft_get();
-                encoder_data[i].right = motor_vright_get();
+                encoder_data[i].left = (int32_t)motor_vleft_get();
+                encoder_data[i].right = (int32_t)motor_vright_get();
 
-                u_data[i].left = motor_uleft_get();
-                u_data[i].right = motor_uright_get();
+                u_data[i].left = (int32_t)motor_uleft_get();
+                u_data[i].right = (int32_t)motor_uright_get();
 
                 rtos_delay_until(&last, 10);
             }
