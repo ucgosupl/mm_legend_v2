@@ -15,10 +15,10 @@
 #include "motor.h"
 
 /** Maximum allowed motor power. */
-#define MOTOR_POWER_MAX     100
+#define MOTOR_POWER_MAX     1000
 
 /** Minimum allowed motor power. */
-#define MOTOR_POWER_MIN     15
+#define MOTOR_POWER_MIN     150
 
 /** Number of cogs in motor gear. */
 #define GEAR_MOTOR              10
@@ -37,12 +37,12 @@
 #define MM_TO_TICKS(mm)         \
     (((mm) * GEAR_WHEEL * TICKS_PER_MOTOR_CYCLE) / (GEAR_MOTOR * WHEEL_CIRC_MM))
 
-/** PID proportional gain. */
-#define PID_P   1.5496f
-/** PID integral gain. */
-#define PID_I   0.0f
-/** PID derivative gain. */
-#define PID_D   0.01f
+/** Forward velocity controller PID proportional gain. */
+#define FORWARD_PID_P   15.496f
+/** Forward velocity controller PID integral gain. */
+#define FORWARD_PID_I   0.0f
+/** Forward velocity controller PID derivative gain. */
+#define FORWARD_PID_D   0.1f
 
 struct motor_params
 {
@@ -66,8 +66,9 @@ static int32_t motor_power_limits(float u);
 void motor_task_init(void)
 {
     memset(&motor_params, 0, sizeof(struct motor_params));
-    pid_init(&pid_left, PID_P, PID_I, PID_D);
-    pid_init(&pid_right, PID_P, PID_I, PID_D);
+
+    pid_init(&forward_pid_left, FORWARD_PID_P, FORWARD_PID_I, FORWARD_PID_D);
+    pid_init(&forward_pid_right, FORWARD_PID_P, FORWARD_PID_I, FORWARD_PID_D);
 
     encoder_init();
     hbridge_init();
@@ -119,9 +120,10 @@ static void motor_task(void *params)
 
         motor_params.vleft_read = encoder_left_read();
         motor_params.vright_read = encoder_right_read();
+        /* Forward controller */
+        u_left_f = pid_iter(&forward_pid_left, motor_params.vlinear, motor_params.vleft_read);
+        u_right_f = pid_iter(&forward_pid_right, motor_params.vlinear, motor_params.vright_read);
 
-        u_left_f = pid_iter(&pid_left, motor_params.vlinear, motor_params.vleft_read);
-        u_right_f = pid_iter(&pid_right, motor_params.vlinear, motor_params.vright_read);
 
         motor_params.u_left = motor_power_limits(u_left_f);
         motor_params.u_right = motor_power_limits(u_right_f);

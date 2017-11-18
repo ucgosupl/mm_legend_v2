@@ -10,6 +10,8 @@
 
 #include "hbridge.h"
 
+#define MOTOR_SPEED_MAX                 1000
+
 /** Motor left PWM pin number - PA01. */
 #define MOTOR1_PWM_PIN                  1
 /** Motor left dir 1 pin number - PC07. */
@@ -79,7 +81,7 @@ void hbridge_init(void)
 
 uint32_t hbridge_left_speed_set(int32_t speed)
 {
-    if ((speed > 100) || (speed < -100))
+    if ((speed > MOTOR_SPEED_MAX) || (speed < -MOTOR_SPEED_MAX))
     {
         /* Invalid arguments */
         return -EINVAL;
@@ -106,7 +108,7 @@ uint32_t hbridge_left_speed_set(int32_t speed)
 
 uint32_t hbridge_right_speed_set(int32_t speed)
 {
-    if ((speed > 100) || (speed < -100))
+    if ((speed > MOTOR_SPEED_MAX) || (speed < -MOTOR_SPEED_MAX))
     {
         /* Invalid arguments */
         return -EINVAL;
@@ -172,9 +174,9 @@ static void timer_init(void)
             (6 << TIM_CCMR1_OC2M_BIT);              /* Channel 2 PWM mode 1 */
     TIM2->CCER = TIM_CCER_CC1E | TIM_CCER_CC2E;     /* Output 1 and 2 enabled */
 
-    /* Single timer tick is 1us, full cycle is 100us */
-    TIM2->PSC = APB1_CLOCK_FREQ / 1000000 - 1;
-    TIM2->ARR = 100;
+    /* Single timer tick is 0.1us, full cycle is 100us */
+    TIM2->PSC = APB1_CLOCK_FREQ / 10000000 - 1;
+    TIM2->ARR = 1000;
 
     /* Set initial duty cycle */
     TIM2->CCR1 = 0;
