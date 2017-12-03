@@ -1,7 +1,7 @@
 /*
- * file:	hbridge_test_task.c
+ * file:	logger_test_task.c
  * author:	GAndaLF
- * brief:	Task for testing H-bridge functionality.
+ * brief:	Task for testing data logger.
  */
 
 #include <stdio.h>
@@ -49,7 +49,7 @@ static void logger_test_task(void *params)
         printf("A teraz liczby: %d, %f, %X\r\n", 5, 0.5, 0xAAAAAAAA);
         rtos_delay(5000);
 
-        usart_send_buf(test_buf, BUF_SIZE);
+        //usart_send_buf(test_buf, BUF_SIZE);
         rtos_delay(5000);
 
     }
