@@ -25,8 +25,8 @@
 #define GEAR_MOTOR              10.0f
 /** Number of cogs in wheel gear. */
 #define GEAR_WHEEL              40.0f
-/** Number of encoder ticks per full motor cycle. */
-#define TICKS_PER_MOTOR_CYCLE   16.0f
+/** Number of encoder ticks per full motor cycle - 16 ticks per cycle, rising and falling edge. */
+#define TICKS_PER_MOTOR_CYCLE   32.0f
 /** Circumference of the wheel. */
 #define WHEEL_CIRC_MM           69.0f
 
@@ -46,13 +46,13 @@
 #define FORWARD_PID_D   0.1f
 
 /** Angular velocity controller PID proportional gain. */
-#define ANGULAR_PID_P   2.4320f
+#define ANGULAR_PID_P   -1.4320f
 /** Angular velocity controller PID integral gain. */
 #define ANGULAR_PID_I   0.0f
 /** Angular velocity controller PID derivative gain. */
 #define ANGULAR_PID_D   0.1f
 
-#define MOTOR_ANGULAR_OFFSET    15
+#define MOTOR_ANGULAR_OFFSET    -15
 
 struct motor_params
 {
@@ -135,7 +135,7 @@ static void motor_task(void *params)
 
         motor_params.vleft_read = encoder_left_read();
         motor_params.vright_read = encoder_right_read();
-        gyro_z = imu_gyro_z_get();
+        gyro_z = -imu_gyro_z_get();
 
         /* Forward controller */
         u_left_f = pid_iter(&forward_pid_left, motor_params.vlinear, motor_params.vleft_read);

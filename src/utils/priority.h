@@ -29,14 +29,19 @@
 #define IMU_PRIORITY                (tskIDLE_PRIORITY + 4)
 
 /** Logger task stacksize */
-#define LOGGER_STACKSIZE           (configMINIMAL_STACK_SIZE)
+#define LOGGER_STACKSIZE            (configMINIMAL_STACK_SIZE)
 /** Logger task priority */
-#define LOGGER_PRIORITY            (tskIDLE_PRIORITY + 4)
+#define LOGGER_PRIORITY             (tskIDLE_PRIORITY + 4)
 
 /** Motor task stacksize */
-#define MOTOR_STACKSIZE           (configMINIMAL_STACK_SIZE * 2)
+#define MOTOR_STACKSIZE             (configMINIMAL_STACK_SIZE * 2)
 /** Motor task priority */
-#define MOTOR_PRIORITY            (tskIDLE_PRIORITY + 3)
+#define MOTOR_PRIORITY              (tskIDLE_PRIORITY + 3)
+
+/** Position estimation task stacksize */
+#define POSITION_STACKSIZE          (configMINIMAL_STACK_SIZE * 8)
+/** Position estimation task priority */
+#define POSITION_PRIORITY           (tskIDLE_PRIORITY + 5)
 
 /** Logger USART HW priority */
 #define LOGGER_USART_PRIORITY           10
