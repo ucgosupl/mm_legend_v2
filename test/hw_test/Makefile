@@ -12,6 +12,7 @@ libfixmatrix \
 logger \
 motor_ident \
 motor_linear \
+position \
 
 clean : \
 template_clean \
@@ -21,6 +22,7 @@ libfixmatrix_clean \
 logger_clean \
 motor_ident_clean \
 motor_linear_clean \
+position_clean \
 
 ################################################################################
 # Template HW test target
@@ -72,7 +74,13 @@ motor_linear :
 
 motor_linear_clean :
 	@make -C motor_linear -f conf.mk clean
-	
+
+position :
+	@make -C position -f conf.mk
+
+position_clean :
+	@make -C position -f conf.mk clean
+		
 #
 ################################################################################
 
@@ -85,3 +93,4 @@ motor_linear_clean :
 .PHONY: logger logger_clean
 .PHONY: motor_ident motor_ident_clean
 .PHONY: motor_linear motor_linear_clean
+.PHONY: position position_clean

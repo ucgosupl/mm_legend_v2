@@ -18,6 +18,8 @@
 #define fix16_div(a, b) ((a) / (b))
 
 #define fix16_sqrt(a)   sqrtf(a)
+#define fix16_sin(a)    sinf(a)
+#define fix16_cos(a)    cosf(a)
 
 typedef float fix16_t;
 

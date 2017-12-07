@@ -207,7 +207,7 @@ static void imu_task(void *params)
         acc_data.y = read_reg(ACC_ADDR, LSM6DS33_OUTY_L_XL);
         acc_data.z = read_reg(ACC_ADDR, LSM6DS33_OUTZ_L_XL);
 
-        rtos_delay_until(&ticks, 1);
+        rtos_delay_until(&ticks, 10);
     }
 }
 

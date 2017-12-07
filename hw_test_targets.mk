@@ -61,13 +61,18 @@ hw_test_motor_ident :
 hw_test_motor_ident_clean :
 	@make -C test/hw_test motor_ident_clean
 
-
 hw_test_motor_linear :
 	@make -C test/hw_test motor_linear
 
 hw_test_motor_linear_clean :
 	@make -C test/hw_test motor_linear_clean
 
+hw_test_position :
+	@make -C test/hw_test position
+
+hw_test_position_clean :
+	@make -C test/hw_test position_clean
+	
 #
 ###############################################################################
 
@@ -79,3 +84,4 @@ hw_test_motor_linear_clean :
 .PHONY: hw_test_logger hw_test_logger_clean
 .PHONY: hw_test_motor_ident hw_test_motor_ident_clean
 .PHONY: hw_test_motor_linear hw_test_motor_linear_clean
+.PHONY: hw_test_position hw_test_position_clean

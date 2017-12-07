@@ -25,8 +25,8 @@
 #define GEAR_MOTOR              10.0f
 /** Number of cogs in wheel gear. */
 #define GEAR_WHEEL              40.0f
-/** Number of encoder ticks per full motor cycle. */
-#define TICKS_PER_MOTOR_CYCLE   16.0f
+/** Number of encoder ticks per full motor cycle - 16 ticks per cycle, rising and falling edge. */
+#define TICKS_PER_MOTOR_CYCLE   32.0f
 /** Circumference of the wheel. */
 #define WHEEL_CIRC_MM           69.0f
 
