@@ -16,7 +16,7 @@
 #include "imu/imu.h"
 #include "position/position.h"
 
-#define SPEED_MM_MS         20
+#define SPEED_MM_MS         15
 #define SPEED_ANGULAR       30
 #define SAMPLE_CNT          200
 
@@ -32,7 +32,15 @@ struct position_params
     int32_t omega;
 };
 
+struct measure_data
+{
+    int32_t v_l;
+    int32_t v_r;
+    int32_t gyro;
+};
+
 static struct position_params position[SAMPLE_CNT];
+static struct measure_data measure[SAMPLE_CNT];
 
 static void position_test_task(void *params);
 
@@ -74,6 +82,10 @@ static void position_test_task(void *params)
                 position[i].v = (int32_t)position_v_get();
                 position[i].omega = (int32_t)position_omega_get();
 
+                measure[i].v_l = (int32_t)motor_vleft_get();
+                measure[i].v_r = (int32_t)motor_vright_get();
+                measure[i].gyro = (int32_t)imu_gyro_z_get()*100;
+
                 rtos_delay_until(&last, 10);
             }
 
@@ -82,8 +94,9 @@ static void position_test_task(void *params)
 
             for (i = 0; i < SAMPLE_CNT; i++)
             {
-                printf("%d\t%d\t%d\t%d\t%d\n", position[i].x, position[i].y,
-                        position[i].alpha, position[i].v, position[i].omega);
+                printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n", position[i].x, position[i].y,
+                        position[i].alpha, position[i].v, position[i].omega,
+                        measure[i].v_l, measure[i].v_r, measure[i].gyro);
             }
         }
 

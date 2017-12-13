@@ -38,8 +38,8 @@ static struct pos_state state;
 #define dt                      0.01f
 
 #define enc_sdev                1.0f
-#define enc_ang_sdev            2.0f
-#define gyro_sdev               5.0f
+#define enc_ang_sdev            10.0f
+#define gyro_sdev               2.0f
 
 #define state_x_sdev            1.0f
 #define state_y_sdev            1.0f
@@ -65,9 +65,9 @@ static const mf16 W = {3, 3, 0,
          {0,    0,  gyro_sdev*gyro_sdev}}};
 
 static const mf16 X0 = {5, 1, 0,
-        {{50.0f},
-         {100.0f},
-         {30.0f},
+        {{0.0f},
+         {0.0f},
+         {0.0f},
          {0},
          {0}}};
 
@@ -317,6 +317,6 @@ static void collect_measrements(mf16 *y)
     omega_gyro = -imu_gyro_z_get();
 
     y->data[0][0] = (v_left + v_right) / 2.0f;
-    y->data[1][0] = (v_right - v_left) / ROBOT_WIDTH;
+    y->data[1][0] = rad2deg((v_right - v_left) / ROBOT_WIDTH);
     y->data[2][0] = omega_gyro;
 }
