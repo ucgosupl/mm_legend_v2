@@ -42,7 +42,13 @@ hw_test_imu :
 
 hw_test_imu_clean :
 	@make -C test/hw_test imu_clean
+	
+hw_test_initial_states :
+	@make -C test/hw_test initial_states
 
+hw_test_initial_states_clean :
+	@make -C test/hw_test initial_states_clean
+	
 hw_test_libfixmatrix :
 	@make -C test/hw_test libfixmatrix
 
@@ -80,6 +86,7 @@ hw_test_position_clean :
 .PHONY: hw_test_template hw_test_template_clean
 .PHONY: hw_test_hbridge hw_test_hbridge_clean
 .PHONY: hw_test_imu hw_test_imu_clean
+.PHONY: hw_test_initial_states hw_test_initial_states_clean
 .PHONY: hw_test_libfixmatrix hw_test_libfixmatrix_clean
 .PHONY: hw_test_logger hw_test_logger_clean
 .PHONY: hw_test_motor_ident hw_test_motor_ident_clean

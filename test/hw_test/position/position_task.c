@@ -102,7 +102,8 @@ static void position_test_task(void *params)
 
         if (0 != button_2_get())
         {
-            rtos_delay(10);
+            printf("%d\t%d\t%d\n", (int32_t)position_x_get(), (int32_t)position_y_get(),
+                    (int32_t)position_alpha_get());
         }
 
         rtos_delay(10);

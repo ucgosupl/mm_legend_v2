@@ -172,8 +172,6 @@ static void imu_task(void *params)
 
     (void) params;
 
-    rtos_delay(1000);
-
     /*
      * Gyro:
      * - enable axes X, Y and Z
@@ -193,6 +191,8 @@ static void imu_task(void *params)
      */
     write_reg(GYRO_ADDR, LSM6DS33_CTRL9_XL, 0x38);
     write_reg(ACC_ADDR, LSM6DS33_CTRL1_XL, 0x40);
+
+    rtos_delay(1000);
 
     while (1) {
         ticks = rtos_tick_count_get();

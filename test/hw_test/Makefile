@@ -8,6 +8,7 @@ all : \
 template \
 hbridge \
 imu \
+initial_states \
 libfixmatrix \
 logger \
 motor_ident \
@@ -18,6 +19,7 @@ clean : \
 template_clean \
 hbridge_clean \
 imu_clean \
+initial_states_clean \
 libfixmatrix_clean \
 logger_clean \
 motor_ident_clean \
@@ -50,6 +52,12 @@ imu :
 
 imu_clean :
 	@make -C imu -f conf.mk clean
+
+initial_states :
+	@make -C initial_states -f conf.mk
+
+initial_states_clean :
+	@make -C initial_states -f conf.mk clean
 
 libfixmatrix :
 	@make -C libfixmatrix -f conf.mk
@@ -89,6 +97,7 @@ position_clean :
 .PHONY: template template_clean
 .PHONY: hbridge hbridge_clean
 .PHONY: imu imu_clean
+.PHONY: initial_states initial_states_clean
 .PHONY: libfixmatrix libfixmatrix_clean
 .PHONY: logger logger_clean
 .PHONY: motor_ident motor_ident_clean
