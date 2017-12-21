@@ -39,7 +39,7 @@
 #define MOTOR_PRIORITY              (tskIDLE_PRIORITY + 3)
 
 /** Position estimation task stacksize */
-#define POSITION_STACKSIZE          (configMINIMAL_STACK_SIZE * 8)
+#define POSITION_STACKSIZE          (configMINIMAL_STACK_SIZE * 16)
 /** Position estimation task priority */
 #define POSITION_PRIORITY           (tskIDLE_PRIORITY + 5)
 

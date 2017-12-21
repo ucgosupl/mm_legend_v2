@@ -47,4 +47,10 @@ float position_v_get(void);
  */
 float position_omega_get(void);
 
+/**
+ * Get current gyroscope offset estimation.
+ *
+ * @return      gyroscope offset estimation.
+ */
+float position_bias_get(void);
 #endif /* _POSITION_H_ */

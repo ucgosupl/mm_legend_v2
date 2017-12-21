@@ -30,6 +30,7 @@ struct position_params
     int32_t alpha;
     int32_t v;
     int32_t omega;
+    int32_t bias;
 };
 
 struct measure_data
@@ -80,11 +81,12 @@ static void position_test_task(void *params)
                 position[i].y = (int32_t)position_y_get();
                 position[i].alpha = (int32_t)position_alpha_get();
                 position[i].v = (int32_t)position_v_get();
-                position[i].omega = (int32_t)position_omega_get();
+                position[i].omega = (int32_t)(position_omega_get()*100);
+                position[i].bias = (int32_t)(position_bias_get()*100);
 
                 measure[i].v_l = (int32_t)motor_vleft_get();
                 measure[i].v_r = (int32_t)motor_vright_get();
-                measure[i].gyro = (int32_t)imu_gyro_z_get()*100;
+                measure[i].gyro = (int32_t)(imu_gyro_z_get()*100);
 
                 rtos_delay_until(&last, 10);
             }
@@ -94,8 +96,8 @@ static void position_test_task(void *params)
 
             for (i = 0; i < SAMPLE_CNT; i++)
             {
-                printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n", position[i].x, position[i].y,
-                        position[i].alpha, position[i].v, position[i].omega,
+                printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n", position[i].x, position[i].y,
+                        position[i].alpha, position[i].v, position[i].omega, position[i].bias,
                         measure[i].v_l, measure[i].v_r, measure[i].gyro);
             }
         }

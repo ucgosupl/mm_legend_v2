@@ -23,6 +23,7 @@
 #define state_get_alpha(x)      ((x)->data[2][0])
 #define state_get_v(x)          ((x)->data[3][0])
 #define state_get_omega(x)      ((x)->data[4][0])
+#define state_get_bias(x)      ((x)->data[5][0])
 
 struct pos_state
 {
@@ -31,52 +32,57 @@ struct pos_state
     float alpha;
     float v;
     float omega;
+    float bias;
 };
 
 static struct pos_state state;
 
 #define dt                      0.01f
 
-#define enc_sdev                1.0f
-#define enc_ang_sdev            10.0f
-#define gyro_sdev               2.0f
+#define enc_sdev                5.0f
+#define enc_ang_sdev            2.0f
+#define gyro_sdev               10.0f
 
 #define state_x_sdev            1.0f
 #define state_y_sdev            1.0f
 #define state_alpha_sdev        1.0f
 #define state_v_sdev            50.0f
 #define state_omega_sdev        50.0f
+#define state_bias_sdev         0.2f
 
-static const mf16 C = {3, 5, 0,
-        {{0,    0,  0,  dt, 0},
-         {0,    0,  0,  0,  dt},
-         {0,    0,  0,  0,  1}}};
+static const mf16 C = {3, 6, 0,
+        {{0,    0,  0,  dt, 0,  0},
+         {0,    0,  0,  0,  dt, 0},
+         {0,    0,  0,  0,  1,  1}}};
 
-static const mf16 V = {5, 5, 0,
-        {{state_x_sdev*state_x_sdev*dt,             0,  0,  0,  0},
-         {0,    state_y_sdev*state_y_sdev*dt,           0,  0,  0},
-         {0,    0,  state_alpha_sdev*state_alpha_sdev*dt,   0,  0},
-         {0,    0,  0,  state_v_sdev*state_v_sdev*dt,           0},
-         {0,    0,  0,  0,  state_omega_sdev*state_omega_sdev*dt}}};
+static const mf16 V = {6, 6, 0,
+        {{state_x_sdev*state_x_sdev*dt,             0,  0,  0,  0,  0},
+         {0,    state_y_sdev*state_y_sdev*dt,           0,  0,  0,  0},
+         {0,    0,  state_alpha_sdev*state_alpha_sdev*dt,   0,  0,  0},
+         {0,    0,  0,  state_v_sdev*state_v_sdev*dt,           0,  0},
+         {0,    0,  0,  0,  state_omega_sdev*state_omega_sdev*dt,   0},
+         {0,    0,  0,  0,  0,     state_bias_sdev*state_bias_sdev*dt}}};
 
 static const mf16 W = {3, 3, 0,
         {{enc_sdev*enc_sdev*dt,             0,  0},
-         {0,    enc_ang_sdev*enc_ang_sdev*dt,   0},
+         {0,    enc_ang_sdev/dt*enc_ang_sdev/dt,   0},
          {0,    0,  gyro_sdev*gyro_sdev}}};
 
-static const mf16 X0 = {5, 1, 0,
+static const mf16 X0 = {6, 1, 0,
         {{0.0f},
          {0.0f},
          {0.0f},
-         {0},
-         {0}}};
+         {0.0f},
+         {0.0f},
+         {0.0f}}};
 
-static const mf16 P0 = {5, 5, 0,
-        {{1,    0,  0,  0,  0},
-         {0,    1,  0,  0,  0},
-         {0,    0,  1,  0,  0},
-         {0,    0,  0,  5,  0},
-         {0,    0,  0,  0,  5}}};
+static const mf16 P0 = {6, 6, 0,
+        {{1,    0,  0,  0,  0,  0},
+         {0,    1,  0,  0,  0,  0},
+         {0,    0,  1,  0,  0,  0},
+         {0,    0,  0,  5,  0,  0},
+         {0,    0,  0,  0,  5,  0},
+         {0,    0,  0,  0,  0,  500.0f}}};
 
 /**
  * Position estimation task handler.
@@ -163,6 +169,11 @@ float position_omega_get(void)
     return state.omega;
 }
 
+float position_bias_get(void)
+{
+    return state.bias;
+}
+
 static void position_task(void *params)
 {
     (void) params;
@@ -174,14 +185,16 @@ static void position_task(void *params)
     mf16 A;
     mf16 e, Y;
     mf16 S, K;
-    mf16 eye5, e5KC;
+    mf16 eye6, e5KC;
     mf16 tmp, tmp2;
 
-    eye(&eye5, 5);
+    eye(&eye6, 6);
     Xpri = X0;
     Xpost = X0;
     Ppri = P0;
     Ppost = P0;
+
+    rtos_delay(2000);
 
     while (1)
     {
@@ -219,7 +232,7 @@ static void position_task(void *params)
 
         /* e5KC = (eye5 - K*C) */
         mf16_mul(&tmp, &K, &C);
-        mf16_sub(&e5KC, &eye5, &tmp);
+        mf16_sub(&e5KC, &eye6, &tmp);
 
         /* Ppost = e5KC*Ppri*e5KC' + K*W*K' */
         mul_abat(&tmp, &e5KC, &Ppri);
@@ -231,6 +244,7 @@ static void position_task(void *params)
         state.alpha = state_get_alpha(&Xpost);
         state.v = state_get_v(&Xpost);
         state.omega = state_get_omega(&Xpost);
+        state.bias = state_get_bias(&Xpost);
 
         ticks2 = rtos_tick_count_get();
 
@@ -244,7 +258,7 @@ static void linearization(mf16 *A, mf16 *state)
 
     alpha_rad = deg2rad(state_get_alpha(state));
 
-    eye(A, 5);
+    eye(A, 6);
 
     A->data[0][3] = dt * fix16_cos(alpha_rad);
     A->data[1][3] = dt * fix16_sin(alpha_rad);
@@ -302,6 +316,7 @@ static void state_step(mf16 *after, mf16 *before)
     state_get_alpha(after) = state_get_alpha(before) + dt * state_get_omega(before);
     state_get_v(after) = state_get_v(before);
     state_get_omega(after) = state_get_omega(before);
+    state_get_bias(after) = state_get_bias(before);
 }
 
 static void collect_measrements(mf16 *y)
@@ -317,6 +332,6 @@ static void collect_measrements(mf16 *y)
     omega_gyro = -imu_gyro_z_get();
 
     y->data[0][0] = (v_left + v_right) / 2.0f;
-    y->data[1][0] = rad2deg((v_right - v_left) / ROBOT_WIDTH);
+    y->data[1][0] = rad2deg((v_right - v_left) / ROBOT_WIDTH / dt);
     y->data[2][0] = omega_gyro;
 }

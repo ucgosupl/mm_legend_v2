@@ -30,7 +30,7 @@
 
 // Maximum size of matrices.
 #ifndef FIXMATRIX_MAX_SIZE
-#define FIXMATRIX_MAX_SIZE 5
+#define FIXMATRIX_MAX_SIZE 6
 #endif
 
 typedef struct {
