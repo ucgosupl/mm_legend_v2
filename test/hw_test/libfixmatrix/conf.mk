@@ -1,14 +1,14 @@
 ################################################################################
 # File:     conf.mk
 # Author:   GAndaLF
-# Brief:    Makefile configuration script for main_program target.
+# Brief:    Makefile configuration script for hw_test_libfixmatrix target.
 #
-# This file contains configuration variables for main_program target.
+# This file contains configuration variables for hw_test_logger target.
 # After setting these variables, actual build script is called.
 ################################################################################
 
 # Name for output files.
-TARGET_NAME := main_program
+TARGET_NAME := libfixmatrix
 
 # Directory containing compilation result.
 OUT_DIR := out/
@@ -23,44 +23,47 @@ STM32F40_41xxx \
 # Paths to header files (.h).
 # In the code path relative to this path should be provided.
 INC_DIRS := \
-./code \
-./hw \
-./utils \
-./external/stm32 \
-./external/cmsis \
-./external/FreeRTOS/include \
-./external/libfixmatrix \
+../../../src/code \
+../../../src/hw \
+../../../src/utils \
+../../../src/external/stm32 \
+../../../src/external/cmsis \
+../../../src/external/FreeRTOS/include \
+../../../src/external/libfixmatrix \
 
 # Paths to source files (.c and .S).
 # In these paths source files are searched recursively in the subfolders.
 SRC_DIRS := \
-./code \
-./hw \
-./utils \
-./external/FreeRTOS \
-./external/libfixmatrix \
+./ \
+../../../src/code/logger \
+../../../src/hw/core_init \
+../../../src/hw/startup \
+../../../src/hw/gpio_f4 \
+../../../src/hw/usart \
+../../../src/utils \
+../../../src/external/FreeRTOS/ \
+../../../src/external/libfixmatrix \
 
 # Additional C++ source files to compile.
 CXX_SRC_FILES := \
 
-# Additional C source files to compile.
+# Additional source files to compile.
 C_SRC_FILES := \
-./main.c \
 
 # Additional ASM source files to compile.
 ASM_SRC_FILES := \
 
 # Paths to the precompiled libraries (.a).
 LIB_DIRS := \
-../lib \
 
 # Precompiled libraries used.
 # Here we provide only the name of the library. File name also contains lib
 # prefix and .a extension. For example for math library we provide here only
 # the name "m", but actual file name is "libm.a".
 LIBS := \
+m
 
 # Linker script provided as an argument during linking.
-LD_SCRIPT := linker.ld
+LD_SCRIPT := ../../../src/linker.ld
 
-include build.mk
+include ../build.mk

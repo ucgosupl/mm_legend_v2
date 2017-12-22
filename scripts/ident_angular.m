@@ -1,4 +1,4 @@
-file = '../data/motor_ang_300_0.txt';
+file = '../data/motor_ang_0_300.txt';
 
 motor_data = importdata(file);
 
@@ -15,3 +15,6 @@ figure;
 plot(t, left - right);
 figure;
 plot(t, angular);
+
+xlabel('time [s]')
+ylabel('angular velocity [dps]')
