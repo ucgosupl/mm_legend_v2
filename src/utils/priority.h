@@ -43,6 +43,11 @@
 /** Position estimation task priority */
 #define POSITION_PRIORITY           (tskIDLE_PRIORITY + 5)
 
+/** Wall sensor task stacksize */
+#define WALL_STACKSIZE              (configMINIMAL_STACK_SIZE * 2)
+/** Wall sensor task priority */
+#define WALL_PRIORITY               (tskIDLE_PRIORITY + 5)
+
 /** Logger USART HW priority */
 #define LOGGER_USART_PRIORITY           10
 /** DMA on I2C RX HW priority */
