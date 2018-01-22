@@ -78,6 +78,12 @@ hw_test_position :
 
 hw_test_position_clean :
 	@make -C test/hw_test position_clean
+
+hw_test_wall :
+	@make -C test/hw_test hw_test_wall
+
+hw_test_wall_clean :
+	@make -C test/hw_test_wall_clean
 	
 #
 ###############################################################################
@@ -92,3 +98,4 @@ hw_test_position_clean :
 .PHONY: hw_test_motor_ident hw_test_motor_ident_clean
 .PHONY: hw_test_motor_linear hw_test_motor_linear_clean
 .PHONY: hw_test_position hw_test_position_clean
+.PHONY: hw_test_wall hw_test_wall_clean
