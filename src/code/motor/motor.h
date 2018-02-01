@@ -40,6 +40,11 @@ void motor_vlinear_set(float val);
  */
 void motor_vangular_set(float val);
 
+/**
+ * Emergency turn off all motors.
+ */
+void motor_all_off(void);
+
 float motor_uleft_get(void);
 float motor_uright_get(void);
 

@@ -119,6 +119,11 @@ float motor_uright_get(void)
     return motor_params.u_right;
 }
 
+void motor_all_off(void)
+{
+
+}
+
 static void motor_task(void *params)
 {
     (void) params;

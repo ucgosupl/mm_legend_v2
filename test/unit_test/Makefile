@@ -6,10 +6,12 @@
 ###############################################################################
 
 all : \
+vbat \
 template \
 
 clean : \
 clear_testlog \
+vbat_clean \
 template_clean \
 
 ###############################################################################
@@ -20,6 +22,18 @@ cpputest :
 
 cpputest_clean :
 	@make -C cpputest -f conf.mk clean
+
+#
+###############################################################################
+
+###############################################################################
+# Unit test targets
+
+vbat : cpputest
+	@make -C vbat -f conf.mk
+
+vbat_clean : cpputest_clean
+	@make -C vbat -f conf.mk clean
 
 #
 ###############################################################################
@@ -48,4 +62,5 @@ clear_testlog :
 .PHONY: all clean
 .PHONY: clear_testlog
 .PHONY: cpputest cpputest_clean
+.PHONY: vbat vbat_clean
 .PHONY: template template_clean
