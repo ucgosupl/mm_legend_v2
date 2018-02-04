@@ -153,6 +153,7 @@ int32_t adc_val_get(int32_t id)
 static void gpio_init(void)
 {
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
 
     gpio_mode_config(GPIOA, PHOTO_FRONT_R_PIN, GPIO_MODE_ANALOG);
     gpio_mode_config(GPIOA, PHOTO_DIAG_R_PIN, GPIO_MODE_ANALOG);
