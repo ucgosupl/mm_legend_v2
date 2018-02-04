@@ -23,14 +23,7 @@ void led_init(void)
 
     gpio_mode_config(GPIOC, LED_VBAT, GPIO_MODE_OUTPUT);
 
-    GPIOC->BSRRH = (1 << (LED_IR_FRONT_L)) |
-            (1 << (LED_IR_FRONT_R)) |
-            (1 << (LED_IR_DIAG_L)) |
-            (1 << (LED_IR_DIAG_R)) |
-            (1 << (LED_IR_SIDE_L)) |
-            (1 << (LED_IR_SIDE_R));
-
-    GPIOC->BSRRH = (1 << (LED_VBAT));
+    led_all_off();
 }
 
 void led_on(int32_t id)
@@ -43,4 +36,13 @@ void led_off(int32_t id)
     GPIOC->BSRRH = 1 << id;
 }
 
-
+void led_all_off(void)
+{
+    GPIOC->BSRRH = (1 << (LED_IR_FRONT_L)) |
+            (1 << (LED_IR_FRONT_R)) |
+            (1 << (LED_IR_DIAG_L)) |
+            (1 << (LED_IR_DIAG_R)) |
+            (1 << (LED_IR_SIDE_L)) |
+            (1 << (LED_IR_SIDE_R)) |
+            (1 << (LED_VBAT));
+}

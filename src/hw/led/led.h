@@ -41,4 +41,9 @@ void led_on(int32_t id);
  */
 void led_off(int32_t id);
 
+/**
+ * Emergency turn off all leds.
+ */
+void led_all_off(void);
+
 #endif /* _LED_H_ */

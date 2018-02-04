@@ -48,6 +48,11 @@
 /** Wall sensor task priority */
 #define WALL_PRIORITY               (tskIDLE_PRIORITY + 5)
 
+/** Battery monitor task stacksize */
+#define VBAT_STACKSIZE              (configMINIMAL_STACK_SIZE * 2)
+/** Battery monitor task priority */
+#define VBAT_PRIORITY               (tskIDLE_PRIORITY + 6)
+
 /** Logger USART HW priority */
 #define LOGGER_USART_PRIORITY           10
 /** DMA on I2C RX HW priority */

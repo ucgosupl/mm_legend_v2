@@ -40,6 +40,7 @@ SRC_DIRS := \
 ../../../src/hw/led \
 ../../../src/hw/adc \
 ../../../src/hw/usart \
+../../../src/code/vbat \
 ../../../src/code/wall \
 ../../../src/code/logger \
 ../../../src/utils \

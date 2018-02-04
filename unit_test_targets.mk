@@ -17,6 +17,18 @@ unit_test_clean :
 ###############################################################################
 
 ###############################################################################
+# Build unit test targets
+
+unit_test_vbat :
+	@make -C test/unit_test vbat
+
+unit_test_vbat_clean :
+	@make -C test/unit_test vbat_clean
+
+#
+###############################################################################
+
+###############################################################################
 # Build unit test template
 
 unit_test_template :
@@ -35,4 +47,5 @@ unit_test_template_clean :
 ###############################################################################
 
 .PHONY: unit_test unit_test_clean
+.PHONY: unit_test_vbat unit_test_vbat_clean
 .PHONY: unit_test_template unit_test_template_clean

@@ -212,6 +212,18 @@
    xSemaphoreGive(mutex_ptr)
 /* Mutexes should not be given/taken from ISR */
 
+/**
+ * Enter critical section.
+ */
+#define rtos_critical_section_enter()                                          \
+    taskENTER_CRITICAL()
+
+/**
+ * Exit critical section.
+ */
+#define rtos_critical_section_exit()                                           \
+   taskEXIT_CRITICAL()
+
 /** Type of RTOS queue. */
 typedef void * queue_t;
 
@@ -223,6 +235,8 @@ typedef void * mutex_t;
 
 /** Type of RTOS tick. */
 typedef TickType_t tick_t;
+
+#define TEST_ENDLESS_LOOP()
 
 /**
  * @}

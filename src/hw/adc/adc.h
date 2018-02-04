@@ -23,6 +23,11 @@
 /** Battery voltage monitor id. */
 #define ADC_VBAT                6
 
+/** Maximum allowed ADC digital value. */
+#define ADC_MAX_VAL             0x0FFFUL
+/** Maximum allowed ADC voltage. */
+#define ADC_MAX_VOLTAGE_MV      3300UL
+
 /**
  * Initialisation of ADC peripheral.
  *
