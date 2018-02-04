@@ -17,7 +17,7 @@
 /** Value of voltage divider lower resistance. */
 #define VBAT_DIV_DOWN_KOHM      51UL
 /** Minimum allowed battery voltage in millivolts. */
-#define VBAT_MIN_VOLTAGE_MV     6500UL
+#define VBAT_MIN_VOLTAGE_MV     7000UL
 
 /** Minimum allowed value read from ADC. */
 #define VBAT_THRESHOLD  \

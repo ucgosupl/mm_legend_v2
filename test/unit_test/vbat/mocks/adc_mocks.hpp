@@ -8,11 +8,11 @@
 #define _ADC_MOCKS_HPP_
 
 /** Value of voltage divider upper resistance. */
-#define VBAT_DIV_UP_KOHM        51
+#define VBAT_DIV_UP_KOHM        51UL
 /** Value of voltage divider lower resistance. */
-#define VBAT_DIV_DOWN_KOHM      100
+#define VBAT_DIV_DOWN_KOHM      100UL
 /** Minimum allowed battery voltage in millivolts. */
-#define VBAT_MIN_VOLTAGE_MV     6500
+#define VBAT_MIN_VOLTAGE_MV     7000UL
 
 /** Minimum allowed value read from ADC. */
 #define VBAT_THRESHOLD  \
