@@ -9,6 +9,7 @@
 /* Project includes */
 #include "core_init/core_init.h"
 #include "logger/logger.h"
+#include "vbat/vbat.h"
 
 #include "position_task.h"
 
@@ -17,6 +18,7 @@ int main(void)
     core_init();
 
     /* Place your initialisation code here. */
+    vbat_task_init();
     position_test_task_init();
     logger_task_init();
 

@@ -41,8 +41,8 @@ SRC_DIRS := \
 ../../../src/hw/adc \
 ../../../src/hw/usart \
 ../../../src/code/vbat \
-../../../src/code/wall \
 ../../../src/code/logger \
+../../../src/code/wall \
 ../../../src/utils \
 ../../../src/external/FreeRTOS \
 
