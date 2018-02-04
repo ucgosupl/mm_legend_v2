@@ -121,7 +121,8 @@ float motor_uright_get(void)
 
 void motor_all_off(void)
 {
-
+    hbridge_left_speed_set(0);
+    hbridge_right_speed_set(0);
 }
 
 static void motor_task(void *params)

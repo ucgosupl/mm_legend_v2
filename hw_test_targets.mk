@@ -80,10 +80,10 @@ hw_test_position_clean :
 	@make -C test/hw_test position_clean
 
 hw_test_wall :
-	@make -C test/hw_test hw_test_wall
+	@make -C test/hw_test wall
 
 hw_test_wall_clean :
-	@make -C test/hw_test_wall_clean
+	@make -C test/hw_test wall_clean
 	
 #
 ###############################################################################

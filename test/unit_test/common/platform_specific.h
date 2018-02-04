@@ -8,6 +8,7 @@
 #define PLATFORM_SPECIFIC_H_
 
 #include <stdint.h>
+#include "../../../src/utils/priority.h"
 
 #define PRIVATE
 
@@ -29,6 +30,10 @@ extern "C"
 }
 #endif /* __cplusplus */
 
+#define tskIDLE_PRIORITY                0
+#define configMINIMAL_STACK_SIZE        1
+
+#define rtos_task_create(fun, name, stack, prio)
 #define rtos_tick_count_get()           rtos_tick_count_get_mock()
 #define rtos_delay_until(last_ptr, ms)  rtos_delay_until_mock(last_ptr, ms)
 #define rtos_critical_section_enter()   rtos_critical_section_enter_mock()

@@ -13,22 +13,25 @@
 #include "vbat.h"
 
 /** Value of voltage divider upper resistance. */
-#define VBAT_DIV_UP_KOHM        51
+#define VBAT_DIV_UP_KOHM        100UL
 /** Value of voltage divider lower resistance. */
-#define VBAT_DIV_DOWN_KOHM      100
+#define VBAT_DIV_DOWN_KOHM      51UL
 /** Minimum allowed battery voltage in millivolts. */
-#define VBAT_MIN_VOLTAGE_MV     6500
+#define VBAT_MIN_VOLTAGE_MV     6500UL
 
 /** Minimum allowed value read from ADC. */
 #define VBAT_THRESHOLD  \
-    ((VBAT_DIV_UP_KOHM * VBAT_MIN_VOLTAGE_MV * ADC_MAX_VAL) / \
+    ((VBAT_DIV_DOWN_KOHM * VBAT_MIN_VOLTAGE_MV * ADC_MAX_VAL) / \
 ((VBAT_DIV_UP_KOHM + VBAT_DIV_DOWN_KOHM) * ADC_MAX_VOLTAGE_MV))
 
 PRIVATE void vbat_task(void *params);
 
 void vbat_task_init(void)
 {
-    //start vbat task
+    led_init();
+    adc_init();
+
+    rtos_task_create(vbat_task, "vbat", VBAT_STACKSIZE, VBAT_PRIORITY);
 }
 
 PRIVATE void vbat_task(void *params)
@@ -46,7 +49,7 @@ PRIVATE void vbat_task(void *params)
 
         //TODO: check threshold with real values
         vbat_val = adc_val_get(ADC_VBAT);
-        if (vbat_val < VBAT_THRESHOLD)
+        if (vbat_val < (int32_t)VBAT_THRESHOLD)
         {
             led_off(LED_VBAT);
 

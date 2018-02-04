@@ -17,6 +17,11 @@ static LedOnOffMock *ledOnMock = nullptr;
 static LedOnOffMock *ledOffMock = nullptr;
 static LedAllOffMock *ledAllOffMock = nullptr;
 
+void led_init(void)
+{
+
+}
+
 int32_t LedOnOffMock::getCount()
 {
     return cnt_;

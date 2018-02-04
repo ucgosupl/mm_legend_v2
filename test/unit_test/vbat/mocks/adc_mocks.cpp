@@ -15,6 +15,11 @@ extern "C"
 
 static AdcValGetMock *adcValGetMock = nullptr;
 
+void adc_init(void)
+{
+
+}
+
 AdcValGetMock::AdcValGetMock(int32_t retval) : retVal_(retval) {};
 AdcValGetMock::AdcValGetMock(int32_t retval, int32_t iterOtherVal, int32_t retvalOther) :
         retVal_(retval),

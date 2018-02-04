@@ -33,8 +33,9 @@ static void wall_task(void *params);
 
 void wall_init(void)
 {
-    led_init();
-    adc_init();
+    //led_init();
+    //adc_init();
+    /* led and adc initialized earlier by vbat task. */
 
     rtos_task_create(wall_task, "wall", WALL_STACKSIZE, WALL_PRIORITY);
 }
