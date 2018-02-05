@@ -47,7 +47,6 @@ PRIVATE void vbat_task(void *params)
     {
         tick_cnt = rtos_tick_count_get();
 
-        //TODO: check threshold with real values
         vbat_val = adc_val_get(ADC_VBAT);
         if (vbat_val < (int32_t)VBAT_THRESHOLD)
         {

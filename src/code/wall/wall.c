@@ -8,6 +8,7 @@
 
 #include "led/led.h"
 #include "adc/adc.h"
+#include "adc2dist.h"
 
 #include "wall.h"
 
@@ -42,7 +43,6 @@ void wall_init(void)
 
 int32_t wall_side_l_dist_mm_get(void)
 {
-    //TODO: convert ADC to mm
     return wall_data.side_l;
 }
 
@@ -75,38 +75,57 @@ static void wall_task(void *params)
 {
     (void) params;
 
+    int32_t front_r_off;
+    int32_t front_l_off;
+    int32_t diag_r_off;
+    int32_t diag_l_off;
+    int32_t side_r_off;
+    int32_t side_l_off;
+
+    int32_t front_r_on;
+    int32_t front_l_on;
+    int32_t diag_r_on;
+    int32_t diag_l_on;
+    int32_t side_r_on;
+    int32_t side_l_on;
+
     while (1)
     {
+        rtos_delay(10);
+
+        front_r_off = adc_val_get(ADC_PHOTO_FRONT_R);
+
         //TODO: measure ambient line on all sensors
         //TODO: change order of lighting leds to avoid interference.
         led_on(LED_IR_FRONT_R);
         rtos_delay(1);
-        wall_data.front_r = adc_val_get(ADC_PHOTO_FRONT_R);
+        front_r_on = adc_val_get(ADC_PHOTO_FRONT_R);
+        wall_data.front_r = adc2dist(front_r_on - front_r_off);
         led_off(LED_IR_FRONT_R);
 
-        led_on(LED_IR_FRONT_L);
-        rtos_delay(1);
-        wall_data.front_l = adc_val_get(ADC_PHOTO_FRONT_L);
-        led_off(LED_IR_FRONT_L);
-
-        led_on(LED_IR_SIDE_R);
-        rtos_delay(1);
-        wall_data.side_r = adc_val_get(ADC_PHOTO_SIDE_R);
-        led_off(LED_IR_SIDE_R);
-
-        led_on(LED_IR_SIDE_L);
-        rtos_delay(1);
-        wall_data.side_l = adc_val_get(ADC_PHOTO_SIDE_L);
-        led_off(LED_IR_SIDE_L);
-
-        led_on(LED_IR_DIAG_R);
-        rtos_delay(1);
-        wall_data.diag_r = adc_val_get(ADC_PHOTO_DIAG_R);
-        led_off(LED_IR_DIAG_R);
-
-        led_on(LED_IR_DIAG_L);
-        rtos_delay(1);
-        wall_data.diag_l = adc_val_get(ADC_PHOTO_DIAG_L);
-        led_off(LED_IR_DIAG_L);
+//        led_on(LED_IR_FRONT_L);
+//        rtos_delay(1);
+//        wall_data.front_l = adc_val_get(ADC_PHOTO_FRONT_L);
+//        led_off(LED_IR_FRONT_L);
+//
+//        led_on(LED_IR_SIDE_R);
+//        rtos_delay(1);
+//        wall_data.side_r = adc_val_get(ADC_PHOTO_SIDE_R);
+//        led_off(LED_IR_SIDE_R);
+//
+//        led_on(LED_IR_SIDE_L);
+//        rtos_delay(1);
+//        wall_data.side_l = adc_val_get(ADC_PHOTO_SIDE_L);
+//        led_off(LED_IR_SIDE_L);
+//
+//        led_on(LED_IR_DIAG_R);
+//        rtos_delay(1);
+//        wall_data.diag_r = adc_val_get(ADC_PHOTO_DIAG_R);
+//        led_off(LED_IR_DIAG_R);
+//
+//        led_on(LED_IR_DIAG_L);
+//        rtos_delay(1);
+//        wall_data.diag_l = adc_val_get(ADC_PHOTO_DIAG_L);
+//        led_off(LED_IR_DIAG_L);
     }
 }
