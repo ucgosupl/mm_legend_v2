@@ -8,6 +8,7 @@
 
 #include "led/led.h"
 #include "adc/adc.h"
+#include "adc2dist.h"
 
 #include "wall.h"
 
@@ -42,7 +43,6 @@ void wall_init(void)
 
 int32_t wall_side_l_dist_mm_get(void)
 {
-    //TODO: convert ADC to mm
     return wall_data.side_l;
 }
 
@@ -100,7 +100,7 @@ static void wall_task(void *params)
         led_on(LED_IR_FRONT_R);
         rtos_delay(1);
         front_r_on = adc_val_get(ADC_PHOTO_FRONT_R);
-        wall_data.front_r = front_r_on - front_r_off;
+        wall_data.front_r = adc2dist(front_r_on - front_r_off);
         led_off(LED_IR_FRONT_R);
 
 //        led_on(LED_IR_FRONT_L);
