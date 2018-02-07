@@ -1,8 +1,10 @@
+wall_sensor_ident
+
 % Equation: ADC = exp (a / (l + b)) + c
 % Parameter values obtained from measurement data.
-a = 1954;
-b = 222;
-c = 220;
+a = fit(1);
+b = fit(2);
+c = fit(3);
 
 adc = 0:4095;
 distance = a ./ log(adc - c) - b;
@@ -16,7 +18,7 @@ for i = 1:max(size(distance))
         fprintf(file,'WALL_NOT_FOUND, ');
     elseif round(distance(i)) > 180
         fprintf(file,'WALL_NOT_FOUND, ');
-    elseif round(distance(i)) < 20
+    elseif round(distance(i)) < 30
         fprintf(file,'WALL_TOO_CLOSE, ');
     else
         fprintf(file,'%d, ',round(distance(i)));
