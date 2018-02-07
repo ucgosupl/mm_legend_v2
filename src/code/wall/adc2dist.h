@@ -7,9 +7,6 @@
 #ifndef _ADC2DIST_H_
 #define _ADC2DIST_H_
 
-#define WALL_NOT_FOUND      0xFFFF
-#define WALL_TOO_CLOSE      0x0000
-
 /**
  * Convert ADC value meaured by wall sensor to distance in millimeters.
  *
