@@ -49,13 +49,15 @@ CORE_FLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16 -ffast-math
 # -fno-rtti - disable virtual class information used by dynamic_cast and typeid
 # -fno-exceptions - disable exception handling
 # fverbose-asm - additional comments for generated assembler code
-CXX_FLAGS = -std=gnu++14 -O0 -g -fno-rtti -fno-exceptions -fverbose-asm
+# -MMD - create dependency files
+CXX_FLAGS = -std=gnu++14 -O0 -g -fno-rtti -fno-exceptions -fverbose-asm -MMD
 
 # Compiler flags specific for C files
 # -std - C standard: c89, c99, gnu89,gnu99, iso9899:119409
 # -O0 - optimization level: -O0, -O1, -O2, -O3, -Os
 # fverbose-asm - additional comments for generated assembler code
-C_FLAGS := -std=gnu89 -O0 -ffunction-sections -fdata-sections -fverbose-asm
+# -MMD - create dependency files
+C_FLAGS := -std=gnu89 -O0 -ffunction-sections -fdata-sections -fverbose-asm -MMD
 
 # Warning flags for C++
 # -Wall - standard warnings
@@ -111,6 +113,10 @@ CXX_OBJS := $(addprefix $(OUT_DIR), $(notdir $(CXX_SRCS:.$(CXX_EXT)=.o)))
 C_OBJS := $(addprefix $(OUT_DIR), $(notdir $(C_SRCS:.$(C_EXT)=.o)))
 ASM_OBJS := $(addprefix $(OUT_DIR), $(notdir $(ASM_SRCS:.$(ASM_EXT)=.o)))
 OBJS := $(ASM_OBJS) $(C_OBJS) $(CXX_OBJS)
+
+CXX_DEPS := $(addprefix $(OUT_DIR), $(notdir $(CXX_SRCS:.$(CXX_EXT)=.d)))
+C_DEPS := $(addprefix $(OUT_DIR), $(notdir $(C_SRCS:.$(C_EXT)=.d)))
+DEPS := $(CXX_DEPS) $(C_DEPS)
 
 GENERATED := $(OBJS) $(ELF) $(HEX) $(BIN) $(LSS) $(DMP)
 
@@ -172,6 +178,9 @@ $(OUT_DIR)%.o : %.$(ASM_EXT)
 	$(ECHO) 'Assembling file: $<'
 	$(AS) -c $(ASM_FLAGS) $< -o $@
 	$(ECHO) ' '
+
+# header dependencies
+-include $(DEPS)
 
 make_out_dir :
 	$(ECHO) $(OBJS)
