@@ -15970,7 +15970,7 @@ ULN and UDN Series&lt;p&gt;
 <instance part="SUPPLY30" gate="G$1" x="294.64" y="157.48"/>
 <instance part="SUPPLY31" gate="G$1" x="330.2" y="157.48"/>
 <instance part="SUPPLY32" gate="G$1" x="365.76" y="157.48"/>
-<instance part="SUPPLY26" gate="G$1" x="375.92" y="17.78"/>
+<instance part="SUPPLY26" gate="G$1" x="309.88" y="17.78"/>
 </instances>
 <busses>
 </busses>
@@ -16247,12 +16247,10 @@ ULN and UDN Series&lt;p&gt;
 <pinref part="GND25" gate="1" pin="GND"/>
 <wire x1="342.9" y1="-27.94" x2="375.92" y2="-27.94" width="0.1524" layer="91"/>
 <wire x1="375.92" y1="-27.94" x2="375.92" y2="-40.64" width="0.1524" layer="91"/>
-<wire x1="375.92" y1="-27.94" x2="375.92" y2="-15.24" width="0.1524" layer="91"/>
-<wire x1="375.92" y1="-15.24" x2="327.66" y2="-15.24" width="0.1524" layer="91"/>
-<wire x1="327.66" y1="-15.24" x2="327.66" y2="-2.54" width="0.1524" layer="91"/>
-<pinref part="MOTOR1" gate="A" pin="3"/>
-<wire x1="327.66" y1="-2.54" x2="335.28" y2="-2.54" width="0.1524" layer="91"/>
 <junction x="375.92" y="-27.94"/>
+<pinref part="MOTOR1" gate="A" pin="4"/>
+<wire x1="342.9" y1="-2.54" x2="375.92" y2="-2.54" width="0.1524" layer="91"/>
+<wire x1="375.92" y1="-2.54" x2="375.92" y2="-27.94" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$3" class="0">
@@ -16408,15 +16406,13 @@ ULN and UDN Series&lt;p&gt;
 </segment>
 <segment>
 <pinref part="SUPPLY26" gate="G$1" pin="+5V/1"/>
-<wire x1="375.92" y1="15.24" x2="375.92" y2="-2.54" width="0.1524" layer="91"/>
-<pinref part="MOTOR1" gate="A" pin="4"/>
-<wire x1="375.92" y1="-2.54" x2="342.9" y2="-2.54" width="0.1524" layer="91"/>
 <pinref part="MOTOR2" gate="A" pin="3"/>
 <wire x1="335.28" y1="-27.94" x2="309.88" y2="-27.94" width="0.1524" layer="91"/>
-<wire x1="309.88" y1="-27.94" x2="309.88" y2="-10.16" width="0.1524" layer="91"/>
-<wire x1="309.88" y1="-10.16" x2="375.92" y2="-10.16" width="0.1524" layer="91"/>
-<wire x1="375.92" y1="-10.16" x2="375.92" y2="-2.54" width="0.1524" layer="91"/>
-<junction x="375.92" y="-2.54"/>
+<wire x1="309.88" y1="-27.94" x2="309.88" y2="-2.54" width="0.1524" layer="91"/>
+<pinref part="MOTOR1" gate="A" pin="3"/>
+<wire x1="309.88" y1="-2.54" x2="309.88" y2="15.24" width="0.1524" layer="91"/>
+<wire x1="335.28" y1="-2.54" x2="309.88" y2="-2.54" width="0.1524" layer="91"/>
+<junction x="309.88" y="-2.54"/>
 </segment>
 </net>
 <net name="AVDD" class="0">
