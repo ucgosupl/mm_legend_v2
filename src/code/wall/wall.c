@@ -91,6 +91,7 @@ static void wall_task(void *params)
 
     while (1)
     {
+        // TODO: change to delay until, calculate total iteration time
         rtos_delay(10);
 
         front_r_off = adc_val_get(ADC_PHOTO_FRONT_R);
