@@ -9,10 +9,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ------------------------
 
 ### Added
+- led: add led driver implementation.
+- adc: add adc implementation.
+- vbat: add battery saving procedure.
+- wall: add wall sensor routine converting adc values to millimeters.
+- project: add incremental compilation to makefiles.
+- pcb: new PCB design.
 
 ### Changed
+- pcb: move status led to the front.
 
 ### Fixed
+- pcb: change wall sensor placement - Fixes issue #7.
+- pcb: reroute paths to h-bridge around imu sensor - Fixes issue #6.
+- pcb: fix motor connector wiring - Fixes issue #1.
 
 ### Deprecated
 
