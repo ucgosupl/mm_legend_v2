@@ -6,11 +6,13 @@
 ###############################################################################
 
 all : \
+map \
 vbat \
 template \
 
 clean : \
 clear_testlog \
+map_clean \
 vbat_clean \
 template_clean \
 
@@ -29,6 +31,12 @@ cpputest_clean :
 ###############################################################################
 # Unit test targets
 
+map : cpputest
+	@make -C map -f conf.mk
+
+map_clean : cpputest_clean
+	@make -C map -f conf.mk clean
+	
 vbat : cpputest
 	@make -C vbat -f conf.mk
 
@@ -62,5 +70,6 @@ clear_testlog :
 .PHONY: all clean
 .PHONY: clear_testlog
 .PHONY: cpputest cpputest_clean
+.PHONY: map map_clean
 .PHONY: vbat vbat_clean
 .PHONY: template template_clean

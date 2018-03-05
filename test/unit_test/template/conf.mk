@@ -13,6 +13,10 @@ TARGET_NAME := template
 # Folder containing compilation result files
 OUT_DIR := out/
 
+# Defines passed as compiler arguments
+GLOBAL_DEFS := \
+UNIT_TEST=1 \
+
 ###############################################################################
 # Paths for code under test
 
