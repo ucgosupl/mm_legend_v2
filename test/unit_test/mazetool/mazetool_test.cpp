@@ -47,8 +47,6 @@ TEST(mazetool, FirstTest)
     print_map();
     solver_path_calc();
     print_floodfill();
-
-   FAIL("Fail me!");
 }
 
 static void print_unsolved(int *maze)
