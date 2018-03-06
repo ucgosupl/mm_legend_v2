@@ -24,7 +24,13 @@ unit_test_map :
 
 unit_test_map_clean :
 	@make -C test/unit_test map_clean
-	
+
+unit_test_mazetool :
+	@make -C test/unit_test mazetool
+
+unit_test_mazetool_clean :
+	@make -C test/unit_test mazetool_clean
+
 unit_test_vbat :
 	@make -C test/unit_test vbat
 
@@ -54,5 +60,6 @@ unit_test_template_clean :
 
 .PHONY: unit_test unit_test_clean
 .PHONY: unit_test_map unit_test_map_clean
+.PHONY: unit_test_mazetool unit_test_mazetool_clean
 .PHONY: unit_test_vbat unit_test_vbat_clean
 .PHONY: unit_test_template unit_test_template_clean

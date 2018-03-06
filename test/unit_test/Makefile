@@ -7,12 +7,14 @@
 
 all : \
 map \
+mazetool \
 vbat \
 template \
 
 clean : \
 clear_testlog \
 map_clean \
+mazetool_clean \
 vbat_clean \
 template_clean \
 
@@ -36,7 +38,13 @@ map : cpputest
 
 map_clean : cpputest_clean
 	@make -C map -f conf.mk clean
-	
+
+mazetool : cpputest
+	@make -C mazetool -f conf.mk
+
+mazetool_clean : cpputest_clean
+	@make -C mazetool -f conf.mk clean
+
 vbat : cpputest
 	@make -C vbat -f conf.mk
 
@@ -71,5 +79,6 @@ clear_testlog :
 .PHONY: clear_testlog
 .PHONY: cpputest cpputest_clean
 .PHONY: map map_clean
+.PHONY: mazetool mazetool_clean
 .PHONY: vbat vbat_clean
 .PHONY: template template_clean
