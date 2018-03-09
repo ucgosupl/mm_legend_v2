@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - wall: add wall sensor routine converting adc values to millimeters.
 - project: add incremental compilation to makefiles.
 - pcb: new PCB design.
+- map: add module storing labirynth map.
+- solver: add implementation of maze solver.
 
 ### Changed
 - pcb: move status led to the front.

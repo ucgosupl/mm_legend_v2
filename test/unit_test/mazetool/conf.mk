@@ -1,14 +1,14 @@
 ################################################################################
 # File:     conf.mk
 # Author:   GAndaLF
-# Brief:    Makefile configuration script for vbat target.
+# Brief:    Makefile configuration script for unit_test_template target.
 #
-# This file contains configuration variables for vbat target.
+# This file contains configuration variables for unit_test_mazetool target.
 # After setting these variables, actual build script is called.
 ################################################################################
 
 # Name for output binary hex, bin files
-TARGET_NAME := vbat
+TARGET_NAME := mazetool
 
 # Folder containing compilation result files
 OUT_DIR := out/
@@ -33,7 +33,8 @@ SRC_DIRS := \
 
 # Additional source files (.c)
 C_SRC_FILES := \
-../../../src/code/vbat/vbat.c \
+../../../src/code/map/map.c \
+../../../src/code/solver/solver.c \
 
 #
 ###############################################################################
