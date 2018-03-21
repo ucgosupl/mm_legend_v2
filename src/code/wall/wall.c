@@ -34,8 +34,6 @@ static void wall_task(void *params);
 
 void wall_init(void)
 {
-    //led_init();
-    //adc_init();
     /* led and adc initialized earlier by vbat task. */
 
     rtos_task_create(wall_task, "wall", WALL_STACKSIZE, WALL_PRIORITY);
@@ -105,37 +103,37 @@ static void wall_task(void *params)
         led_on(LED_IR_FRONT_R);
         rtos_delay(1);
         front_r_on = adc_val_get(ADC_PHOTO_FRONT_R);
-        wall_data.front_r = adc2dist(front_r_on - front_r_off);
+        wall_data.front_r = adc2dist_rfront(front_r_on - front_r_off);
         led_off(LED_IR_FRONT_R);
 
         led_on(LED_IR_SIDE_L);
         rtos_delay(1);
         side_l_on = adc_val_get(ADC_PHOTO_SIDE_L);
-        wall_data.side_l = adc2dist(side_l_on - side_l_off);
+        wall_data.side_l = adc2dist_lside(side_l_on - side_l_off);
         led_off(LED_IR_SIDE_L);
 
         led_on(LED_IR_DIAG_R);
         rtos_delay(1);
         diag_r_on = adc_val_get(ADC_PHOTO_DIAG_R);
-        wall_data.diag_r = adc2dist(diag_r_on - diag_r_off);
+        wall_data.diag_r = adc2dist_rdiag(diag_r_on - diag_r_off);
         led_off(LED_IR_DIAG_R);
 
         led_on(LED_IR_FRONT_L);
         rtos_delay(1);
         front_l_on = adc_val_get(ADC_PHOTO_FRONT_L);
-        wall_data.front_l = adc2dist(front_l_on - front_l_off);
+        wall_data.front_l = adc2dist_lfront(front_l_on - front_l_off);
         led_off(LED_IR_FRONT_L);
 
         led_on(LED_IR_SIDE_R);
         rtos_delay(1);
         side_r_on = adc_val_get(ADC_PHOTO_SIDE_R);
-        wall_data.side_r = adc2dist(side_r_on - side_r_off);
+        wall_data.side_r = adc2dist_rside(side_r_on - side_r_off);
         led_off(LED_IR_SIDE_R);
 
         led_on(LED_IR_DIAG_L);
         rtos_delay(1);
         diag_l_on = adc_val_get(ADC_PHOTO_DIAG_L);
-        wall_data.diag_l = adc2dist(diag_l_on - diag_l_off);
+        wall_data.diag_l = adc2dist_ldiag(diag_l_on - diag_l_off);
         led_off(LED_IR_DIAG_L);
 
         rtos_delay_until(&last, 10);
