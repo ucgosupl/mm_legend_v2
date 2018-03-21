@@ -1,4 +1,4 @@
-wall_sensor_ident
+function write_to_file(file, name, fit)
 
 % Equation: ADC = exp (a / (l + b)) + c
 % Parameter values obtained from measurement data.
@@ -9,15 +9,17 @@ c = fit(3);
 adc = 0:4095;
 distance = a ./ log(adc - c) - b;
 
-file = fopen('adc2dist.c','w');
-fprintf(file, 'static const int32_t adc2dist_lookup_table[4096] = {\n\t');
+fprintf(file, 'static const uint8_t adc2dist_%s_lookup[4096] = {\n\t', name);
 
 for i = 1:max(size(distance))
     
+    % Distance below zero
     if i < c + 50
         fprintf(file,'WALL_NOT_FOUND, ');
-    elseif round(distance(i)) > 180
+    % Wall too far
+    elseif round(distance(i)) > 150
         fprintf(file,'WALL_NOT_FOUND, ');
+    % Wall too close
     elseif round(distance(i)) < 30
         fprintf(file,'WALL_TOO_CLOSE, ');
     else
@@ -25,10 +27,10 @@ for i = 1:max(size(distance))
     end
 
     if i == max(size(distance))
-        fprintf(file,'\n};\n');
+        fprintf(file,'\n};\n\n');
     elseif (mod(i,8) == 0)
         fprintf(file,'\n\t');
     end
 end
 
-fclose(file);
+end
