@@ -18,7 +18,7 @@
  *
  * Table is generated automatically using script scripts/generate_lookups.m
  */
-static const uint8_t adc2dist_lfront_lookup[4096] = {
+static const uint8_t adc2dist_front_l_lookup[4096] = {
     WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND,
     WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND,
     WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND,
@@ -538,7 +538,7 @@ static const uint8_t adc2dist_lfront_lookup[4096] = {
  *
  * Table is generated automatically using script scripts/generate_lookups.m
  */
-static const uint8_t adc2dist_rfront_lookup[4096] = {
+static const uint8_t adc2dist_front_r_lookup[4096] = {
     WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND,
     WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND,
     WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND,
@@ -1058,7 +1058,7 @@ static const uint8_t adc2dist_rfront_lookup[4096] = {
  *
  * Table is generated automatically using script scripts/generate_lookups.m
  */
-static const uint8_t adc2dist_ldiag_lookup[4096] = {
+static const uint8_t adc2dist_diag_l_lookup[4096] = {
     WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND,
     WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND,
     WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND,
@@ -1578,7 +1578,7 @@ static const uint8_t adc2dist_ldiag_lookup[4096] = {
  *
  * Table is generated automatically using script scripts/generate_lookups.m
  */
-static const uint8_t adc2dist_rdiag_lookup[4096] = {
+static const uint8_t adc2dist_diag_r_lookup[4096] = {
     WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND,
     WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND,
     WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND,
@@ -2098,7 +2098,7 @@ static const uint8_t adc2dist_rdiag_lookup[4096] = {
  *
  * Table is generated automatically using script scripts/generate_lookups.m
  */
-static const uint8_t adc2dist_lside_lookup[4096] = {
+static const uint8_t adc2dist_side_l_lookup[4096] = {
     WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND,
     WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND,
     WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND,
@@ -2618,7 +2618,7 @@ static const uint8_t adc2dist_lside_lookup[4096] = {
  *
  * Table is generated automatically using script scripts/generate_lookups.m
  */
-static const uint8_t adc2dist_rside_lookup[4096] = {
+static const uint8_t adc2dist_side_r_lookup[4096] = {
     WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND,
     WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND,
     WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND, WALL_NOT_FOUND,
@@ -3133,62 +3133,62 @@ static const uint8_t adc2dist_rside_lookup[4096] = {
     WALL_TOO_CLOSE, WALL_TOO_CLOSE, WALL_TOO_CLOSE, WALL_TOO_CLOSE, WALL_TOO_CLOSE, WALL_TOO_CLOSE, WALL_TOO_CLOSE, WALL_TOO_CLOSE,
 };
 
-int32_t adc2dist_lfront(int32_t adc)
+int32_t adc2dist_front_l(int32_t adc)
 {
     if ((0 > adc) || (LOOKUP_TABLE_SIZE <= adc))
     {
         return WALL_ERROR;
     }
 
-    return adc2dist_lfront_lookup[adc];
+    return adc2dist_front_l_lookup[adc];
 }
 
-int32_t adc2dist_rfront(int32_t adc)
+int32_t adc2dist_front_r(int32_t adc)
 {
     if ((0 > adc) || (LOOKUP_TABLE_SIZE <= adc))
     {
         return WALL_ERROR;
     }
 
-    return adc2dist_rfront_lookup[adc];
+    return adc2dist_front_r_lookup[adc];
 }
 
-int32_t adc2dist_ldiag(int32_t adc)
+int32_t adc2dist_diag_l(int32_t adc)
 {
     if ((0 > adc) || (LOOKUP_TABLE_SIZE <= adc))
     {
         return WALL_ERROR;
     }
 
-    return adc2dist_ldiag_lookup[adc];
+    return adc2dist_diag_l_lookup[adc];
 }
 
-int32_t adc2dist_rdiag(int32_t adc)
+int32_t adc2dist_diag_r(int32_t adc)
 {
     if ((0 > adc) || (LOOKUP_TABLE_SIZE <= adc))
     {
         return WALL_ERROR;
     }
 
-    return adc2dist_rdiag_lookup[adc];
+    return adc2dist_diag_r_lookup[adc];
 }
 
-int32_t adc2dist_lside(int32_t adc)
+int32_t adc2dist_side_l(int32_t adc)
 {
     if ((0 > adc) || (LOOKUP_TABLE_SIZE <= adc))
     {
         return WALL_ERROR;
     }
 
-    return adc2dist_lside_lookup[adc];
+    return adc2dist_side_l_lookup[adc];
 }
 
-int32_t adc2dist_rside(int32_t adc)
+int32_t adc2dist_side_r(int32_t adc)
 {
     if ((0 > adc) || (LOOKUP_TABLE_SIZE <= adc))
     {
         return WALL_ERROR;
     }
 
-    return adc2dist_rside_lookup[adc];
+    return adc2dist_side_r_lookup[adc];
 }
