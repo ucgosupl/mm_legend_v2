@@ -10,6 +10,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+### Changed
+
+### Fixed
+
+### Deprecated
+
+### Removed
+
+## [0.5.0] - 2018-03-24
+------------------------
+
+### Added
 - adc: add adc implementation.
 - led: add led driver implementation.
 - map: add module storing labirynth map.
@@ -124,8 +136,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Removed
 
 
-[Unreleased]: https://github.com/ucgosupl/mm_legend_v2/compare/v0.3.0...dev
+[Unreleased]: https://github.com/ucgosupl/mm_legend_v2/compare/v0.5.0...dev
 [0.1.1]: https://github.com/ucgosupl/mm_legend_v2/compare/v0.1.0...v0.1.1
 [0.2.0]: https://github.com/ucgosupl/mm_legend_v2/compare/v0.1.1...0.2.0
 [0.3.0]: https://github.com/ucgosupl/mm_legend_v2/compare/0.2.0...v0.3.0
 [0.4.0]: https://github.com/ucgosupl/mm_legend_v2/compare/0.3.0...v0.4.0
+[0.5.0]: https://github.com/ucgosupl/mm_legend_v2/compare/0.4.0...v0.5.0
