@@ -20,9 +20,9 @@ void adc_init(void)
 
 }
 
-AdcValGetMock::AdcValGetMock(int32_t retval) : retVal_(retval) {};
-AdcValGetMock::AdcValGetMock(int32_t retval, int32_t iterOtherVal, int32_t retvalOther) :
-        retVal_(retval),
+AdcValGetMock::AdcValGetMock(int32_t retVal) : retVal_(retVal) {};
+AdcValGetMock::AdcValGetMock(int32_t retVal, int32_t iterOtherVal, int32_t retvalOther) :
+        retVal_(retVal),
         iterOtherVal_(iterOtherVal),
         retValOther_(retvalOther)
 {};

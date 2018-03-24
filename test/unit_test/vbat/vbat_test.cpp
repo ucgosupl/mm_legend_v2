@@ -2,8 +2,11 @@
 
 #include "CppUTest/TestHarness.h"
 
-#include "adc/adc.h"
-#include "led/led.h"
+extern "C"
+{
+    #include "adc/adc.h"
+    #include "led/led.h"
+}
 
 #include "mocks/rtos_mocks.hpp"
 #include "mocks/adc_mocks.hpp"

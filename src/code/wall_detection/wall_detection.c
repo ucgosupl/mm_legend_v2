@@ -34,8 +34,12 @@ void wall_detection(void)
     pos_y = position_y_get();
     //pos_alpha = position_alpha_get();
 
-    //determine cell
     cell_id = calculate_cell(pos_x, pos_y);
+    if (0 > cell_id)
+    {
+        //todo: handle error
+        return;
+    }
 
     //get sensor readings
     //sensor_front_l = wall_sensor_front_l_dist_mm_get();
@@ -51,5 +55,21 @@ void wall_detection(void)
 
 static int32_t calculate_cell(int32_t x, int32_t y)
 {
-    return 0;
+    int32_t cell_x;
+    int32_t cell_y;
+
+    if (x >= MAP_WIDTH * CELL_WIDTH_MM)
+    {
+        return -1;
+    }
+
+    if (y >= MAP_WIDTH * CELL_WIDTH_MM)
+    {
+        return -1;
+    }
+
+    cell_x = x / CELL_WIDTH_MM;
+    cell_y = y / CELL_WIDTH_MM;
+
+    return cell_x + MAP_WIDTH * cell_y;
 }

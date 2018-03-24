@@ -13,12 +13,49 @@ extern "C"
 
 #include "position_mocks.hpp"
 
+static PositionGetMock *posXMock = nullptr;
+static PositionGetMock *posYMock = nullptr;
+
+PositionGetMock::PositionGetMock(float retVal) : retVal_(retVal) {};
+
+int32_t PositionGetMock::getCount()
+{
+    return cnt_;
+}
+
+float PositionGetMock::call()
+{
+    cnt_++;
+
+    return retVal_;
+}
+
+void posXMockSet(PositionGetMock *mock)
+{
+    posXMock = mock;
+}
+
 float position_x_get(void)
 {
-    return 0;
+    if (nullptr != posXMock)
+    {
+        return posXMock->call();
+    }
+
+    return 0.0f;
+}
+
+void posYMockSet(PositionGetMock *mock)
+{
+    posYMock = mock;
 }
 
 float position_y_get(void)
 {
-    return 0;
+    if (nullptr != posYMock)
+    {
+        return posYMock->call();
+    }
+
+    return 0.0f;
 }
