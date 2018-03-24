@@ -14,6 +14,7 @@ logger \
 motor_ident \
 motor_linear \
 position \
+wall \
 
 clean : \
 template_clean \
@@ -25,6 +26,7 @@ logger_clean \
 motor_ident_clean \
 motor_linear_clean \
 position_clean \
+wall_clean \
 
 ################################################################################
 # Template HW test target
@@ -88,7 +90,13 @@ position :
 
 position_clean :
 	@make -C position -f conf.mk clean
-		
+
+wall :
+	@make -C wall -f conf.mk
+
+wall_clean :
+	@make -C wall -f conf.mk clean
+			
 #
 ################################################################################
 
@@ -103,3 +111,4 @@ position_clean :
 .PHONY: motor_ident motor_ident_clean
 .PHONY: motor_linear motor_linear_clean
 .PHONY: position position_clean
+.PHONY: wall wall_clean

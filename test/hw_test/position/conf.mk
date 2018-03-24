@@ -38,11 +38,14 @@ SRC_DIRS := \
 ../../../src/hw/core_init \
 ../../../src/hw/startup \
 ../../../src/hw/gpio_f4 \
+../../../src/hw/led \
+../../../src/hw/adc \
 ../../../src/hw/button \
 ../../../src/hw/encoder \
 ../../../src/hw/hbridge \
 ../../../src/hw/usart \
 ../../../src/hw/i2c_master \
+../../../src/code/vbat \
 ../../../src/code/logger \
 ../../../src/code/pid \
 ../../../src/code/motor \

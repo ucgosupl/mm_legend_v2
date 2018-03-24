@@ -8,6 +8,8 @@
 
 /* Project includes */
 #include "core_init/core_init.h"
+#include "vbat/vbat.h"
+
 #include "hbridge_test_task.h"
 
 int main(void)
@@ -15,6 +17,7 @@ int main(void)
     core_init();
 
     /* Place your initialisation code here. */
+    vbat_task_init();
     hbridge_test_task_init();
 
     /* Place your application code here. */

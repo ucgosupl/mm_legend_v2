@@ -37,7 +37,10 @@ SRC_DIRS := \
 ../../../src/hw/core_init \
 ../../../src/hw/startup \
 ../../../src/hw/gpio_f4 \
+../../../src/hw/led \
+../../../src/hw/adc \
 ../../../src/hw/hbridge \
+../../../src/code/vbat \
 ../../../src/utils \
 ../../../src/external/FreeRTOS \
 

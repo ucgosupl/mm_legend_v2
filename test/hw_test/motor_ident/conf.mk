@@ -38,12 +38,15 @@ SRC_DIRS := \
 ../../../src/hw/startup \
 ../../../src/hw/gpio_f4 \
 ../../../src/hw/button \
+../../../src/hw/led \
+../../../src/hw/adc \
 ../../../src/hw/encoder \
 ../../../src/hw/hbridge \
 ../../../src/hw/i2c_master \
 ../../../src/hw/usart \
-../../../src/code/imu \
+../../../src/code/vbat \
 ../../../src/code/logger \
+../../../src/code/imu \
 ../../../src/utils \
 ../../../src/external/FreeRTOS \
 

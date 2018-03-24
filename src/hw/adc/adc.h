@@ -7,20 +7,26 @@
 #ifndef _ADC_H_
 #define _ADC_H_
 
-/** Channel used by side left phototransistor. */
-#define ADC_PHOTO_SIDE_L        0
-/** Channel used by side right phototransistor. */
-#define ADC_PHOTO_SIDE_R        1
-/** Channel used by diagonal left phototransistor. */
-#define ADC_PHOTO_DIAG_L        2
-/** Channel used by diagonal right phototransistor. */
-#define ADC_PHOTO_DIAG_R        3
-/** Channel used by front left phototransistor. */
-#define ADC_PHOTO_FRONT_L       4
-/** Channel used by front right phototransistor. */
-#define ADC_PHOTO_FRONT_R       5
-/** Channel used by battery voltage monitor. */
+/* Order is dependent on channel sequence programmed in ADC */
+/** Front right phototransistor id. */
+#define ADC_PHOTO_FRONT_R       0
+/** Diagonal right phototransistor id. */
+#define ADC_PHOTO_DIAG_R        1
+/** Side right phototransistor id. */
+#define ADC_PHOTO_SIDE_R        2
+/** Side left phototransistor id. */
+#define ADC_PHOTO_SIDE_L        3
+/** Diagonal left phototransistor id. */
+#define ADC_PHOTO_DIAG_L        4
+/** Front left phototransistor id. */
+#define ADC_PHOTO_FRONT_L       5
+/** Battery voltage monitor id. */
 #define ADC_VBAT                6
+
+/** Maximum allowed ADC digital value. */
+#define ADC_MAX_VAL             0x0FFFUL
+/** Maximum allowed ADC voltage. */
+#define ADC_MAX_VOLTAGE_MV      3300UL
 
 /**
  * Initialisation of ADC peripheral.
@@ -31,12 +37,12 @@
 void adc_init(void);
 
 /**
- * Get last ADC measurement for a given channel.
+ * Get last ADC measurement for a given id.
  *
- * @param channel           ADC channel.
+ * @param id                ADC id.
  *
  * @return                  ADC value.
  */
-int32_t adc_val_get(int32_t channel);
+int32_t adc_val_get(int32_t id);
 
 #endif /* _ADC_H_ */
