@@ -37,6 +37,12 @@ unit_test_vbat :
 unit_test_vbat_clean :
 	@make -C test/unit_test vbat_clean
 
+unit_test_wall_detection :
+	@make -C test/unit_test wall_detection
+
+unit_test_wall_detection_clean :
+	@make -C test/unit_test wall_detection_clean
+
 #
 ###############################################################################
 
@@ -62,4 +68,5 @@ unit_test_template_clean :
 .PHONY: unit_test_map unit_test_map_clean
 .PHONY: unit_test_mazetool unit_test_mazetool_clean
 .PHONY: unit_test_vbat unit_test_vbat_clean
+.PHONY: unit_test_wall_detection unit_test_wall_detection_clean
 .PHONY: unit_test_template unit_test_template_clean

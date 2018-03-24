@@ -9,6 +9,7 @@ all : \
 map \
 mazetool \
 vbat \
+wall_detection \
 template \
 
 clean : \
@@ -16,6 +17,7 @@ clear_testlog \
 map_clean \
 mazetool_clean \
 vbat_clean \
+wall_detection_clean \
 template_clean \
 
 ###############################################################################
@@ -51,6 +53,13 @@ vbat : cpputest
 vbat_clean : cpputest_clean
 	@make -C vbat -f conf.mk clean
 
+wall_detection : cpputest
+	@make -C wall_detection -f conf.mk
+
+wall_detection_clean : cpputest_clean
+	@make -C wall_detection -f conf.mk clean
+
+
 #
 ###############################################################################
 
@@ -81,4 +90,5 @@ clear_testlog :
 .PHONY: map map_clean
 .PHONY: mazetool mazetool_clean
 .PHONY: vbat vbat_clean
+.PHONY: wall_detection wall_detection_clean
 .PHONY: template template_clean
