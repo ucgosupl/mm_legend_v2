@@ -9,14 +9,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ------------------------
 
 ### Added
-- led: add led driver implementation.
+
 - adc: add adc implementation.
-- vbat: add battery saving procedure.
-- wall: add wall sensor routine converting adc values to millimeters.
-- project: add incremental compilation to makefiles.
-- pcb: new PCB design.
+- led: add led driver implementation.
 - map: add module storing labirynth map.
+- pcb: new PCB design.
+- project: add incremental compilation to makefiles.
+- scripts: add scripts for generating sensor lookup table from measurements.
 - solver: add implementation of maze solver.
+- vbat: add battery saving procedure.
+- wall: add wall sensor task.
+- wall: add conversion routine separate for every sensor.
 
 ### Changed
 - pcb: move status led to the front.
@@ -51,14 +54,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ------------------------
 
 ### Added
-- uart: implement Tx functionality.
-- logger: implement logger task and integrate it with system printf.
 - encoder: implement encoders driver.
-- motor: implement PID controller for forward velocity.
 - i2c: add i2c master driver.
 - imu: add IMU task reading data from sensor.
-- pcb: fix motor connectors and BT connector.
+- logger: implement logger task and integrate it with system printf.
+- motor: implement PID controller for forward velocity.
 - motor: implement PID controller for angular velocity.
+- pcb: fix motor connectors and BT connector.
+- uart: implement Tx functionality.
 
 ### Changed
 
@@ -73,11 +76,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ------------------------
 
 ### Added
-- src: added skeleton interfaces for code components.
-- hbridge: TB6612 H-Bridge driver implementation.
-- uart: implement Rx functionality.
-- console: implement uart console task.
 - console: added ability to control motors manually using console.
+- console: implement uart console task.
+- hbridge: TB6612 H-Bridge driver implementation.
+- src: added skeleton interfaces for code components.
+- uart: implement Rx functionality.
 
 ### Changed
 
@@ -106,11 +109,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ------------------------
 
 ### Added
+- ci: initial Travis-CI configuration.
 - pcb: designed electric circuit.
 - pcb: designed PCB.
 - src: initial project setup.
 - unit_test: configured CppUTest.
-- ci: initial Travis-CI configuration.
 
 ### Changed
 
