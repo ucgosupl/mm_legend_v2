@@ -42,7 +42,7 @@ SRC_DIRS := \
 ../../../src/hw/usart \
 ../../../src/code/vbat \
 ../../../src/code/logger \
-../../../src/code/wall \
+../../../src/code/wall_sensor \
 ../../../src/utils \
 ../../../src/external/FreeRTOS \
 
