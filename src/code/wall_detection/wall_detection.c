@@ -45,12 +45,12 @@ void wall_detection(void)
 
     struct coords robot_pos;
 
-    /* Get position */
+    /* Get current position. */
     robot_pos.x = position_x_get();
     robot_pos.y = position_y_get();
     robot_pos.alpha = position_alpha_get();
 
-    /* get sensor readings */
+    /* Get all sensor readings at once. */
     for (i = 0; i < WALL_SENSOR_CNT; i++)
     {
         sensor_data[i] = wall_sensor_dist_mm_get(i);
