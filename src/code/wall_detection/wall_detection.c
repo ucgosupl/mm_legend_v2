@@ -32,7 +32,6 @@ static struct coords sensor_offsets[WALL_SENSOR_CNT] =
         {WALL_SENSOR_DIAG_OFFSET_X, WALL_SENSOR_DIAG_OFFSET_Y, WALL_SENSOR_DIAG_OFFSET_A},
 };
 
-static int32_t calculate_cell(int32_t x, int32_t y);
 PRIVATE void update_wall_with_sensor(struct coords *robot_pos, int32_t sensor_id, int32_t sensor_data);
 static void calculate_sensor_pos(struct coords *robot_pos, int32_t sensor_id, struct coords *sensor_pos);
 PRIVATE map_wall_state_t calculate_wall_pos(struct coords *sensor_pos, int32_t sensor_data, struct coords *wall_pos);
@@ -60,16 +59,6 @@ void wall_detection(void)
     {
         update_wall_with_sensor(&robot_pos, i, sensor_data[i]);
     }
-
-    //todo: this line stays for now only to pass initial tests. Remove when final solution is ready.
-    int32_t cell_id;
-    cell_id = calculate_cell(robot_pos.x, robot_pos.y);
-    if (0 > cell_id)
-    {
-        //todo: handle error
-        return;
-    }
-    map_wall_left_get(cell_id);
 }
 
 PRIVATE void update_wall_with_sensor(struct coords *robot_pos, int32_t sensor_id, int32_t sensor_data)
@@ -87,27 +76,6 @@ PRIVATE void update_wall_with_sensor(struct coords *robot_pos, int32_t sensor_id
     {
         map_update(&sensor_pos, &wall_pos, wall_state);
     }
-}
-
-static int32_t calculate_cell(int32_t x, int32_t y)
-{
-    int32_t cell_x;
-    int32_t cell_y;
-
-    if (x >= MAP_WIDTH * MAP_CELL_WIDTH_MM)
-    {
-        return -1;
-    }
-
-    if (y >= MAP_WIDTH * MAP_CELL_WIDTH_MM)
-    {
-        return -1;
-    }
-
-    cell_x = x / MAP_CELL_WIDTH_MM;
-    cell_y = y / MAP_CELL_WIDTH_MM;
-
-    return cell_x + MAP_WIDTH * cell_y;
 }
 
 static void calculate_sensor_pos(struct coords *robot_pos, int32_t sensor_id, struct coords *sensor_pos)

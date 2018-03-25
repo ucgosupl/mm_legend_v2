@@ -7,6 +7,7 @@
 
 all : \
 map \
+map_update \
 mazetool \
 vbat \
 wall_detection \
@@ -15,6 +16,7 @@ template \
 clean : \
 clear_testlog \
 map_clean \
+map_update_clean \
 mazetool_clean \
 vbat_clean \
 wall_detection_clean \
@@ -40,6 +42,12 @@ map : cpputest
 
 map_clean : cpputest_clean
 	@make -C map -f conf.mk clean
+
+map_update : cpputest
+	@make -C map_update -f conf.mk
+
+map_update_clean : cpputest_clean
+	@make -C map_update -f conf.mk clean
 
 mazetool : cpputest
 	@make -C mazetool -f conf.mk
@@ -88,6 +96,7 @@ clear_testlog :
 .PHONY: clear_testlog
 .PHONY: cpputest cpputest_clean
 .PHONY: map map_clean
+.PHONY: map_update map_update_clean
 .PHONY: mazetool mazetool_clean
 .PHONY: vbat vbat_clean
 .PHONY: wall_detection wall_detection_clean

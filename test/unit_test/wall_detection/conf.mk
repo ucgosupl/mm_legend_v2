@@ -1,14 +1,14 @@
 ################################################################################
 # File:     conf.mk
 # Author:   GAndaLF
-# Brief:    Makefile configuration script for unit_test_template target.
+# Brief:    Makefile configuration script for unit_test_wall_detection target.
 #
-# This file contains configuration variables for unit_test_template target.
+# This file contains configuration variables for unit_test_wall_detection target.
 # After setting these variables, actual build script is called.
 ################################################################################
 
 # Name for output binary hex, bin files
-TARGET_NAME := template
+TARGET_NAME := wall_detection
 
 # Folder containing compilation result files
 OUT_DIR := out/
