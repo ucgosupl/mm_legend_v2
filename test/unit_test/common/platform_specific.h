@@ -8,6 +8,7 @@
 #define PLATFORM_SPECIFIC_H_
 
 #include <stdint.h>
+#include <stdbool.h>
 #include "../../../src/utils/priority.h"
 
 #define PRIVATE

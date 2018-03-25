@@ -2,7 +2,8 @@
 
 #include "CppUTest/TestHarness.h"
 
-extern "C" {
+extern "C"
+{
     #include "map/map.h"
 }
 
