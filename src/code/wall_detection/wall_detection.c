@@ -35,7 +35,7 @@ static struct coords sensor_offsets[WALL_SENSOR_CNT] =
 static int32_t calculate_cell(int32_t x, int32_t y);
 PRIVATE void update_wall_with_sensor(struct coords *robot_pos, int32_t sensor_id, int32_t sensor_data);
 static void calculate_sensor_pos(struct coords *robot_pos, int32_t sensor_id, struct coords *sensor_pos);
-static map_wall_state_t calculate_wall_pos(struct coords *sensor_pos, int32_t sensor_data, struct coords *wall_pos);
+PRIVATE map_wall_state_t calculate_wall_pos(struct coords *sensor_pos, int32_t sensor_data, struct coords *wall_pos);
 
 void wall_detection(void)
 {
@@ -117,7 +117,7 @@ static void calculate_sensor_pos(struct coords *robot_pos, int32_t sensor_id, st
     sensor_pos->alpha = robot_pos->alpha + sensor_offsets[sensor_id].alpha;
 }
 
-static map_wall_state_t calculate_wall_pos(struct coords *sensor_pos, int32_t sensor_data, struct coords *wall_pos)
+PRIVATE map_wall_state_t calculate_wall_pos(struct coords *sensor_pos, int32_t sensor_data, struct coords *wall_pos)
 {
     float sensor_after_threshold;
     map_wall_state_t wall_state = MAP_WALL_UNKNOWN;

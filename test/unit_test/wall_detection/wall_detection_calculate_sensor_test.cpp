@@ -28,16 +28,12 @@ TEST_GROUP(calculate_sensor_fun)
 
 TEST(calculate_sensor_fun, FrontLeftSensorOffset1)
 {
-    struct coords robot_pos;
+    struct coords robot_pos = {0};
     struct coords *sensor_pos;
 
     MapUpdateMock mapUpdateMock;
 
     mapUpdateMockSet(&mapUpdateMock);
-
-    robot_pos.x = 0;
-    robot_pos.y = 0;
-    robot_pos.alpha = 0;
 
     update_wall_with_sensor(&robot_pos, WALL_SENSOR_FRONT_L, WALL_NOT_FOUND);
 
@@ -72,16 +68,12 @@ TEST(calculate_sensor_fun, FrontLeftSensorOffset2)
 
 TEST(calculate_sensor_fun, FrontRighttSensorOffset1)
 {
-    struct coords robot_pos;
+    struct coords robot_pos = {0};
     struct coords *sensor_pos;
 
     MapUpdateMock mapUpdateMock;
 
     mapUpdateMockSet(&mapUpdateMock);
-
-    robot_pos.x = 0;
-    robot_pos.y = 0;
-    robot_pos.alpha = 0;
 
     update_wall_with_sensor(&robot_pos, WALL_SENSOR_FRONT_R, WALL_NOT_FOUND);
 
@@ -116,16 +108,12 @@ TEST(calculate_sensor_fun, FrontRightSensorOffset2)
 
 TEST(calculate_sensor_fun, DiagLeftSensorOffset1)
 {
-    struct coords robot_pos;
+    struct coords robot_pos = {0};
     struct coords *sensor_pos;
 
     MapUpdateMock mapUpdateMock;
 
     mapUpdateMockSet(&mapUpdateMock);
-
-    robot_pos.x = 0;
-    robot_pos.y = 0;
-    robot_pos.alpha = 0;
 
     update_wall_with_sensor(&robot_pos, WALL_SENSOR_DIAG_L, WALL_NOT_FOUND);
 
@@ -160,16 +148,12 @@ TEST(calculate_sensor_fun, DiagLeftSensorOffset2)
 
 TEST(calculate_sensor_fun, DiagRighttSensorOffset1)
 {
-    struct coords robot_pos;
+    struct coords robot_pos = {0};
     struct coords *sensor_pos;
 
     MapUpdateMock mapUpdateMock;
 
     mapUpdateMockSet(&mapUpdateMock);
-
-    robot_pos.x = 0;
-    robot_pos.y = 0;
-    robot_pos.alpha = 0;
 
     update_wall_with_sensor(&robot_pos, WALL_SENSOR_DIAG_R, WALL_NOT_FOUND);
 
@@ -204,16 +188,12 @@ TEST(calculate_sensor_fun, DiagRightSensorOffset2)
 
 TEST(calculate_sensor_fun, SideLeftSensorOffset1)
 {
-    struct coords robot_pos;
+    struct coords robot_pos = {0};
     struct coords *sensor_pos;
 
     MapUpdateMock mapUpdateMock;
 
     mapUpdateMockSet(&mapUpdateMock);
-
-    robot_pos.x = 0;
-    robot_pos.y = 0;
-    robot_pos.alpha = 0;
 
     update_wall_with_sensor(&robot_pos, WALL_SENSOR_SIDE_L, WALL_NOT_FOUND);
 
@@ -248,16 +228,12 @@ TEST(calculate_sensor_fun, SideLeftSensorOffset2)
 
 TEST(calculate_sensor_fun, SideRighttSensorOffset1)
 {
-    struct coords robot_pos;
+    struct coords robot_pos = {0};
     struct coords *sensor_pos;
 
     MapUpdateMock mapUpdateMock;
 
     mapUpdateMockSet(&mapUpdateMock);
-
-    robot_pos.x = 0;
-    robot_pos.y = 0;
-    robot_pos.alpha = 0;
 
     update_wall_with_sensor(&robot_pos, WALL_SENSOR_SIDE_R, WALL_NOT_FOUND);
 
