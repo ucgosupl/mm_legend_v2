@@ -7,6 +7,9 @@
 #ifndef _MAP_H_
 #define _MAP_H_
 
+/** Width of a single maze cell. */
+#define MAP_CELL_WIDTH_MM       180
+
 /** Labirynth map width in cells. */
 #define MAP_WIDTH   16
 
@@ -27,10 +30,32 @@ enum
     MAP_WALL_ERROR = 0xFF,
 };
 
+/** Point in robot coordinate system including orientation. */
+struct coords
+{
+    float x;        /**< Position in X axis in millimeters. */
+    float y;        /**< Position in Y axis in millimeters. */
+    float alpha;    /**< Orientation in degrees. */
+};
+
 /**
  * Initialize labirynth map module to work.
  */
 void map_init(void);
+
+/**
+ * Update map with new wall information.
+ *
+ * This function is for adding information about scanned wall. It could add information
+ * about detected wall presence or absence. When wall_state indicates presence,
+ * wall_pos represents detected point in the wall. When wall_state indicates absence,
+ * wall_pos represents farthest point with no wall on the way from sensor.
+ *
+ * @param sensor_pos        Position of sensor which did this measurement.
+ * @param wall_pos          Position of detected wall.
+ * @param wall_state        Information if detected wall or no wall.
+ */
+void map_update(struct coords *sensor_pos, struct coords *wall_pos, map_wall_state_t wall_state);
 
 /**
  * Get left wall presence state for cell with a given id.

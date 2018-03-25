@@ -11,6 +11,7 @@ extern "C"
 
 #include "mocks/map_mocks.hpp"
 #include "mocks/position_mocks.hpp"
+#include "mocks/wall_sensor_mocks.hpp"
 
 TEST_GROUP(wall_detection_calculate_cell)
 {
@@ -22,8 +23,11 @@ TEST_GROUP(wall_detection_calculate_cell)
     {
         posXMockSet(nullptr);
         posYMockSet(nullptr);
+        posAlphaMockSet(nullptr);
 
         mapWallLeftGetMockSet(nullptr);
+
+        wallSensorGetMockSet(nullptr);
     }
 };
 
@@ -44,7 +48,7 @@ TEST(wall_detection_calculate_cell, CheckIfCell0Detected1)
 
 TEST(wall_detection_calculate_cell, CheckIfCell0Detected2)
 {
-    PositionGetMock posXMock(CELL_WIDTH_MM - 1);
+    PositionGetMock posXMock(MAP_CELL_WIDTH_MM - 1);
     PositionGetMock posYMock(0);
     MapWallGetMock mapWallLeftMock;
 
@@ -61,7 +65,7 @@ TEST(wall_detection_calculate_cell, CheckIfCell0Detected2)
 TEST(wall_detection_calculate_cell, CheckIfCell0Detected3)
 {
     PositionGetMock posXMock(0);
-    PositionGetMock posYMock(CELL_WIDTH_MM - 1);
+    PositionGetMock posYMock(MAP_CELL_WIDTH_MM - 1);
     MapWallGetMock mapWallLeftMock;
 
     posXMockSet(&posXMock);
@@ -75,7 +79,7 @@ TEST(wall_detection_calculate_cell, CheckIfCell0Detected3)
 
 TEST(wall_detection_calculate_cell, CheckIfCell1Detected1)
 {
-    PositionGetMock posXMock(CELL_WIDTH_MM);
+    PositionGetMock posXMock(MAP_CELL_WIDTH_MM);
     PositionGetMock posYMock(0);
     MapWallGetMock mapWallLeftMock;
 
@@ -90,7 +94,7 @@ TEST(wall_detection_calculate_cell, CheckIfCell1Detected1)
 
 TEST(wall_detection_calculate_cell, CheckIfCell1Detected2)
 {
-    PositionGetMock posXMock(2 * CELL_WIDTH_MM - 1);
+    PositionGetMock posXMock(2 * MAP_CELL_WIDTH_MM - 1);
     PositionGetMock posYMock(0);
     MapWallGetMock mapWallLeftMock;
 
@@ -105,8 +109,8 @@ TEST(wall_detection_calculate_cell, CheckIfCell1Detected2)
 
 TEST(wall_detection_calculate_cell, CheckIfCell1Detected3)
 {
-    PositionGetMock posXMock(CELL_WIDTH_MM);
-    PositionGetMock posYMock(CELL_WIDTH_MM - 1);
+    PositionGetMock posXMock(MAP_CELL_WIDTH_MM);
+    PositionGetMock posYMock(MAP_CELL_WIDTH_MM - 1);
     MapWallGetMock mapWallLeftMock;
 
     posXMockSet(&posXMock);
@@ -120,7 +124,7 @@ TEST(wall_detection_calculate_cell, CheckIfCell1Detected3)
 
 TEST(wall_detection_calculate_cell, CheckIfCell2Detected1)
 {
-    PositionGetMock posXMock(2 * CELL_WIDTH_MM);
+    PositionGetMock posXMock(2 * MAP_CELL_WIDTH_MM);
     PositionGetMock posYMock(0);
     MapWallGetMock mapWallLeftMock;
 
@@ -136,7 +140,7 @@ TEST(wall_detection_calculate_cell, CheckIfCell2Detected1)
 TEST(wall_detection_calculate_cell, CheckIfCell16Detected1)
 {
     PositionGetMock posXMock(0);
-    PositionGetMock posYMock(CELL_WIDTH_MM);
+    PositionGetMock posYMock(MAP_CELL_WIDTH_MM);
     MapWallGetMock mapWallLeftMock;
 
     posXMockSet(&posXMock);
@@ -150,8 +154,8 @@ TEST(wall_detection_calculate_cell, CheckIfCell16Detected1)
 
 TEST(wall_detection_calculate_cell, CheckIfCell16Detected2)
 {
-    PositionGetMock posXMock(CELL_WIDTH_MM - 1);
-    PositionGetMock posYMock(CELL_WIDTH_MM);
+    PositionGetMock posXMock(MAP_CELL_WIDTH_MM - 1);
+    PositionGetMock posYMock(MAP_CELL_WIDTH_MM);
     MapWallGetMock mapWallLeftMock;
 
     posXMockSet(&posXMock);
@@ -165,8 +169,8 @@ TEST(wall_detection_calculate_cell, CheckIfCell16Detected2)
 
 TEST(wall_detection_calculate_cell, CheckIfCell17Detected1)
 {
-    PositionGetMock posXMock(CELL_WIDTH_MM);
-    PositionGetMock posYMock(CELL_WIDTH_MM);
+    PositionGetMock posXMock(MAP_CELL_WIDTH_MM);
+    PositionGetMock posYMock(MAP_CELL_WIDTH_MM);
     MapWallGetMock mapWallLeftMock;
 
     posXMockSet(&posXMock);
@@ -181,7 +185,7 @@ TEST(wall_detection_calculate_cell, CheckIfCell17Detected1)
 TEST(wall_detection_calculate_cell, CheckIfCell32Detected1)
 {
     PositionGetMock posXMock(0);
-    PositionGetMock posYMock(2 * CELL_WIDTH_MM);
+    PositionGetMock posYMock(2 * MAP_CELL_WIDTH_MM);
     MapWallGetMock mapWallLeftMock;
 
     posXMockSet(&posXMock);
@@ -195,7 +199,7 @@ TEST(wall_detection_calculate_cell, CheckIfCell32Detected1)
 
 TEST(wall_detection_calculate_cell, CheckIfCell15Detected1)
 {
-    PositionGetMock posXMock(MAP_WIDTH * CELL_WIDTH_MM - 1);
+    PositionGetMock posXMock(MAP_WIDTH * MAP_CELL_WIDTH_MM - 1);
     PositionGetMock posYMock(0);
     MapWallGetMock mapWallLeftMock;
 
@@ -210,7 +214,7 @@ TEST(wall_detection_calculate_cell, CheckIfCell15Detected1)
 
 TEST(wall_detection_calculate_cell, CheckIfPosXOutOfBoundsDetected)
 {
-    PositionGetMock posXMock(MAP_WIDTH * CELL_WIDTH_MM);
+    PositionGetMock posXMock(MAP_WIDTH * MAP_CELL_WIDTH_MM);
     PositionGetMock posYMock(0);
     MapWallGetMock mapWallLeftMock;
 
@@ -226,7 +230,7 @@ TEST(wall_detection_calculate_cell, CheckIfPosXOutOfBoundsDetected)
 TEST(wall_detection_calculate_cell, CheckIfCell240Detected1)
 {
     PositionGetMock posXMock(0);
-    PositionGetMock posYMock(MAP_WIDTH * CELL_WIDTH_MM - 1);
+    PositionGetMock posYMock(MAP_WIDTH * MAP_CELL_WIDTH_MM - 1);
     MapWallGetMock mapWallLeftMock;
 
     posXMockSet(&posXMock);
@@ -241,7 +245,7 @@ TEST(wall_detection_calculate_cell, CheckIfCell240Detected1)
 TEST(wall_detection_calculate_cell, CheckIfPosYOutOfBoundsDetected)
 {
     PositionGetMock posXMock(0);
-    PositionGetMock posYMock(MAP_WIDTH * CELL_WIDTH_MM);
+    PositionGetMock posYMock(MAP_WIDTH * MAP_CELL_WIDTH_MM);
     MapWallGetMock mapWallLeftMock;
 
     posXMockSet(&posXMock);

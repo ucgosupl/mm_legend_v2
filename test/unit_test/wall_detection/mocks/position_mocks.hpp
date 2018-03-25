@@ -23,5 +23,6 @@ public:
 
 void posXMockSet(PositionGetMock *mock);
 void posYMockSet(PositionGetMock *mock);
+void posAlphaMockSet(PositionGetMock *mock);
 
 #endif /* _POSITION_MOCKS_HPP_ */

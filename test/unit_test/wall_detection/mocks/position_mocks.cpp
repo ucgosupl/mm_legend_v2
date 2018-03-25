@@ -15,6 +15,7 @@ extern "C"
 
 static PositionGetMock *posXMock = nullptr;
 static PositionGetMock *posYMock = nullptr;
+static PositionGetMock *posAlphaMock = nullptr;
 
 PositionGetMock::PositionGetMock(float retVal) : retVal_(retVal) {};
 
@@ -55,6 +56,21 @@ float position_y_get(void)
     if (nullptr != posYMock)
     {
         return posYMock->call();
+    }
+
+    return 0.0f;
+}
+
+void posAlphaMockSet(PositionGetMock *mock)
+{
+    posAlphaMock = mock;
+}
+
+float position_alpha_get(void)
+{
+    if (nullptr != posAlphaMock)
+    {
+        return posAlphaMock->call();
     }
 
     return 0.0f;
