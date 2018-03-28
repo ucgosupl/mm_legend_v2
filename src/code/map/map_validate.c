@@ -10,15 +10,24 @@
 #include "map.h"
 #include "map_internal.h"
 
+struct detection_cnts
+{
+    int32_t present;
+    int32_t absent;
+};
+
 struct wall_detection_cnts
 {
-    int32_t left;
-    int32_t right;
-    int32_t top;
-    int32_t bottom;
+    struct detection_cnts left;
+    struct detection_cnts right;
+    struct detection_cnts top;
+    struct detection_cnts bottom;
 };
 
 static struct wall_detection_cnts map_detection_array[MAP_SIZE];
+
+static bool update_absent_cnt_return_should_update(struct detection_cnts *cnts);
+static bool update_present_cnt_return_should_update(struct detection_cnts *cnts);
 
 void map_validate_init(void)
 {
@@ -32,11 +41,23 @@ void map_validate_wall_left(int32_t cell_id, map_wall_state_t wall_state)
         return;
     }
 
-    map_detection_array[cell_id].left++;
-    if (map_detection_array[cell_id].left >= MAP_DETECTION_THRESHOLD)
+    if (MAP_WALL_ABSENT == wall_state)
     {
-        map_add_left_wall(cell_id);
-        map_detection_array[cell_id].left = MAP_DETECTION_THRESHOLD;
+        if (update_absent_cnt_return_should_update(&map_detection_array[cell_id].left))
+        {
+            map_add_left_no_wall(cell_id);
+        }
+    }
+    else if (MAP_WALL_PRESENT == wall_state)
+    {
+        if (update_present_cnt_return_should_update(&map_detection_array[cell_id].left))
+        {
+            map_add_left_wall(cell_id);
+        }
+    }
+    else
+    {
+
     }
 }
 
@@ -47,11 +68,23 @@ void map_validate_wall_right(int32_t cell_id, map_wall_state_t wall_state)
         return;
     }
 
-    map_detection_array[cell_id].right++;
-    if (map_detection_array[cell_id].right >= MAP_DETECTION_THRESHOLD)
+    if (MAP_WALL_ABSENT == wall_state)
     {
-        map_add_right_wall(cell_id);
-        map_detection_array[cell_id].right = MAP_DETECTION_THRESHOLD;
+        if (update_absent_cnt_return_should_update(&map_detection_array[cell_id].right))
+        {
+            map_add_right_no_wall(cell_id);
+        }
+    }
+    else if (MAP_WALL_PRESENT == wall_state)
+    {
+        if (update_present_cnt_return_should_update(&map_detection_array[cell_id].right))
+        {
+            map_add_right_wall(cell_id);
+        }
+    }
+    else
+    {
+
     }
 }
 
@@ -62,11 +95,23 @@ void map_validate_wall_top(int32_t cell_id, map_wall_state_t wall_state)
         return;
     }
 
-    map_detection_array[cell_id].top++;
-    if (map_detection_array[cell_id].top >= MAP_DETECTION_THRESHOLD)
+    if (MAP_WALL_ABSENT == wall_state)
     {
-        map_add_top_wall(cell_id);
-        map_detection_array[cell_id].top = MAP_DETECTION_THRESHOLD;
+        if (update_absent_cnt_return_should_update(&map_detection_array[cell_id].top))
+        {
+            map_add_top_no_wall(cell_id);
+        }
+    }
+    else if (MAP_WALL_PRESENT == wall_state)
+    {
+        if (update_present_cnt_return_should_update(&map_detection_array[cell_id].top))
+        {
+            map_add_top_wall(cell_id);
+        }
+    }
+    else
+    {
+
     }
 }
 
@@ -77,10 +122,60 @@ void map_validate_wall_bottom(int32_t cell_id, map_wall_state_t wall_state)
         return;
     }
 
-    map_detection_array[cell_id].bottom++;
-    if (map_detection_array[cell_id].bottom >= MAP_DETECTION_THRESHOLD)
+    if (MAP_WALL_ABSENT == wall_state)
     {
-        map_add_bottom_wall(cell_id);
-        map_detection_array[cell_id].bottom = MAP_DETECTION_THRESHOLD;
+        if (update_absent_cnt_return_should_update(&map_detection_array[cell_id].bottom))
+        {
+            map_add_bottom_no_wall(cell_id);
+        }
     }
+    else if (MAP_WALL_PRESENT == wall_state)
+    {
+        if (update_present_cnt_return_should_update(&map_detection_array[cell_id].bottom))
+        {
+            map_add_bottom_wall(cell_id);
+        }
+    }
+    else
+    {
+
+    }
+}
+
+static bool update_absent_cnt_return_should_update(struct detection_cnts *cnts)
+{
+    if (0 < cnts->present)
+    {
+        cnts->absent = 0;
+        cnts->present = 0;
+        return false;
+    }
+
+    cnts->absent++;
+    if (cnts->absent >= MAP_DETECTION_THRESHOLD)
+    {
+        cnts->absent = MAP_DETECTION_THRESHOLD;
+        return true;
+    }
+
+    return false;
+}
+
+static bool update_present_cnt_return_should_update(struct detection_cnts *cnts)
+{
+    if (0 < cnts->absent)
+    {
+        cnts->absent = 0;
+        cnts->present = 0;
+        return false;
+    }
+
+    cnts->present++;
+    if (cnts->present >= MAP_DETECTION_THRESHOLD)
+    {
+        cnts->present = MAP_DETECTION_THRESHOLD;
+        return true;
+    }
+
+    return false;
 }

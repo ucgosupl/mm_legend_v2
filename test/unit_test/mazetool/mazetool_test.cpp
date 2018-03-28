@@ -2,9 +2,11 @@
 
 #include "CppUTest/TestHarness.h"
 
-extern "C" {
-#include "map/map.h"
-#include "solver/solver.h"
+extern "C"
+{
+    #include "map/map.h"
+    #include "map/map_internal.h"
+    #include "solver/solver.h"
 }
 
 #define NORTH         (uint8_t)0x01

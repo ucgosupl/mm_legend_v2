@@ -8,6 +8,7 @@
 #include <math.h>
 
 #include "map.h"
+#include "map_internal.h"
 
 /** Distance from cell edge where wall is detected. */
 #define WALL_THRESHOLD                  20.0f

@@ -9,6 +9,7 @@
 extern "C"
 {
     #include "map/map.h"
+    #include "map/map_internal.h"
 }
 
 #include "map_mocks.hpp"

@@ -592,8 +592,3 @@ TEST(map_validate_present, BottomPermanentAddOtherWallsNotAddedAfterSingleDetect
     map_validate_wall_top(REGULAR_CELL, MAP_WALL_PRESENT);
     CHECK_EQUAL(0, mapAddTopWallMock.getCount());
 }
-
-//powtorzyc dla present i absent
-//jesli dodajemy present, a jest ju¿ absent -> zerujemy oba liczniki
-//to samo dla absent
-//mocki przeniesc do common_mocks

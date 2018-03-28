@@ -5,6 +5,7 @@
 extern "C"
 {
     #include "map/map.h"
+    #include "map/map_internal.h"
 }
 
 #define REGULAR_CELL    (2 * MAP_WIDTH + 3)
