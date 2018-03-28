@@ -9,8 +9,8 @@ extern "C"
 
 #include "mocks/map_mocks.hpp"
 
-#define WALL_PRESENT_THRESHOLD          20.0f
-#define CORNER_PRESENT_THRESHOLD        30.0f
+#define WALL_THRESHOLD          20.0f
+#define CORNER_THRESHOLD        30.0f
 #define DELTA                           0.01f
 
 TEST_GROUP(map_update_present)
@@ -82,7 +82,7 @@ TEST(map_update_present, LeftWallDetectedTooClose)
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
-    wall_pos.x = MAP_CELL_WIDTH_MM + (WALL_PRESENT_THRESHOLD + DELTA);
+    wall_pos.x = MAP_CELL_WIDTH_MM + (WALL_THRESHOLD + DELTA);
     wall_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
@@ -102,7 +102,7 @@ TEST(map_update_present, LeftWallDetectedMinimalNotTooClose)
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
-    wall_pos.x = MAP_CELL_WIDTH_MM + (WALL_PRESENT_THRESHOLD - DELTA);
+    wall_pos.x = MAP_CELL_WIDTH_MM + (WALL_THRESHOLD - DELTA);
     wall_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
@@ -122,7 +122,7 @@ TEST(map_update_present, LeftWallDetectedTooFar)
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
-    wall_pos.x = MAP_CELL_WIDTH_MM - (WALL_PRESENT_THRESHOLD + DELTA);
+    wall_pos.x = MAP_CELL_WIDTH_MM - (WALL_THRESHOLD + DELTA);
     wall_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
@@ -142,7 +142,7 @@ TEST(map_update_present, LeftWallDetectedMaximalNotTooFar)
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
-    wall_pos.x = MAP_CELL_WIDTH_MM - (WALL_PRESENT_THRESHOLD - DELTA);
+    wall_pos.x = MAP_CELL_WIDTH_MM - (WALL_THRESHOLD - DELTA);
     wall_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
@@ -163,7 +163,7 @@ TEST(map_update_present, LeftWallDetectedMinimalTooCloseToBottomCorner)
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     wall_pos.x = MAP_CELL_WIDTH_MM;
-    wall_pos.y = MAP_CELL_WIDTH_MM + (CORNER_PRESENT_THRESHOLD - DELTA);
+    wall_pos.y = MAP_CELL_WIDTH_MM + (CORNER_THRESHOLD - DELTA);
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
@@ -183,7 +183,7 @@ TEST(map_update_present, LeftWallDetectedMaximumNotTooCloseToBottomCorner)
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     wall_pos.x = MAP_CELL_WIDTH_MM;
-    wall_pos.y = 2 * MAP_CELL_WIDTH_MM - (CORNER_PRESENT_THRESHOLD + DELTA);
+    wall_pos.y = 2 * MAP_CELL_WIDTH_MM - (CORNER_THRESHOLD + DELTA);
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
@@ -203,7 +203,7 @@ TEST(map_update_present, LeftWallDetectedMinimalTooCloseToTopCorner)
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     wall_pos.x = MAP_CELL_WIDTH_MM;
-    wall_pos.y = 2 * MAP_CELL_WIDTH_MM - (CORNER_PRESENT_THRESHOLD - DELTA);
+    wall_pos.y = 2 * MAP_CELL_WIDTH_MM - (CORNER_THRESHOLD - DELTA);
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
@@ -223,7 +223,7 @@ TEST(map_update_present, LeftWallDetectedMaximumNotTooCloseToTopCorner)
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     wall_pos.x = MAP_CELL_WIDTH_MM;
-    wall_pos.y = MAP_CELL_WIDTH_MM + (CORNER_PRESENT_THRESHOLD + DELTA);
+    wall_pos.y = MAP_CELL_WIDTH_MM + (CORNER_THRESHOLD + DELTA);
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
@@ -285,7 +285,7 @@ TEST(map_update_present, BottomWallDetectedTooClose)
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     wall_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
-    wall_pos.y = MAP_CELL_WIDTH_MM + (WALL_PRESENT_THRESHOLD + DELTA);
+    wall_pos.y = MAP_CELL_WIDTH_MM + (WALL_THRESHOLD + DELTA);
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
@@ -305,7 +305,7 @@ TEST(map_update_present, BottomWallDetectedMinimalNotTooClose)
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     wall_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
-    wall_pos.y = MAP_CELL_WIDTH_MM + (WALL_PRESENT_THRESHOLD - DELTA);
+    wall_pos.y = MAP_CELL_WIDTH_MM + (WALL_THRESHOLD - DELTA);
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
@@ -325,7 +325,7 @@ TEST(map_update_present, BottomWallDetectedTooFar)
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     wall_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
-    wall_pos.y = MAP_CELL_WIDTH_MM - (WALL_PRESENT_THRESHOLD + DELTA);
+    wall_pos.y = MAP_CELL_WIDTH_MM - (WALL_THRESHOLD + DELTA);
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
@@ -345,7 +345,7 @@ TEST(map_update_present, BottomWallDetectedMaximalNotTooFar)
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     wall_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
-    wall_pos.y = MAP_CELL_WIDTH_MM - (WALL_PRESENT_THRESHOLD - DELTA);
+    wall_pos.y = MAP_CELL_WIDTH_MM - (WALL_THRESHOLD - DELTA);
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
@@ -364,7 +364,7 @@ TEST(map_update_present, BottomWallDetectedMinimalTooCloseToLeftCorner)
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
-    wall_pos.x = MAP_CELL_WIDTH_MM + (CORNER_PRESENT_THRESHOLD - DELTA);
+    wall_pos.x = MAP_CELL_WIDTH_MM + (CORNER_THRESHOLD - DELTA);
     wall_pos.y = MAP_CELL_WIDTH_MM;
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
@@ -384,7 +384,7 @@ TEST(map_update_present, BottomWallDetectedMaximumNotTooCloseToLeftCorner)
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
-    wall_pos.x = 2 * MAP_CELL_WIDTH_MM - (CORNER_PRESENT_THRESHOLD + DELTA);
+    wall_pos.x = 2 * MAP_CELL_WIDTH_MM - (CORNER_THRESHOLD + DELTA);
     wall_pos.y = MAP_CELL_WIDTH_MM;
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
@@ -404,7 +404,7 @@ TEST(map_update_present, BottomWallDetectedMinimalTooCloseToRightCorner)
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
-    wall_pos.x = 2 * MAP_CELL_WIDTH_MM - (CORNER_PRESENT_THRESHOLD - DELTA);
+    wall_pos.x = 2 * MAP_CELL_WIDTH_MM - (CORNER_THRESHOLD - DELTA);
     wall_pos.y = MAP_CELL_WIDTH_MM;
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
@@ -424,7 +424,7 @@ TEST(map_update_present, BottomWallDetectedMaximumNotTooCloseToRightCorner)
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
-    wall_pos.x = MAP_CELL_WIDTH_MM + (CORNER_PRESENT_THRESHOLD + DELTA);
+    wall_pos.x = MAP_CELL_WIDTH_MM + (CORNER_THRESHOLD + DELTA);
     wall_pos.y = MAP_CELL_WIDTH_MM;
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
@@ -486,7 +486,7 @@ TEST(map_update_present, RightWallDetectedTooClose)
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
-    wall_pos.x = 2 * MAP_CELL_WIDTH_MM - (WALL_PRESENT_THRESHOLD + DELTA);
+    wall_pos.x = 2 * MAP_CELL_WIDTH_MM - (WALL_THRESHOLD + DELTA);
     wall_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
@@ -506,7 +506,7 @@ TEST(map_update_present, RightWallDetectedMinimalNotTooClose)
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
-    wall_pos.x = 2 * MAP_CELL_WIDTH_MM - (WALL_PRESENT_THRESHOLD - DELTA);
+    wall_pos.x = 2 * MAP_CELL_WIDTH_MM - (WALL_THRESHOLD - DELTA);
     wall_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
@@ -526,7 +526,7 @@ TEST(map_update_present, RightWallDetectedTooFar)
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
-    wall_pos.x = 2 * MAP_CELL_WIDTH_MM + (WALL_PRESENT_THRESHOLD + DELTA);
+    wall_pos.x = 2 * MAP_CELL_WIDTH_MM + (WALL_THRESHOLD + DELTA);
     wall_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
@@ -546,7 +546,7 @@ TEST(map_update_present, RightWallDetectedMaximalNotTooFar)
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
-    wall_pos.x = 2 * MAP_CELL_WIDTH_MM + (WALL_PRESENT_THRESHOLD - DELTA);
+    wall_pos.x = 2 * MAP_CELL_WIDTH_MM + (WALL_THRESHOLD - DELTA);
     wall_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
@@ -567,7 +567,7 @@ TEST(map_update_present, RightWallDetectedMinimalTooCloseToBottomCorner)
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     wall_pos.x = 2 * MAP_CELL_WIDTH_MM;
-    wall_pos.y = MAP_CELL_WIDTH_MM + (CORNER_PRESENT_THRESHOLD - DELTA);
+    wall_pos.y = MAP_CELL_WIDTH_MM + (CORNER_THRESHOLD - DELTA);
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
@@ -587,7 +587,7 @@ TEST(map_update_present, RightWallDetectedMaximumNotTooCloseToBottomCorner)
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     wall_pos.x = 2 * MAP_CELL_WIDTH_MM;
-    wall_pos.y = 2 * MAP_CELL_WIDTH_MM - (CORNER_PRESENT_THRESHOLD + DELTA);
+    wall_pos.y = 2 * MAP_CELL_WIDTH_MM - (CORNER_THRESHOLD + DELTA);
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
@@ -607,7 +607,7 @@ TEST(map_update_present, RightWallDetectedMinimalTooCloseToTopCorner)
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     wall_pos.x = 2 * MAP_CELL_WIDTH_MM;
-    wall_pos.y = 2 * MAP_CELL_WIDTH_MM - (CORNER_PRESENT_THRESHOLD - DELTA);
+    wall_pos.y = 2 * MAP_CELL_WIDTH_MM - (CORNER_THRESHOLD - DELTA);
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
@@ -627,7 +627,7 @@ TEST(map_update_present, RightWallDetectedMaximumNotTooCloseToTopCorner)
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     wall_pos.x = 2 * MAP_CELL_WIDTH_MM;
-    wall_pos.y = MAP_CELL_WIDTH_MM + (CORNER_PRESENT_THRESHOLD + DELTA);
+    wall_pos.y = MAP_CELL_WIDTH_MM + (CORNER_THRESHOLD + DELTA);
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
@@ -689,7 +689,7 @@ TEST(map_update_present, TopWallDetectedTooClose)
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     wall_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
-    wall_pos.y = 2 * MAP_CELL_WIDTH_MM - (WALL_PRESENT_THRESHOLD + DELTA);
+    wall_pos.y = 2 * MAP_CELL_WIDTH_MM - (WALL_THRESHOLD + DELTA);
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
@@ -709,7 +709,7 @@ TEST(map_update_present, TopWallDetectedMinimalNotTooClose)
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     wall_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
-    wall_pos.y = 2 * MAP_CELL_WIDTH_MM - (WALL_PRESENT_THRESHOLD - DELTA);
+    wall_pos.y = 2 * MAP_CELL_WIDTH_MM - (WALL_THRESHOLD - DELTA);
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
@@ -729,7 +729,7 @@ TEST(map_update_present, TopWallDetectedTooFar)
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     wall_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
-    wall_pos.y = 2 * MAP_CELL_WIDTH_MM + (WALL_PRESENT_THRESHOLD + DELTA);
+    wall_pos.y = 2 * MAP_CELL_WIDTH_MM + (WALL_THRESHOLD + DELTA);
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
@@ -749,7 +749,7 @@ TEST(map_update_present, TopWallDetectedMaximalNotTooFar)
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
     wall_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
-    wall_pos.y = 2 * MAP_CELL_WIDTH_MM + (WALL_PRESENT_THRESHOLD - DELTA);
+    wall_pos.y = 2 * MAP_CELL_WIDTH_MM + (WALL_THRESHOLD - DELTA);
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
@@ -768,7 +768,7 @@ TEST(map_update_present, TopWallDetectedMinimalTooCloseToLeftCorner)
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
-    wall_pos.x = MAP_CELL_WIDTH_MM + (CORNER_PRESENT_THRESHOLD - DELTA);
+    wall_pos.x = MAP_CELL_WIDTH_MM + (CORNER_THRESHOLD - DELTA);
     wall_pos.y = 2 * MAP_CELL_WIDTH_MM;
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
@@ -788,7 +788,7 @@ TEST(map_update_present, TopWallDetectedMaximumNotTooCloseToLeftCorner)
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
-    wall_pos.x = 2 * MAP_CELL_WIDTH_MM - (CORNER_PRESENT_THRESHOLD + DELTA);
+    wall_pos.x = 2 * MAP_CELL_WIDTH_MM - (CORNER_THRESHOLD + DELTA);
     wall_pos.y = 2 * MAP_CELL_WIDTH_MM;
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
@@ -808,7 +808,7 @@ TEST(map_update_present, TopWallDetectedMinimalTooCloseToRightCorner)
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
-    wall_pos.x = 2 * MAP_CELL_WIDTH_MM - (CORNER_PRESENT_THRESHOLD - DELTA);
+    wall_pos.x = 2 * MAP_CELL_WIDTH_MM - (CORNER_THRESHOLD - DELTA);
     wall_pos.y = 2 * MAP_CELL_WIDTH_MM;
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
@@ -828,7 +828,7 @@ TEST(map_update_present, TopWallDetectedMaximumNotTooCloseToRightCorner)
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
 
-    wall_pos.x = MAP_CELL_WIDTH_MM + (CORNER_PRESENT_THRESHOLD + DELTA);
+    wall_pos.x = MAP_CELL_WIDTH_MM + (CORNER_THRESHOLD + DELTA);
     wall_pos.y = 2 * MAP_CELL_WIDTH_MM;
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);

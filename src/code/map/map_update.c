@@ -9,24 +9,176 @@
 
 #include "map.h"
 
-#define WALL_PRESENT_THRESHOLD          20.0f
-#define CORNER_PRESENT_THRESHOLD        30.0f
+/** Distance from cell edge where wall is detected. */
+#define WALL_THRESHOLD                  20.0f
 
+/** Distance from cell corner where wall is detected. */
+#define CORNER_THRESHOLD                30.0f
+
+/**
+ * Add to map information about present wall.
+ *
+ * @param cell_x                        Cell index in x axis.
+ * @param cell_y                        Cell index in y axis.
+ * @param wall_pos                      Detected wall coordinates.
+ */
 static void wall_present_add(int32_t cell_x, int32_t cell_y, struct coords *wall_pos);
+
+/**
+ * Add to map information about absent wall.
+ *
+ * @param cell_x                        Cell index in x axis.
+ * @param cell_y                        Cell index in y axis.
+ * @param sensor_pos                    Sensor coordinates.
+ * @param wall_pos                      Farthest point with no wall coordinates.
+ */
 static void wall_absent_add(int32_t cell_x, int32_t cell_y, struct coords *sensor_pos, struct coords *wall_pos);
+
+/**
+ * Check if detected present wall is left for current cell.
+ *
+ * @param cell_x                        Cell index in x axis.
+ * @param cell_y                        Cell index in y axis.
+ * @param wall_pos                      Detected wall coordinates.
+ *
+ * @return                              True if left wall detected, false otherwise.
+ */
 static bool is_wall_left_present(int32_t cell_x, int32_t cell_y, struct coords *wall_pos);
+
+/**
+ * Check if detected present wall is bottom for current cell.
+ *
+ * @param cell_x                        Cell index in x axis.
+ * @param cell_y                        Cell index in y axis.
+ * @param wall_pos                      Detected wall coordinates.
+ *
+ * @return                              True if bottom wall detected, false otherwise.
+ */
 static bool is_wall_bottom_present(int32_t cell_x, int32_t cell_y, struct coords *wall_pos);
+
+/**
+ * Check if detected present wall is right for current cell.
+ *
+ * @param cell_x                        Cell index in x axis.
+ * @param cell_y                        Cell index in y axis.
+ * @param wall_pos                      Detected wall coordinates.
+ *
+ * @return                              True if right wall detected, false otherwise.
+ */
 static bool is_wall_right_present(int32_t cell_x, int32_t cell_y, struct coords *wall_pos);
+
+/**
+ * Check if detected present wall is top for current cell.
+ *
+ * @param cell_x                        Cell index in x axis.
+ * @param cell_y                        Cell index in y axis.
+ * @param wall_pos                      Detected wall coordinates.
+ *
+ * @return                              True if top wall detected, false otherwise.
+ */
 static bool is_wall_top_present(int32_t cell_x, int32_t cell_y, struct coords *wall_pos);
+
+/**
+ * Check if absent wall is left for current cell.
+ *
+ * @param cell_x                        Cell index in x axis.
+ * @param cell_y                        Cell index in y axis.
+ * @param sensor_pos                    Sensor coordinates.
+ * @param wall_pos                      Farthest point with no wall coordinates.
+ *
+ * @return                              True if left wall absence detected, false otherwise.
+ */
 static bool is_wall_left_absent(int32_t cell_x, int32_t cell_y, struct coords *sensor_pos, struct coords *wall_pos);
+
+/**
+ * Check if absent wall is bottom for current cell.
+ *
+ * @param cell_x                        Cell index in x axis.
+ * @param cell_y                        Cell index in y axis.
+ * @param sensor_pos                    Sensor coordinates.
+ * @param wall_pos                      Farthest point with no wall coordinates.
+ *
+ * @return                              True if bottom wall absence detected, false otherwise.
+ */
 static bool is_wall_bottom_absent(int32_t cell_x, int32_t cell_y, struct coords *sensor_pos, struct coords *wall_pos);
+
+/**
+ * Check if absent wall is right for current cell.
+ *
+ * @param cell_x                        Cell index in x axis.
+ * @param cell_y                        Cell index in y axis.
+ * @param sensor_pos                    Sensor coordinates.
+ * @param wall_pos                      Farthest point with no wall coordinates.
+ *
+ * @return                              True if right wall absence detected, false otherwise.
+ */
 static bool is_wall_right_absent(int32_t cell_x, int32_t cell_y, struct coords *sensor_pos, struct coords *wall_pos);
+
+/**
+ * Check if absent wall is top for current cell.
+ *
+ * @param cell_x                        Cell index in x axis.
+ * @param cell_y                        Cell index in y axis.
+ * @param sensor_pos                    Sensor coordinates.
+ * @param wall_pos                      Farthest point with no wall coordinates.
+ *
+ * @return                              True if top wall absence detected, false otherwise.
+ */
 static bool is_wall_top_absent(int32_t cell_x, int32_t cell_y, struct coords *sensor_pos, struct coords *wall_pos);
+
+/**
+ * Minimum value of coordinate in front of robot.
+ *
+ * @param cell                          Current cell.
+ *
+ * @return                              Minimum value of front coordinate.
+ */
 static float wall_front_min(int32_t cell);
+
+/**
+ * Maximum value of coordinate in front of robot.
+ *
+ * @param cell                          Current cell.
+ *
+ * @return                              Maximum value of front coordinate.
+ */
 static float wall_front_max(int32_t cell);
+
+/**
+ * Minimum value of coordinate on the side of robot.
+ *
+ * @param cell                          Current cell.
+ *
+ * @return                              Minimum value of side coordinate.
+ */
 static float wall_side_min(int32_t cell);
+
+/**
+ * Maximum value of coordinate on the side of robot.
+ *
+ * @param cell                          Current cell.
+ *
+ * @return                              Maximum value of side coordinate.
+ */
 static float wall_side_max(int32_t cell);
+
+/**
+ * Calculate cell index from x and y indices.
+ *
+ * @param cell_x                        Cell index in x axis.
+ * @param cell_y                        Cell index in y axis.
+ *
+ * @return                              Cell index.
+ */
 PRIVATE int32_t calculate_cell(int32_t cell_x, int32_t cell_y);
+
+/**
+ * Calculate cell index in one axis based on value in mm.
+ *
+ * @param xy                            Coordinate value in millimeters.
+ *
+ * @return                              Cell index in one axis.
+ */
 static int32_t calcluate_cell_xy(float xy);
 
 void map_update(struct coords *sensor_pos, struct coords *wall_pos, map_wall_state_t wall_state)
@@ -49,7 +201,7 @@ void map_update(struct coords *sensor_pos, struct coords *wall_pos, map_wall_sta
     }
     else
     {
-
+        /* Map presence unknown - don't add. */
     }
 }
 
@@ -259,22 +411,22 @@ static bool is_wall_top_absent(int32_t cell_x, int32_t cell_y, struct coords *se
 
 static float wall_front_min(int32_t cell)
 {
-    return cell * MAP_CELL_WIDTH_MM - WALL_PRESENT_THRESHOLD;
+    return cell * MAP_CELL_WIDTH_MM - WALL_THRESHOLD;
 }
 
 static float wall_front_max(int32_t cell)
 {
-    return cell * MAP_CELL_WIDTH_MM + WALL_PRESENT_THRESHOLD;
+    return cell * MAP_CELL_WIDTH_MM + WALL_THRESHOLD;
 }
 
 static float wall_side_min(int32_t cell)
 {
-    return cell * MAP_CELL_WIDTH_MM + CORNER_PRESENT_THRESHOLD;
+    return cell * MAP_CELL_WIDTH_MM + CORNER_THRESHOLD;
 }
 
 static float wall_side_max(int32_t cell)
 {
-    return (cell + 1) * MAP_CELL_WIDTH_MM - CORNER_PRESENT_THRESHOLD;
+    return (cell + 1) * MAP_CELL_WIDTH_MM - CORNER_THRESHOLD;
 }
 
 static int32_t calcluate_cell_xy(float xy)
