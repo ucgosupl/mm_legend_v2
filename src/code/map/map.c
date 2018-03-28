@@ -85,24 +85,24 @@ void map_init(void)
 
         if (i < MAP_WIDTH)
         {
-            labirynth_map[i].top = MAP_WALL_PRESENT;
+            labirynth_map[i].bottom = MAP_WALL_PRESENT;
         }
 
         if (i >= MAP_SIZE - MAP_WIDTH)
         {
-            labirynth_map[i].bottom = MAP_WALL_PRESENT;
+            labirynth_map[i].top = MAP_WALL_PRESENT;
         }
     }
 
     /* In start cell there is only one exit. */
     map_add_right_no_wall(0);
-    map_add_bottom_wall(0);
+    map_add_top_wall(0);
 
     /* Center 4 cells are a square with no walls inside */
     map_add_right_no_wall((MAP_HEIGHT/2 - 1) * MAP_WIDTH + MAP_WIDTH/2 - 1);
-    map_add_bottom_no_wall((MAP_HEIGHT/2 - 1) * MAP_WIDTH + MAP_WIDTH/2 - 1);
+    map_add_top_no_wall((MAP_HEIGHT/2 - 1) * MAP_WIDTH + MAP_WIDTH/2 - 1);
     map_add_left_no_wall(MAP_HEIGHT/2 * MAP_WIDTH + MAP_WIDTH/2);
-    map_add_top_no_wall(MAP_HEIGHT/2 * MAP_WIDTH + MAP_WIDTH/2);
+    map_add_bottom_no_wall(MAP_HEIGHT/2 * MAP_WIDTH + MAP_WIDTH/2);
 }
 
 map_wall_state_t map_wall_left_get(int32_t cell_id)
@@ -245,9 +245,9 @@ static void add_top(int32_t cell_id, map_wall_state_t state)
 
     labirynth_map[cell_id].top = state;
 
-    if (cell_id >= MAP_WIDTH)
+    if (cell_id < MAP_SIZE - MAP_WIDTH)
     {
-        labirynth_map[cell_id - MAP_WIDTH].bottom = state;
+        labirynth_map[cell_id + MAP_WIDTH].bottom = state;
     }
 }
 
@@ -267,9 +267,9 @@ static void add_bottom(int32_t cell_id, map_wall_state_t state)
 
     labirynth_map[cell_id].bottom = state;
 
-    if (cell_id < MAP_SIZE - MAP_WIDTH)
+    if (cell_id >= MAP_WIDTH)
     {
-        labirynth_map[cell_id + MAP_WIDTH].top = state;
+        labirynth_map[cell_id - MAP_WIDTH].top = state;
     }
 }
 

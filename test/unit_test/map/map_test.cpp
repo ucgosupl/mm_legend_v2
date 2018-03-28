@@ -107,12 +107,12 @@ TEST(map, AdjacentBottomStateAbsentAfterAddingTopNoWall)
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_left_get(REGULAR_CELL - MAP_WIDTH));
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_right_get(REGULAR_CELL - MAP_WIDTH));
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_top_get(REGULAR_CELL - MAP_WIDTH));
-    CHECK_EQUAL(MAP_WALL_ABSENT, map_wall_bottom_get(REGULAR_CELL - MAP_WIDTH));
+    CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_bottom_get(REGULAR_CELL - MAP_WIDTH));
 
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_left_get(REGULAR_CELL + MAP_WIDTH));
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_right_get(REGULAR_CELL + MAP_WIDTH));
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_top_get(REGULAR_CELL + MAP_WIDTH));
-    CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_bottom_get(REGULAR_CELL + MAP_WIDTH));
+    CHECK_EQUAL(MAP_WALL_ABSENT, map_wall_bottom_get(REGULAR_CELL + MAP_WIDTH));
 }
 
 TEST(map, StateAbsentAfterAddingBottomNoWall)
@@ -131,12 +131,12 @@ TEST(map, AdjacentTopStateAbsentAfterAddingBottomNoWall)
 
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_left_get(REGULAR_CELL - MAP_WIDTH));
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_right_get(REGULAR_CELL - MAP_WIDTH));
-    CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_top_get(REGULAR_CELL - MAP_WIDTH));
+    CHECK_EQUAL(MAP_WALL_ABSENT, map_wall_top_get(REGULAR_CELL - MAP_WIDTH));
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_bottom_get(REGULAR_CELL - MAP_WIDTH));
 
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_left_get(REGULAR_CELL + MAP_WIDTH));
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_right_get(REGULAR_CELL + MAP_WIDTH));
-    CHECK_EQUAL(MAP_WALL_ABSENT, map_wall_top_get(REGULAR_CELL + MAP_WIDTH));
+    CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_top_get(REGULAR_CELL + MAP_WIDTH));
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_bottom_get(REGULAR_CELL + MAP_WIDTH));
 }
 
@@ -207,12 +207,12 @@ TEST(map, AdjacentBottomStatePresentAfterAddingTopWall)
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_left_get(REGULAR_CELL - MAP_WIDTH));
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_right_get(REGULAR_CELL - MAP_WIDTH));
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_top_get(REGULAR_CELL - MAP_WIDTH));
-    CHECK_EQUAL(MAP_WALL_PRESENT, map_wall_bottom_get(REGULAR_CELL - MAP_WIDTH));
+    CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_bottom_get(REGULAR_CELL - MAP_WIDTH));
 
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_left_get(REGULAR_CELL + MAP_WIDTH));
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_right_get(REGULAR_CELL + MAP_WIDTH));
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_top_get(REGULAR_CELL + MAP_WIDTH));
-    CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_bottom_get(REGULAR_CELL + MAP_WIDTH));
+    CHECK_EQUAL(MAP_WALL_PRESENT, map_wall_bottom_get(REGULAR_CELL + MAP_WIDTH));
 }
 
 TEST(map, StatePresentAfterAddingBottomWall)
@@ -231,12 +231,12 @@ TEST(map, AdjacentTopStatePresentAfterAddingBottomWall)
 
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_left_get(2 * MAP_WIDTH + 3 - MAP_WIDTH));
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_right_get(2 * MAP_WIDTH + 3 - MAP_WIDTH));
-    CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_top_get(2 * MAP_WIDTH + 3 - MAP_WIDTH));
+    CHECK_EQUAL(MAP_WALL_PRESENT, map_wall_top_get(2 * MAP_WIDTH + 3 - MAP_WIDTH));
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_bottom_get(2 * MAP_WIDTH + 3 - MAP_WIDTH));
 
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_left_get(2 * MAP_WIDTH + 3 + MAP_WIDTH));
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_right_get(2 * MAP_WIDTH + 3 + MAP_WIDTH));
-    CHECK_EQUAL(MAP_WALL_PRESENT, map_wall_top_get(2 * MAP_WIDTH + 3 + MAP_WIDTH));
+    CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_top_get(2 * MAP_WIDTH + 3 + MAP_WIDTH));
     CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_bottom_get(2 * MAP_WIDTH + 3 + MAP_WIDTH));
 }
 
@@ -244,24 +244,24 @@ TEST(map, AdjacentTopStatePresentAfterAddingBottomWall)
 
 TEST(map, TopEdgeCornerCase)
 {
-    map_add_top_wall(3);
+    map_add_top_wall(MAP_SIZE - 3);
 
-    CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_left_get(3));
-    CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_right_get(3));
-    CHECK_EQUAL(MAP_WALL_PRESENT, map_wall_top_get(3));
-    CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_bottom_get(3));
+    CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_left_get(MAP_SIZE - 3));
+    CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_right_get(MAP_SIZE - 3));
+    CHECK_EQUAL(MAP_WALL_PRESENT, map_wall_top_get(MAP_SIZE - 3));
+    CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_bottom_get(MAP_SIZE - 3));
 
     /* With no guard, add top wall writes above labirynth map cause exception. */
 }
 
 TEST(map, BottomEdgeCornerCase)
 {
-    map_add_bottom_wall(MAP_SIZE - 3);
+    map_add_bottom_wall(3);
 
-    CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_left_get(MAP_SIZE - 3));
-    CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_right_get(MAP_SIZE - 3));
-    CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_top_get(MAP_SIZE - 3));
-    CHECK_EQUAL(MAP_WALL_PRESENT, map_wall_bottom_get(MAP_SIZE - 3));
+    CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_left_get(3));
+    CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_right_get(3));
+    CHECK_EQUAL(MAP_WALL_UNKNOWN, map_wall_top_get(3));
+    CHECK_EQUAL(MAP_WALL_PRESENT, map_wall_bottom_get(3));
 
     /* With no guard, add bottom wall writes above labirynth map cause exception. */
 }
@@ -322,22 +322,22 @@ TEST(map, InitialStateRight)
     CHECK_EQUAL(MAP_WALL_PRESENT, map_wall_right_get(MAP_HEIGHT * MAP_WIDTH - 1));
 }
 
-TEST(map, InitialStateTop)
-{
-    CHECK_EQUAL(MAP_WALL_PRESENT, map_wall_top_get(1));
-    CHECK_EQUAL(MAP_WALL_PRESENT, map_wall_top_get(MAP_WIDTH - 2));
-}
-
 TEST(map, InitialStateBottom)
 {
-    CHECK_EQUAL(MAP_WALL_PRESENT, map_wall_bottom_get((MAP_HEIGHT - 1) * MAP_WIDTH));
-    CHECK_EQUAL(MAP_WALL_PRESENT, map_wall_bottom_get(MAP_HEIGHT * MAP_WIDTH - 1));
+    CHECK_EQUAL(MAP_WALL_PRESENT, map_wall_bottom_get(1));
+    CHECK_EQUAL(MAP_WALL_PRESENT, map_wall_bottom_get(MAP_WIDTH - 2));
+}
+
+TEST(map, InitialStateTop)
+{
+    CHECK_EQUAL(MAP_WALL_PRESENT, map_wall_top_get((MAP_HEIGHT - 1) * MAP_WIDTH));
+    CHECK_EQUAL(MAP_WALL_PRESENT, map_wall_top_get(MAP_HEIGHT * MAP_WIDTH - 1));
 }
 
 TEST(map, InitialStateStart)
 {
-    CHECK_EQUAL(MAP_WALL_PRESENT, map_wall_bottom_get(0));
-    CHECK_EQUAL(MAP_WALL_PRESENT, map_wall_top_get(MAP_WIDTH));
+    CHECK_EQUAL(MAP_WALL_PRESENT, map_wall_top_get(0));
+    CHECK_EQUAL(MAP_WALL_PRESENT, map_wall_bottom_get(MAP_WIDTH));
 
     CHECK_EQUAL(MAP_WALL_ABSENT, map_wall_right_get(0));
     CHECK_EQUAL(MAP_WALL_ABSENT, map_wall_left_get(1));
@@ -351,9 +351,9 @@ TEST(map, InitialStateCenter)
     CHECK_EQUAL(MAP_WALL_ABSENT, map_wall_right_get(MAP_HEIGHT/2  * MAP_WIDTH + MAP_WIDTH/2 - 1));
     CHECK_EQUAL(MAP_WALL_ABSENT, map_wall_left_get(MAP_HEIGHT/2 * MAP_WIDTH + MAP_WIDTH/2));
 
-    CHECK_EQUAL(MAP_WALL_ABSENT, map_wall_bottom_get((MAP_HEIGHT/2 - 1) * MAP_WIDTH + MAP_WIDTH/2 - 1));
-    CHECK_EQUAL(MAP_WALL_ABSENT, map_wall_top_get(MAP_HEIGHT/2 * MAP_WIDTH + MAP_WIDTH/2 - 1));
+    CHECK_EQUAL(MAP_WALL_ABSENT, map_wall_top_get((MAP_HEIGHT/2 - 1) * MAP_WIDTH + MAP_WIDTH/2 - 1));
+    CHECK_EQUAL(MAP_WALL_ABSENT, map_wall_bottom_get(MAP_HEIGHT/2 * MAP_WIDTH + MAP_WIDTH/2 - 1));
 
-    CHECK_EQUAL(MAP_WALL_ABSENT, map_wall_bottom_get((MAP_HEIGHT/2 - 1) * MAP_WIDTH + MAP_WIDTH/2));
-    CHECK_EQUAL(MAP_WALL_ABSENT, map_wall_top_get(MAP_HEIGHT/2 * MAP_WIDTH + MAP_WIDTH/2));
+    CHECK_EQUAL(MAP_WALL_ABSENT, map_wall_top_get((MAP_HEIGHT/2 - 1) * MAP_WIDTH + MAP_WIDTH/2));
+    CHECK_EQUAL(MAP_WALL_ABSENT, map_wall_bottom_get(MAP_HEIGHT/2 * MAP_WIDTH + MAP_WIDTH/2));
 }
