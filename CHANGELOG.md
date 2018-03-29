@@ -18,6 +18,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Removed
 
+## [0.5.0] - 2018-03-30
+------------------------
+
+### Added
+- map_update: present/absent wall detection.
+- map_validate: present/absent walls are added only after their detection count reaches threshold.
+- wall_detection: wall sensor position calculation based on offset from robot position.
+- wall_detection: wall detection position calculation based on sensor position and measured distance.
+
+### Changed
+- map: change wall orientation so x and y indices grow with coordinates.
+- mazetool: update print functions to show maze in proper orientation.
+- wall_sensor: change module name from wall to wall_sensor.
+
+### Fixed
+
+### Deprecated
+
+### Removed
+
 ## [0.5.0] - 2018-03-24
 ------------------------
 
@@ -142,3 +162,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [0.3.0]: https://github.com/ucgosupl/mm_legend_v2/compare/0.2.0...v0.3.0
 [0.4.0]: https://github.com/ucgosupl/mm_legend_v2/compare/0.3.0...v0.4.0
 [0.5.0]: https://github.com/ucgosupl/mm_legend_v2/compare/0.4.0...v0.5.0
+[0.6.0]: https://github.com/ucgosupl/mm_legend_v2/compare/0.5.0...v0.6.0
