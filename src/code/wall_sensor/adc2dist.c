@@ -6,9 +6,8 @@
 
 #include "platform_specific.h"
 
-#include "wall.h"
-
-#include "adc2dist.h"
+#include "wall_sensor/adc2dist.h"
+#include "wall_sensor/wall_sensor.h"
 
 /** Lookup table size equals ADC range. */
 #define LOOKUP_TABLE_SIZE       4096
@@ -3137,7 +3136,7 @@ int32_t adc2dist_front_l(int32_t adc)
 {
     if ((0 > adc) || (LOOKUP_TABLE_SIZE <= adc))
     {
-        return WALL_ERROR;
+        return WALL_SENSOR_ERROR;
     }
 
     return adc2dist_front_l_lookup[adc];
@@ -3147,7 +3146,7 @@ int32_t adc2dist_front_r(int32_t adc)
 {
     if ((0 > adc) || (LOOKUP_TABLE_SIZE <= adc))
     {
-        return WALL_ERROR;
+        return WALL_SENSOR_ERROR;
     }
 
     return adc2dist_front_r_lookup[adc];
@@ -3157,7 +3156,7 @@ int32_t adc2dist_diag_l(int32_t adc)
 {
     if ((0 > adc) || (LOOKUP_TABLE_SIZE <= adc))
     {
-        return WALL_ERROR;
+        return WALL_SENSOR_ERROR;
     }
 
     return adc2dist_diag_l_lookup[adc];
@@ -3167,7 +3166,7 @@ int32_t adc2dist_diag_r(int32_t adc)
 {
     if ((0 > adc) || (LOOKUP_TABLE_SIZE <= adc))
     {
-        return WALL_ERROR;
+        return WALL_SENSOR_ERROR;
     }
 
     return adc2dist_diag_r_lookup[adc];
@@ -3177,7 +3176,7 @@ int32_t adc2dist_side_l(int32_t adc)
 {
     if ((0 > adc) || (LOOKUP_TABLE_SIZE <= adc))
     {
-        return WALL_ERROR;
+        return WALL_SENSOR_ERROR;
     }
 
     return adc2dist_side_l_lookup[adc];
@@ -3187,7 +3186,7 @@ int32_t adc2dist_side_r(int32_t adc)
 {
     if ((0 > adc) || (LOOKUP_TABLE_SIZE <= adc))
     {
-        return WALL_ERROR;
+        return WALL_SENSOR_ERROR;
     }
 
     return adc2dist_side_r_lookup[adc];

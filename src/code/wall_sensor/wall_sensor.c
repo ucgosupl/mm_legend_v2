@@ -8,21 +8,9 @@
 
 #include "led/led.h"
 #include "adc/adc.h"
-#include "adc2dist.h"
 
-#include "wall.h"
-
-/** Wall sensor ids. */
-enum
-{
-    WALL_SENSOR_FRONT_R,
-    WALL_SENSOR_SIDE_L,
-    WALL_SENSOR_DIAG_R,
-    WALL_SENSOR_FRONT_L,
-    WALL_SENSOR_SIDE_R,
-    WALL_SENSOR_DIAG_L,
-    WALL_SENSOR_CNT,
-};
+#include "wall_sensor/adc2dist.h"
+#include "wall_sensor/wall_sensor.h"
 
 /** Function converting ADC value to distance for specific sensor. */
 typedef int32_t (*adc2dist_fun)(int32_t);
@@ -57,7 +45,7 @@ static void wall_task(void *params);
  */
 static void sensor_update(struct wall_sensor *sensor, int32_t val_off);
 
-void wall_init(void)
+void wall_sensor_init(void)
 {
     /* led and adc initialized earlier by vbat task. */
 
@@ -71,32 +59,42 @@ void wall_init(void)
     rtos_task_create(wall_task, "wall", WALL_STACKSIZE, WALL_PRIORITY);
 }
 
-int32_t wall_side_l_dist_mm_get(void)
+int32_t wall_sensor_dist_mm_get(int32_t sensor_id)
+{
+    if ((0 > sensor_id) || (WALL_SENSOR_CNT <= sensor_id))
+    {
+        return WALL_SENSOR_ERROR;
+    }
+
+    return wall_sensor_list[sensor_id].val;
+}
+
+int32_t wall_sensor_side_l_dist_mm_get(void)
 {
     return wall_sensor_list[WALL_SENSOR_SIDE_L].val;
 }
 
-int32_t wall_side_r_dist_mm_get(void)
+int32_t wall_sensor_side_r_dist_mm_get(void)
 {
     return wall_sensor_list[WALL_SENSOR_SIDE_R].val;
 }
 
-int32_t wall_diag_l_dist_mm_get(void)
+int32_t wall_sensor_diag_l_dist_mm_get(void)
 {
     return wall_sensor_list[WALL_SENSOR_DIAG_L].val;
 }
 
-int32_t wall_diag_r_dist_mm_get(void)
+int32_t wall_sensor_diag_r_dist_mm_get(void)
 {
     return wall_sensor_list[WALL_SENSOR_DIAG_R].val;
 }
 
-int32_t wall_front_l_dist_mm_get(void)
+int32_t wall_sensor_front_l_dist_mm_get(void)
 {
     return wall_sensor_list[WALL_SENSOR_FRONT_L].val;
 }
 
-int32_t wall_front_r_dist_mm_get(void)
+int32_t wall_sensor_front_r_dist_mm_get(void)
 {
     return wall_sensor_list[WALL_SENSOR_FRONT_R].val;
 }

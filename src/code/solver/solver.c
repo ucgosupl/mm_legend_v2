@@ -110,8 +110,8 @@ void solver_path_calc(void)
 
             new_cell_val = current_cell_val + 1;
 
-            /* Check top cell */
-            if (MAP_WALL_PRESENT != map_wall_top_get(i))
+            /* Check bottom cell */
+            if (MAP_WALL_PRESENT != map_wall_bottom_get(i))
             {
                 id_to_check = i - MAP_WIDTH;
                 if (id_to_check >= 0)
@@ -123,8 +123,8 @@ void solver_path_calc(void)
                 }
             }
 
-            /* Check bottom cell */
-            if (MAP_WALL_PRESENT != map_wall_bottom_get(i))
+            /* Check top cell */
+            if (MAP_WALL_PRESENT != map_wall_top_get(i))
             {
                 id_to_check = i + MAP_WIDTH;
                 if (id_to_check < MAP_SIZE)
