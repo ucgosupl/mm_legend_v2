@@ -2,15 +2,17 @@
 
 #include "CppUTest/TestHarness.h"
 
-extern "C" {
-#include "map/map.h"
-#include "solver/solver.h"
+extern "C"
+{
+    #include "map/map.h"
+    #include "map/map_internal.h"
+    #include "solver/solver.h"
 }
 
-#define RIGHT           0x01
-#define BOTTOM          0x02
-#define LEFT            0x04
-#define TOP             0x08
+#define NORTH         (uint8_t)0x01
+#define EAST          (uint8_t)0x02
+#define SOUTH         (uint8_t)0x04
+#define WEST          (uint8_t)0x08
 
 #define PRINT_WALL_VERTICAL()           printf("---")
 #define PRINT_NO_WALL_VERTICAL()        printf("   ")
@@ -43,6 +45,7 @@ TEST_GROUP(mazetool)
 TEST(mazetool, FirstTest)
 {
     print_unsolved(apec2017_maz);
+    print_map();
     load_map(apec2017_maz);
     print_map();
     solver_path_calc();
@@ -61,7 +64,7 @@ static void print_unsolved(int *maze)
         {
             PRINT_WALL_POST();
 
-            if (0 != (TOP & maze[j * MAP_WIDTH + i]))
+            if (0 != (EAST & maze[j * MAP_WIDTH + i]))
             {
                 PRINT_WALL_VERTICAL();
             }
@@ -77,7 +80,7 @@ static void print_unsolved(int *maze)
 
         for (i = 0; i < MAP_WIDTH; i++)
         {
-            if (0 != (LEFT & maze[j * MAP_WIDTH + i]))
+            if (0 != (SOUTH & maze[j * MAP_WIDTH + i]))
             {
                 PRINT_WALL_LEFT() ;
             }
@@ -86,7 +89,7 @@ static void print_unsolved(int *maze)
                 PRINT_NO_WALL_LEFT();
             }
 
-            if (0 != (RIGHT & maze[j * MAP_WIDTH + i]))
+            if (0 != (NORTH & maze[j * MAP_WIDTH + i]))
             {
                 PRINT_WALL_RIGHT();
             }
@@ -102,7 +105,7 @@ static void print_unsolved(int *maze)
         {
             PRINT_WALL_POST();
 
-            if (0 != (BOTTOM & maze[j * MAP_WIDTH + i]))
+            if (0 != (WEST & maze[j * MAP_WIDTH + i]))
             {
                 PRINT_WALL_VERTICAL();
             }
@@ -126,7 +129,7 @@ static void load_map(int *maze)
 
     for (i = 0; i < MAP_SIZE; i++)
     {
-        if (0 != (RIGHT & maze[i]))
+        if (0 != (NORTH & maze[i]))
         {
             map_add_right_wall(i);
         }
@@ -135,16 +138,16 @@ static void load_map(int *maze)
             map_add_right_no_wall(i);
         }
 
-        if (0 != (BOTTOM & maze[i]))
+        if (0 != (EAST & maze[i]))
         {
-            map_add_bottom_wall(i);
+            map_add_top_wall(i);
         }
         else
         {
-            map_add_bottom_no_wall(i);
+            map_add_top_no_wall(i);
         }
 
-        if (0 != (LEFT & maze[i]))
+        if (0 != (SOUTH & maze[i]))
         {
             map_add_left_wall(i);
         }
@@ -153,13 +156,13 @@ static void load_map(int *maze)
             map_add_left_no_wall(i);
         }
 
-        if (0 != (TOP & maze[i]))
+        if (0 != (WEST & maze[i]))
         {
-            map_add_top_wall(i);
+            map_add_bottom_wall(i);
         }
         else
         {
-            map_add_top_no_wall(i);
+            map_add_bottom_no_wall(i);
         }
     }
 }
@@ -176,7 +179,7 @@ static void print_map(void)
         {
             PRINT_WALL_POST();
 
-            if (MAP_WALL_PRESENT == (map_wall_top_get(j * MAP_WIDTH + i)))
+            if (MAP_WALL_PRESENT == (map_wall_bottom_get(j * MAP_WIDTH + i)))
             {
                 PRINT_WALL_VERTICAL();
             }
@@ -217,7 +220,7 @@ static void print_map(void)
         {
             PRINT_WALL_POST();
 
-            if (MAP_WALL_PRESENT == (map_wall_bottom_get(j * MAP_WIDTH + i)))
+            if (MAP_WALL_PRESENT == (map_wall_top_get(j * MAP_WIDTH + i)))
             {
                 PRINT_WALL_VERTICAL();
             }
@@ -241,7 +244,7 @@ static void print_floodfill(void)
 
     printf("Floodfill values:\n");
 
-    for (j = 0; j < MAP_HEIGHT; j++)
+    for (j = MAP_HEIGHT - 1; j >= 0; j--)
     {
         for (i = 0; i < MAP_WIDTH; i++)
         {

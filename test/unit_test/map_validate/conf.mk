@@ -1,14 +1,14 @@
 ################################################################################
 # File:     conf.mk
 # Author:   GAndaLF
-# Brief:    Makefile configuration script for unit_test_map target.
+# Brief:    Makefile configuration script for unit_test_map_validate target.
 #
-# This file contains configuration variables for unit_test_map target.
+# This file contains configuration variables for unit_test_map_validate target.
 # After setting these variables, actual build script is called.
 ################################################################################
 
 # Name for output binary hex, bin files
-TARGET_NAME := map
+TARGET_NAME := map_validate
 
 # Folder containing compilation result files
 OUT_DIR := out/
@@ -33,7 +33,7 @@ SRC_DIRS := \
 
 # Additional source files (.c)
 C_SRC_FILES := \
-../../../src/code/map/map.c \
+../../../src/code/map/map_validate.c \
 
 #
 ###############################################################################

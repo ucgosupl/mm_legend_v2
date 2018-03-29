@@ -12,18 +12,6 @@
 #include "wall_sensor/adc2dist.h"
 #include "wall_sensor/wall_sensor.h"
 
-/** Wall sensor ids. */
-enum
-{
-    WALL_SENSOR_FRONT_R,
-    WALL_SENSOR_SIDE_L,
-    WALL_SENSOR_DIAG_R,
-    WALL_SENSOR_FRONT_L,
-    WALL_SENSOR_SIDE_R,
-    WALL_SENSOR_DIAG_L,
-    WALL_SENSOR_CNT,
-};
-
 /** Function converting ADC value to distance for specific sensor. */
 typedef int32_t (*adc2dist_fun)(int32_t);
 
@@ -69,6 +57,16 @@ void wall_sensor_init(void)
     sensor_list_entry_init(WALL_SENSOR_SIDE_R, ADC_PHOTO_SIDE_R, LED_IR_SIDE_R, adc2dist_side_r);
 
     rtos_task_create(wall_task, "wall", WALL_STACKSIZE, WALL_PRIORITY);
+}
+
+int32_t wall_sensor_dist_mm_get(int32_t sensor_id)
+{
+    if ((0 > sensor_id) || (WALL_SENSOR_CNT <= sensor_id))
+    {
+        return WALL_SENSOR_ERROR;
+    }
+
+    return wall_sensor_list[sensor_id].val;
 }
 
 int32_t wall_sensor_side_l_dist_mm_get(void)
