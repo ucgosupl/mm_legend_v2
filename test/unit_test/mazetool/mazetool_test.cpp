@@ -58,7 +58,7 @@ static void print_unsolved(int *maze)
 
     printf("Maze layout:\n");
 
-    for (j = 0; j < MAP_HEIGHT; j++)
+    for (j = MAP_HEIGHT - 1; j >= 0; j--)
     {
         for (i = 0; i < MAP_WIDTH; i++)
         {
@@ -173,13 +173,13 @@ static void print_map(void)
 
     printf("Maze map:\n");
 
-    for (j = 0; j < MAP_HEIGHT; j++)
+    for (j = MAP_HEIGHT - 1; j >= 0; j--)
     {
         for (i = 0; i < MAP_WIDTH; i++)
         {
             PRINT_WALL_POST();
 
-            if (MAP_WALL_PRESENT == (map_wall_bottom_get(j * MAP_WIDTH + i)))
+            if (MAP_WALL_PRESENT == (map_wall_top_get(j * MAP_WIDTH + i)))
             {
                 PRINT_WALL_VERTICAL();
             }
@@ -220,7 +220,7 @@ static void print_map(void)
         {
             PRINT_WALL_POST();
 
-            if (MAP_WALL_PRESENT == (map_wall_top_get(j * MAP_WIDTH + i)))
+            if (MAP_WALL_PRESENT == (map_wall_bottom_get(j * MAP_WIDTH + i)))
             {
                 PRINT_WALL_VERTICAL();
             }
