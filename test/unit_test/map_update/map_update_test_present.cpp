@@ -7,7 +7,7 @@ extern "C"
     #include "map/map.h"
 }
 
-#include "mocks/map_mocks.hpp"
+#include "mocks/map_validate_mocks.hpp"
 
 #define WALL_THRESHOLD          20.0f
 #define CORNER_THRESHOLD        30.0f
@@ -21,10 +21,10 @@ TEST_GROUP(map_update_present)
 
     void teardown()
     {
-        mapAddLeftWallMockSet(nullptr);
-        mapAddRightWallMockSet(nullptr);
-        mapAddTopWallMockSet(nullptr);
-        mapAddBottomWallMockSet(nullptr);
+        mapValidateWallLeftMockSet(nullptr);
+        mapValidateWallRightMockSet(nullptr);
+        mapValidateWallTopMockSet(nullptr);
+        mapValidateWallBottomMockSet(nullptr);
     }
 };
 
@@ -33,9 +33,9 @@ TEST(map_update_present, LeftWallDetected1)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddLeftWallMock;
+    MapValidateWallMock mapValidateWallLeftMock;
 
-    mapAddLeftWallMockSet(&mapAddLeftWallMock);
+    mapValidateWallLeftMockSet(&mapValidateWallLeftMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -45,8 +45,9 @@ TEST(map_update_present, LeftWallDetected1)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddLeftWallMock.getCount());
-    CHECK_EQUAL(17, mapAddLeftWallMock.getArg1());
+    CHECK_EQUAL(1, mapValidateWallLeftMock.getCount());
+    CHECK_EQUAL(17, mapValidateWallLeftMock.getArg1());
+    CHECK_EQUAL(MAP_WALL_PRESENT, mapValidateWallLeftMock.getArg2());
 }
 
 TEST(map_update_present, LeftWallDetected2)
@@ -54,9 +55,9 @@ TEST(map_update_present, LeftWallDetected2)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddLeftWallMock;
+    MapValidateWallMock mapValidateWallLeftMock;
 
-    mapAddLeftWallMockSet(&mapAddLeftWallMock);
+    mapValidateWallLeftMockSet(&mapValidateWallLeftMock);
 
     sensor_pos.x = 2 * MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -66,8 +67,9 @@ TEST(map_update_present, LeftWallDetected2)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddLeftWallMock.getCount());
-    CHECK_EQUAL(18, mapAddLeftWallMock.getArg1());
+    CHECK_EQUAL(1, mapValidateWallLeftMock.getCount());
+    CHECK_EQUAL(18, mapValidateWallLeftMock.getArg1());
+    CHECK_EQUAL(MAP_WALL_PRESENT, mapValidateWallLeftMock.getArg2());
 }
 
 TEST(map_update_present, LeftWallDetectedTooClose)
@@ -75,9 +77,9 @@ TEST(map_update_present, LeftWallDetectedTooClose)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddLeftWallMock;
+    MapValidateWallMock mapValidateWallLeftMock;
 
-    mapAddLeftWallMockSet(&mapAddLeftWallMock);
+    mapValidateWallLeftMockSet(&mapValidateWallLeftMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -87,7 +89,7 @@ TEST(map_update_present, LeftWallDetectedTooClose)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(0, mapAddLeftWallMock.getCount());
+    CHECK_EQUAL(0, mapValidateWallLeftMock.getCount());
 }
 
 TEST(map_update_present, LeftWallDetectedMinimalNotTooClose)
@@ -95,9 +97,9 @@ TEST(map_update_present, LeftWallDetectedMinimalNotTooClose)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddLeftWallMock;
+    MapValidateWallMock mapValidateWallLeftMock;
 
-    mapAddLeftWallMockSet(&mapAddLeftWallMock);
+    mapValidateWallLeftMockSet(&mapValidateWallLeftMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -107,7 +109,7 @@ TEST(map_update_present, LeftWallDetectedMinimalNotTooClose)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddLeftWallMock.getCount());
+    CHECK_EQUAL(1, mapValidateWallLeftMock.getCount());
 }
 
 TEST(map_update_present, LeftWallDetectedTooFar)
@@ -115,9 +117,9 @@ TEST(map_update_present, LeftWallDetectedTooFar)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddLeftWallMock;
+    MapValidateWallMock mapValidateWallLeftMock;
 
-    mapAddLeftWallMockSet(&mapAddLeftWallMock);
+    mapValidateWallLeftMockSet(&mapValidateWallLeftMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -127,7 +129,7 @@ TEST(map_update_present, LeftWallDetectedTooFar)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(0, mapAddLeftWallMock.getCount());
+    CHECK_EQUAL(0, mapValidateWallLeftMock.getCount());
 }
 
 TEST(map_update_present, LeftWallDetectedMaximalNotTooFar)
@@ -135,9 +137,9 @@ TEST(map_update_present, LeftWallDetectedMaximalNotTooFar)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddLeftWallMock;
+    MapValidateWallMock mapValidateWallLeftMock;
 
-    mapAddLeftWallMockSet(&mapAddLeftWallMock);
+    mapValidateWallLeftMockSet(&mapValidateWallLeftMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -147,7 +149,7 @@ TEST(map_update_present, LeftWallDetectedMaximalNotTooFar)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddLeftWallMock.getCount());
+    CHECK_EQUAL(1, mapValidateWallLeftMock.getCount());
 }
 
 TEST(map_update_present, LeftWallDetectedMinimalTooCloseToBottomCorner)
@@ -155,9 +157,9 @@ TEST(map_update_present, LeftWallDetectedMinimalTooCloseToBottomCorner)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddLeftWallMock;
+    MapValidateWallMock mapValidateWallLeftMock;
 
-    mapAddLeftWallMockSet(&mapAddLeftWallMock);
+    mapValidateWallLeftMockSet(&mapValidateWallLeftMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -167,7 +169,7 @@ TEST(map_update_present, LeftWallDetectedMinimalTooCloseToBottomCorner)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(0, mapAddLeftWallMock.getCount());
+    CHECK_EQUAL(0, mapValidateWallLeftMock.getCount());
 }
 
 TEST(map_update_present, LeftWallDetectedMaximumNotTooCloseToBottomCorner)
@@ -175,9 +177,9 @@ TEST(map_update_present, LeftWallDetectedMaximumNotTooCloseToBottomCorner)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddLeftWallMock;
+    MapValidateWallMock mapValidateWallLeftMock;
 
-    mapAddLeftWallMockSet(&mapAddLeftWallMock);
+    mapValidateWallLeftMockSet(&mapValidateWallLeftMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -187,7 +189,7 @@ TEST(map_update_present, LeftWallDetectedMaximumNotTooCloseToBottomCorner)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddLeftWallMock.getCount());
+    CHECK_EQUAL(1, mapValidateWallLeftMock.getCount());
 }
 
 TEST(map_update_present, LeftWallDetectedMinimalTooCloseToTopCorner)
@@ -195,9 +197,9 @@ TEST(map_update_present, LeftWallDetectedMinimalTooCloseToTopCorner)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddLeftWallMock;
+    MapValidateWallMock mapValidateWallLeftMock;
 
-    mapAddLeftWallMockSet(&mapAddLeftWallMock);
+    mapValidateWallLeftMockSet(&mapValidateWallLeftMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -207,7 +209,7 @@ TEST(map_update_present, LeftWallDetectedMinimalTooCloseToTopCorner)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(0, mapAddLeftWallMock.getCount());
+    CHECK_EQUAL(0, mapValidateWallLeftMock.getCount());
 }
 
 TEST(map_update_present, LeftWallDetectedMaximumNotTooCloseToTopCorner)
@@ -215,9 +217,9 @@ TEST(map_update_present, LeftWallDetectedMaximumNotTooCloseToTopCorner)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddLeftWallMock;
+    MapValidateWallMock mapValidateWallLeftMock;
 
-    mapAddLeftWallMockSet(&mapAddLeftWallMock);
+    mapValidateWallLeftMockSet(&mapValidateWallLeftMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -227,7 +229,7 @@ TEST(map_update_present, LeftWallDetectedMaximumNotTooCloseToTopCorner)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddLeftWallMock.getCount());
+    CHECK_EQUAL(1, mapValidateWallLeftMock.getCount());
 }
 
 TEST(map_update_present, BottomWallDetected1)
@@ -235,9 +237,9 @@ TEST(map_update_present, BottomWallDetected1)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddBottomWallMock;
+    MapValidateWallMock mapValidateWallBottomMock;
 
-    mapAddBottomWallMockSet(&mapAddBottomWallMock);
+    mapValidateWallBottomMockSet(&mapValidateWallBottomMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -247,8 +249,9 @@ TEST(map_update_present, BottomWallDetected1)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddBottomWallMock.getCount());
-    CHECK_EQUAL(17, mapAddBottomWallMock.getArg1());
+    CHECK_EQUAL(1, mapValidateWallBottomMock.getCount());
+    CHECK_EQUAL(17, mapValidateWallBottomMock.getArg1());
+    CHECK_EQUAL(MAP_WALL_PRESENT, mapValidateWallBottomMock.getArg2());
 }
 
 TEST(map_update_present, BottomWallDetected2)
@@ -256,9 +259,9 @@ TEST(map_update_present, BottomWallDetected2)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddBottomWallMock;
+    MapValidateWallMock mapValidateWallBottomMock;
 
-    mapAddBottomWallMockSet(&mapAddBottomWallMock);
+    mapValidateWallBottomMockSet(&mapValidateWallBottomMock);
 
     sensor_pos.x = 2 * MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -268,8 +271,9 @@ TEST(map_update_present, BottomWallDetected2)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddBottomWallMock.getCount());
-    CHECK_EQUAL(18, mapAddBottomWallMock.getArg1());
+    CHECK_EQUAL(1, mapValidateWallBottomMock.getCount());
+    CHECK_EQUAL(18, mapValidateWallBottomMock.getArg1());
+    CHECK_EQUAL(MAP_WALL_PRESENT, mapValidateWallBottomMock.getArg2());
 }
 
 TEST(map_update_present, BottomWallDetectedTooClose)
@@ -277,9 +281,9 @@ TEST(map_update_present, BottomWallDetectedTooClose)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddBottomWallMock;
+    MapValidateWallMock mapValidateWallBottomMock;
 
-    mapAddBottomWallMockSet(&mapAddBottomWallMock);
+    mapValidateWallBottomMockSet(&mapValidateWallBottomMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -289,7 +293,7 @@ TEST(map_update_present, BottomWallDetectedTooClose)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(0, mapAddBottomWallMock.getCount());
+    CHECK_EQUAL(0, mapValidateWallBottomMock.getCount());
 }
 
 TEST(map_update_present, BottomWallDetectedMinimalNotTooClose)
@@ -297,9 +301,9 @@ TEST(map_update_present, BottomWallDetectedMinimalNotTooClose)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddBottomWallMock;
+    MapValidateWallMock mapValidateWallBottomMock;
 
-    mapAddBottomWallMockSet(&mapAddBottomWallMock);
+    mapValidateWallBottomMockSet(&mapValidateWallBottomMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -309,7 +313,7 @@ TEST(map_update_present, BottomWallDetectedMinimalNotTooClose)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddBottomWallMock.getCount());
+    CHECK_EQUAL(1, mapValidateWallBottomMock.getCount());
 }
 
 TEST(map_update_present, BottomWallDetectedTooFar)
@@ -317,9 +321,9 @@ TEST(map_update_present, BottomWallDetectedTooFar)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddBottomWallMock;
+    MapValidateWallMock mapValidateWallBottomMock;
 
-    mapAddBottomWallMockSet(&mapAddBottomWallMock);
+    mapValidateWallBottomMockSet(&mapValidateWallBottomMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -329,7 +333,7 @@ TEST(map_update_present, BottomWallDetectedTooFar)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(0, mapAddBottomWallMock.getCount());
+    CHECK_EQUAL(0, mapValidateWallBottomMock.getCount());
 }
 
 TEST(map_update_present, BottomWallDetectedMaximalNotTooFar)
@@ -337,9 +341,9 @@ TEST(map_update_present, BottomWallDetectedMaximalNotTooFar)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddBottomWallMock;
+    MapValidateWallMock mapValidateWallBottomMock;
 
-    mapAddBottomWallMockSet(&mapAddBottomWallMock);
+    mapValidateWallBottomMockSet(&mapValidateWallBottomMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -349,7 +353,7 @@ TEST(map_update_present, BottomWallDetectedMaximalNotTooFar)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddBottomWallMock.getCount());
+    CHECK_EQUAL(1, mapValidateWallBottomMock.getCount());
 }
 
 TEST(map_update_present, BottomWallDetectedMinimalTooCloseToLeftCorner)
@@ -357,9 +361,9 @@ TEST(map_update_present, BottomWallDetectedMinimalTooCloseToLeftCorner)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddBottomWallMock;
+    MapValidateWallMock mapValidateWallBottomMock;
 
-    mapAddBottomWallMockSet(&mapAddBottomWallMock);
+    mapValidateWallBottomMockSet(&mapValidateWallBottomMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -369,7 +373,7 @@ TEST(map_update_present, BottomWallDetectedMinimalTooCloseToLeftCorner)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(0, mapAddBottomWallMock.getCount());
+    CHECK_EQUAL(0, mapValidateWallBottomMock.getCount());
 }
 
 TEST(map_update_present, BottomWallDetectedMaximumNotTooCloseToLeftCorner)
@@ -377,9 +381,9 @@ TEST(map_update_present, BottomWallDetectedMaximumNotTooCloseToLeftCorner)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddBottomWallMock;
+    MapValidateWallMock mapValidateWallBottomMock;
 
-    mapAddBottomWallMockSet(&mapAddBottomWallMock);
+    mapValidateWallBottomMockSet(&mapValidateWallBottomMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -389,7 +393,7 @@ TEST(map_update_present, BottomWallDetectedMaximumNotTooCloseToLeftCorner)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddBottomWallMock.getCount());
+    CHECK_EQUAL(1, mapValidateWallBottomMock.getCount());
 }
 
 TEST(map_update_present, BottomWallDetectedMinimalTooCloseToRightCorner)
@@ -397,9 +401,9 @@ TEST(map_update_present, BottomWallDetectedMinimalTooCloseToRightCorner)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddBottomWallMock;
+    MapValidateWallMock mapValidateWallBottomMock;
 
-    mapAddBottomWallMockSet(&mapAddBottomWallMock);
+    mapValidateWallBottomMockSet(&mapValidateWallBottomMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -409,7 +413,7 @@ TEST(map_update_present, BottomWallDetectedMinimalTooCloseToRightCorner)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(0, mapAddBottomWallMock.getCount());
+    CHECK_EQUAL(0, mapValidateWallBottomMock.getCount());
 }
 
 TEST(map_update_present, BottomWallDetectedMaximumNotTooCloseToRightCorner)
@@ -417,9 +421,9 @@ TEST(map_update_present, BottomWallDetectedMaximumNotTooCloseToRightCorner)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddBottomWallMock;
+    MapValidateWallMock mapValidateWallBottomMock;
 
-    mapAddBottomWallMockSet(&mapAddBottomWallMock);
+    mapValidateWallBottomMockSet(&mapValidateWallBottomMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -429,7 +433,7 @@ TEST(map_update_present, BottomWallDetectedMaximumNotTooCloseToRightCorner)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddBottomWallMock.getCount());
+    CHECK_EQUAL(1, mapValidateWallBottomMock.getCount());
 }
 
 TEST(map_update_present, RightWallDetected1)
@@ -437,9 +441,9 @@ TEST(map_update_present, RightWallDetected1)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddRightWallMock;
+    MapValidateWallMock mapValidateWallRightMock;
 
-    mapAddRightWallMockSet(&mapAddRightWallMock);
+    mapValidateWallRightMockSet(&mapValidateWallRightMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -449,8 +453,9 @@ TEST(map_update_present, RightWallDetected1)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddRightWallMock.getCount());
-    CHECK_EQUAL(17, mapAddRightWallMock.getArg1());
+    CHECK_EQUAL(1, mapValidateWallRightMock.getCount());
+    CHECK_EQUAL(17, mapValidateWallRightMock.getArg1());
+    CHECK_EQUAL(MAP_WALL_PRESENT, mapValidateWallRightMock.getArg2());
 }
 
 TEST(map_update_present, RightWallDetected2)
@@ -458,9 +463,9 @@ TEST(map_update_present, RightWallDetected2)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddRightWallMock;
+    MapValidateWallMock mapValidateWallRightMock;
 
-    mapAddRightWallMockSet(&mapAddRightWallMock);
+    mapValidateWallRightMockSet(&mapValidateWallRightMock);
 
     sensor_pos.x = 2 * MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -470,8 +475,9 @@ TEST(map_update_present, RightWallDetected2)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddRightWallMock.getCount());
-    CHECK_EQUAL(18, mapAddRightWallMock.getArg1());
+    CHECK_EQUAL(1, mapValidateWallRightMock.getCount());
+    CHECK_EQUAL(18, mapValidateWallRightMock.getArg1());
+    CHECK_EQUAL(MAP_WALL_PRESENT, mapValidateWallRightMock.getArg2());
 }
 
 TEST(map_update_present, RightWallDetectedTooClose)
@@ -479,9 +485,9 @@ TEST(map_update_present, RightWallDetectedTooClose)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddRightWallMock;
+    MapValidateWallMock mapValidateWallRightMock;
 
-    mapAddRightWallMockSet(&mapAddRightWallMock);
+    mapValidateWallRightMockSet(&mapValidateWallRightMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -491,7 +497,7 @@ TEST(map_update_present, RightWallDetectedTooClose)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(0, mapAddRightWallMock.getCount());
+    CHECK_EQUAL(0, mapValidateWallRightMock.getCount());
 }
 
 TEST(map_update_present, RightWallDetectedMinimalNotTooClose)
@@ -499,9 +505,9 @@ TEST(map_update_present, RightWallDetectedMinimalNotTooClose)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddRightWallMock;
+    MapValidateWallMock mapValidateWallRightMock;
 
-    mapAddRightWallMockSet(&mapAddRightWallMock);
+    mapValidateWallRightMockSet(&mapValidateWallRightMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -511,7 +517,7 @@ TEST(map_update_present, RightWallDetectedMinimalNotTooClose)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddRightWallMock.getCount());
+    CHECK_EQUAL(1, mapValidateWallRightMock.getCount());
 }
 
 TEST(map_update_present, RightWallDetectedTooFar)
@@ -519,9 +525,9 @@ TEST(map_update_present, RightWallDetectedTooFar)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddRightWallMock;
+    MapValidateWallMock mapValidateWallRightMock;
 
-    mapAddRightWallMockSet(&mapAddRightWallMock);
+    mapValidateWallRightMockSet(&mapValidateWallRightMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -531,7 +537,7 @@ TEST(map_update_present, RightWallDetectedTooFar)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(0, mapAddRightWallMock.getCount());
+    CHECK_EQUAL(0, mapValidateWallRightMock.getCount());
 }
 
 TEST(map_update_present, RightWallDetectedMaximalNotTooFar)
@@ -539,9 +545,9 @@ TEST(map_update_present, RightWallDetectedMaximalNotTooFar)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddRightWallMock;
+    MapValidateWallMock mapValidateWallRightMock;
 
-    mapAddRightWallMockSet(&mapAddRightWallMock);
+    mapValidateWallRightMockSet(&mapValidateWallRightMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -551,7 +557,7 @@ TEST(map_update_present, RightWallDetectedMaximalNotTooFar)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddRightWallMock.getCount());
+    CHECK_EQUAL(1, mapValidateWallRightMock.getCount());
 }
 
 TEST(map_update_present, RightWallDetectedMinimalTooCloseToBottomCorner)
@@ -559,9 +565,9 @@ TEST(map_update_present, RightWallDetectedMinimalTooCloseToBottomCorner)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddRightWallMock;
+    MapValidateWallMock mapValidateWallRightMock;
 
-    mapAddRightWallMockSet(&mapAddRightWallMock);
+    mapValidateWallRightMockSet(&mapValidateWallRightMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -571,7 +577,7 @@ TEST(map_update_present, RightWallDetectedMinimalTooCloseToBottomCorner)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(0, mapAddRightWallMock.getCount());
+    CHECK_EQUAL(0, mapValidateWallRightMock.getCount());
 }
 
 TEST(map_update_present, RightWallDetectedMaximumNotTooCloseToBottomCorner)
@@ -579,9 +585,9 @@ TEST(map_update_present, RightWallDetectedMaximumNotTooCloseToBottomCorner)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddRightWallMock;
+    MapValidateWallMock mapValidateWallRightMock;
 
-    mapAddRightWallMockSet(&mapAddRightWallMock);
+    mapValidateWallRightMockSet(&mapValidateWallRightMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -591,7 +597,7 @@ TEST(map_update_present, RightWallDetectedMaximumNotTooCloseToBottomCorner)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddRightWallMock.getCount());
+    CHECK_EQUAL(1, mapValidateWallRightMock.getCount());
 }
 
 TEST(map_update_present, RightWallDetectedMinimalTooCloseToTopCorner)
@@ -599,9 +605,9 @@ TEST(map_update_present, RightWallDetectedMinimalTooCloseToTopCorner)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddRightWallMock;
+    MapValidateWallMock mapValidateWallRightMock;
 
-    mapAddRightWallMockSet(&mapAddRightWallMock);
+    mapValidateWallRightMockSet(&mapValidateWallRightMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -611,7 +617,7 @@ TEST(map_update_present, RightWallDetectedMinimalTooCloseToTopCorner)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(0, mapAddRightWallMock.getCount());
+    CHECK_EQUAL(0, mapValidateWallRightMock.getCount());
 }
 
 TEST(map_update_present, RightWallDetectedMaximumNotTooCloseToTopCorner)
@@ -619,9 +625,9 @@ TEST(map_update_present, RightWallDetectedMaximumNotTooCloseToTopCorner)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddRightWallMock;
+    MapValidateWallMock mapValidateWallRightMock;
 
-    mapAddRightWallMockSet(&mapAddRightWallMock);
+    mapValidateWallRightMockSet(&mapValidateWallRightMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -631,7 +637,7 @@ TEST(map_update_present, RightWallDetectedMaximumNotTooCloseToTopCorner)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddRightWallMock.getCount());
+    CHECK_EQUAL(1, mapValidateWallRightMock.getCount());
 }
 
 TEST(map_update_present, TopWallDetected1)
@@ -639,9 +645,9 @@ TEST(map_update_present, TopWallDetected1)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddTopWallMock;
+    MapValidateWallMock mapValidateWallTopMock;
 
-    mapAddTopWallMockSet(&mapAddTopWallMock);
+    mapValidateWallTopMockSet(&mapValidateWallTopMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -651,8 +657,9 @@ TEST(map_update_present, TopWallDetected1)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddTopWallMock.getCount());
-    CHECK_EQUAL(17, mapAddTopWallMock.getArg1());
+    CHECK_EQUAL(1, mapValidateWallTopMock.getCount());
+    CHECK_EQUAL(17, mapValidateWallTopMock.getArg1());
+    CHECK_EQUAL(MAP_WALL_PRESENT, mapValidateWallTopMock.getArg2());
 }
 
 TEST(map_update_present, TopWallDetected2)
@@ -660,9 +667,9 @@ TEST(map_update_present, TopWallDetected2)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddTopWallMock;
+    MapValidateWallMock mapValidateWallTopMock;
 
-    mapAddTopWallMockSet(&mapAddTopWallMock);
+    mapValidateWallTopMockSet(&mapValidateWallTopMock);
 
     sensor_pos.x = 2 * MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -672,8 +679,9 @@ TEST(map_update_present, TopWallDetected2)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddTopWallMock.getCount());
-    CHECK_EQUAL(18, mapAddTopWallMock.getArg1());
+    CHECK_EQUAL(1, mapValidateWallTopMock.getCount());
+    CHECK_EQUAL(18, mapValidateWallTopMock.getArg1());
+    CHECK_EQUAL(MAP_WALL_PRESENT, mapValidateWallTopMock.getArg2());
 }
 
 TEST(map_update_present, TopWallDetectedTooClose)
@@ -681,9 +689,9 @@ TEST(map_update_present, TopWallDetectedTooClose)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddTopWallMock;
+    MapValidateWallMock mapValidateWallTopMock;
 
-    mapAddTopWallMockSet(&mapAddTopWallMock);
+    mapValidateWallTopMockSet(&mapValidateWallTopMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -693,7 +701,7 @@ TEST(map_update_present, TopWallDetectedTooClose)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(0, mapAddTopWallMock.getCount());
+    CHECK_EQUAL(0, mapValidateWallTopMock.getCount());
 }
 
 TEST(map_update_present, TopWallDetectedMinimalNotTooClose)
@@ -701,9 +709,9 @@ TEST(map_update_present, TopWallDetectedMinimalNotTooClose)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddTopWallMock;
+    MapValidateWallMock mapValidateWallTopMock;
 
-    mapAddTopWallMockSet(&mapAddTopWallMock);
+    mapValidateWallTopMockSet(&mapValidateWallTopMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -713,7 +721,7 @@ TEST(map_update_present, TopWallDetectedMinimalNotTooClose)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddTopWallMock.getCount());
+    CHECK_EQUAL(1, mapValidateWallTopMock.getCount());
 }
 
 TEST(map_update_present, TopWallDetectedTooFar)
@@ -721,9 +729,9 @@ TEST(map_update_present, TopWallDetectedTooFar)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddTopWallMock;
+    MapValidateWallMock mapValidateWallTopMock;
 
-    mapAddTopWallMockSet(&mapAddTopWallMock);
+    mapValidateWallTopMockSet(&mapValidateWallTopMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -733,7 +741,7 @@ TEST(map_update_present, TopWallDetectedTooFar)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(0, mapAddTopWallMock.getCount());
+    CHECK_EQUAL(0, mapValidateWallTopMock.getCount());
 }
 
 TEST(map_update_present, TopWallDetectedMaximalNotTooFar)
@@ -741,9 +749,9 @@ TEST(map_update_present, TopWallDetectedMaximalNotTooFar)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddTopWallMock;
+    MapValidateWallMock mapValidateWallTopMock;
 
-    mapAddTopWallMockSet(&mapAddTopWallMock);
+    mapValidateWallTopMockSet(&mapValidateWallTopMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -753,7 +761,7 @@ TEST(map_update_present, TopWallDetectedMaximalNotTooFar)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddTopWallMock.getCount());
+    CHECK_EQUAL(1, mapValidateWallTopMock.getCount());
 }
 
 TEST(map_update_present, TopWallDetectedMinimalTooCloseToLeftCorner)
@@ -761,9 +769,9 @@ TEST(map_update_present, TopWallDetectedMinimalTooCloseToLeftCorner)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddTopWallMock;
+    MapValidateWallMock mapValidateWallTopMock;
 
-    mapAddTopWallMockSet(&mapAddTopWallMock);
+    mapValidateWallTopMockSet(&mapValidateWallTopMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -773,7 +781,7 @@ TEST(map_update_present, TopWallDetectedMinimalTooCloseToLeftCorner)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(0, mapAddTopWallMock.getCount());
+    CHECK_EQUAL(0, mapValidateWallTopMock.getCount());
 }
 
 TEST(map_update_present, TopWallDetectedMaximumNotTooCloseToLeftCorner)
@@ -781,9 +789,9 @@ TEST(map_update_present, TopWallDetectedMaximumNotTooCloseToLeftCorner)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddTopWallMock;
+    MapValidateWallMock mapValidateWallTopMock;
 
-    mapAddTopWallMockSet(&mapAddTopWallMock);
+    mapValidateWallTopMockSet(&mapValidateWallTopMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -793,7 +801,7 @@ TEST(map_update_present, TopWallDetectedMaximumNotTooCloseToLeftCorner)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddTopWallMock.getCount());
+    CHECK_EQUAL(1, mapValidateWallTopMock.getCount());
 }
 
 TEST(map_update_present, TopWallDetectedMinimalTooCloseToRightCorner)
@@ -801,9 +809,9 @@ TEST(map_update_present, TopWallDetectedMinimalTooCloseToRightCorner)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddTopWallMock;
+    MapValidateWallMock mapValidateWallTopMock;
 
-    mapAddTopWallMockSet(&mapAddTopWallMock);
+    mapValidateWallTopMockSet(&mapValidateWallTopMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -813,7 +821,7 @@ TEST(map_update_present, TopWallDetectedMinimalTooCloseToRightCorner)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(0, mapAddTopWallMock.getCount());
+    CHECK_EQUAL(0, mapValidateWallTopMock.getCount());
 }
 
 TEST(map_update_present, TopWallDetectedMaximumNotTooCloseToRightCorner)
@@ -821,9 +829,9 @@ TEST(map_update_present, TopWallDetectedMaximumNotTooCloseToRightCorner)
     struct coords sensor_pos;
     struct coords wall_pos;
 
-    MapAddWallNoWallMock mapAddTopWallMock;
+    MapValidateWallMock mapValidateWallTopMock;
 
-    mapAddTopWallMockSet(&mapAddTopWallMock);
+    mapValidateWallTopMockSet(&mapValidateWallTopMock);
 
     sensor_pos.x = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
     sensor_pos.y = MAP_CELL_WIDTH_MM + MAP_CELL_WIDTH_MM / 2.0f;
@@ -833,5 +841,5 @@ TEST(map_update_present, TopWallDetectedMaximumNotTooCloseToRightCorner)
 
     map_update(&sensor_pos, &wall_pos, MAP_WALL_PRESENT);
 
-    CHECK_EQUAL(1, mapAddTopWallMock.getCount());
+    CHECK_EQUAL(1, mapValidateWallTopMock.getCount());
 }

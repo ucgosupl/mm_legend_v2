@@ -210,19 +210,19 @@ static void wall_present_add(int32_t cell_x, int32_t cell_y, struct coords *wall
 {
     if (is_wall_left_present(cell_x, cell_y, wall_pos) == true)
     {
-        map_add_left_wall(calculate_cell(cell_x, cell_y));
+        map_validate_wall_left(calculate_cell(cell_x, cell_y), MAP_WALL_PRESENT);
     }
     else if (is_wall_bottom_present(cell_x, cell_y, wall_pos) == true)
     {
-        map_add_bottom_wall(calculate_cell(cell_x, cell_y));
+        map_validate_wall_bottom(calculate_cell(cell_x, cell_y), MAP_WALL_PRESENT);
     }
     else if (is_wall_right_present(cell_x, cell_y, wall_pos) == true)
     {
-        map_add_right_wall(calculate_cell(cell_x, cell_y));
+        map_validate_wall_right(calculate_cell(cell_x, cell_y), MAP_WALL_PRESENT);
     }
     else if (is_wall_top_present(cell_x, cell_y, wall_pos) == true)
     {
-        map_add_top_wall(calculate_cell(cell_x, cell_y));
+        map_validate_wall_top(calculate_cell(cell_x, cell_y), MAP_WALL_PRESENT);
     }
     else
     {
@@ -234,19 +234,19 @@ static void wall_absent_add(int32_t cell_x, int32_t cell_y, struct coords *senso
 {
     if (is_wall_left_absent(cell_x, cell_y, sensor_pos, wall_pos) == true)
     {
-        map_add_left_no_wall(calculate_cell(cell_x, cell_y));
+        map_validate_wall_left(calculate_cell(cell_x, cell_y), MAP_WALL_ABSENT);
     }
     else if (is_wall_bottom_absent(cell_x, cell_y, sensor_pos, wall_pos) == true)
     {
-        map_add_bottom_no_wall(calculate_cell(cell_x, cell_y));
+        map_validate_wall_bottom(calculate_cell(cell_x, cell_y), MAP_WALL_ABSENT);
     }
     else if (is_wall_right_absent(cell_x, cell_y, sensor_pos, wall_pos) == true)
     {
-        map_add_right_no_wall(calculate_cell(cell_x, cell_y));
+        map_validate_wall_right(calculate_cell(cell_x, cell_y), MAP_WALL_ABSENT);
     }
     else if (is_wall_top_absent(cell_x, cell_y, sensor_pos, wall_pos) == true)
     {
-        map_add_top_no_wall(calculate_cell(cell_x, cell_y));
+        map_validate_wall_top(calculate_cell(cell_x, cell_y), MAP_WALL_ABSENT);
     }
     else
     {
