@@ -10,23 +10,41 @@
 #include "map.h"
 #include "map_internal.h"
 
+/** Structure containing wall presence/absence counters. */
 struct detection_cnts
 {
-    int32_t present;
-    int32_t absent;
+    int32_t present;                /**< Wall presence counter. */
+    int32_t absent;                 /**< Wall absence counter. */
 };
 
+/** Counters for all walls in a single cell. */
 struct wall_detection_cnts
 {
-    struct detection_cnts left;
-    struct detection_cnts right;
-    struct detection_cnts top;
-    struct detection_cnts bottom;
+    struct detection_cnts left;     /**< Counters for left wall. */
+    struct detection_cnts right;    /**< Counters for right wall. */
+    struct detection_cnts top;      /**< Counters for top wall. */
+    struct detection_cnts bottom;   /**< Counters for bottom wall. */
 };
 
+/** Array containing wall counters for every cell. */
 static struct wall_detection_cnts map_detection_array[MAP_SIZE];
 
+/**
+ * Update wall absence count and inform if wall map should be updated.
+ *
+ * @param cnts              Pointer to wall counters to be updated.
+ *
+ * @return                  True if wall map should be updated, false otherwise.
+ */
 static bool update_absent_cnt_return_should_update(struct detection_cnts *cnts);
+
+/**
+ * Update wall presence count and inform if wall map should be updated.
+ *
+ * @param cnts              Pointer to wall counters to be updated.
+ *
+ * @return                  True if wall map should be updated, false otherwise.
+ */
 static bool update_present_cnt_return_should_update(struct detection_cnts *cnts);
 
 void map_validate_init(void)

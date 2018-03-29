@@ -7,12 +7,44 @@
 #ifndef _MAP_INTERNAL_H_
 #define _MAP_INTERNAL_H_
 
+/** Number of detections before wall is added to the map. */
 #define MAP_DETECTION_THRESHOLD         3
 
+/**
+ * Initialize wall validation module.
+ */
 void map_validate_init(void);
+
+/**
+ * Report left wall presence/absence detection.
+ *
+ * @param cell_id           Cell index.
+ * @param wall_state        Detected state of the wall.
+ */
 void map_validate_wall_left(int32_t cell_id, map_wall_state_t wall_state);
+
+/**
+ * Report right wall presence/absence detection.
+ *
+ * @param cell_id           Cell index.
+ * @param wall_state        Detected state of the wall.
+ */
 void map_validate_wall_right(int32_t cell_id, map_wall_state_t wall_state);
+
+/**
+ * Report top wall presence/absence detection.
+ *
+ * @param cell_id           Cell index.
+ * @param wall_state        Detected state of the wall.
+ */
 void map_validate_wall_top(int32_t cell_id, map_wall_state_t wall_state);
+
+/**
+ * Report bottom wall presence/absence detection.
+ *
+ * @param cell_id           Cell index.
+ * @param wall_state        Detected state of the wall.
+ */
 void map_validate_wall_bottom(int32_t cell_id, map_wall_state_t wall_state);
 
 /**

@@ -22,6 +22,7 @@
 /** Type for wall presence state. */
 typedef int32_t map_wall_state_t;
 
+/** Possible wall presence states. */
 enum
 {
     MAP_WALL_UNKNOWN = 0,
