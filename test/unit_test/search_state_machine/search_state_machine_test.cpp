@@ -29,7 +29,7 @@ TEST_GROUP(search_state_machine)
 {
     void setup()
     {
-        search_state_machine_init();
+        search_init();
     }
 
     void teardown()
@@ -54,7 +54,7 @@ TEST(search_state_machine, Init)
     search_state_set(SEARCH_STATE_ERROR);
     search_cell_id_current_set(-1);
 
-    search_state_machine_init();
+    search_init();
 
     CHECK_EQUAL(SEARCH_STATE_SOLVE, search_state_get());
     CHECK_EQUAL(0, search_cell_id_current_get());

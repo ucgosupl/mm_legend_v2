@@ -12,21 +12,44 @@
 #include "search.h"
 #include "search_internal.h"
 
+/** Parameters needed for search run state machine. */
 struct search_params
 {
-    search_state_t state;
-    int32_t cell_id_current;
-    int32_t cell_id_next;
-    bool is_solver_center;
+    search_state_t state;       /**! Current state. */
+    int32_t cell_id_current;    /**! Current cell id. */
+    int32_t cell_id_next;       /**! Cell id to be reached next. */
+    bool is_solver_center;      /**! Is solver finds path to the center. */
 };
 
+/** State machine parameters. */
 static struct search_params search_params;
 
+/**
+ * Currently used solver calculate path function.
+ *
+ * During search run two calculate path functions are used - to center and to start.
+ * They are switched during search run when start cell / center cell reached.
+ * Function calls current calculate path function.
+ */
 static void calc_path_wrapper(void);
+
+/**
+ * Handle state machine get next move case.
+ *
+ * @return                  State machine state.
+ */
 static search_state_t handle_state_get_next(void);
+
+/**
+ * Generate new state for robot next move obtained.
+ *
+ * @param next_move         Robot next move.
+ *
+ * @return                  State machine state.
+ */
 static search_state_t handle_next_move(search_move_t next_move);
 
-void search_state_machine_init(void)
+void search_init(void)
 {
     search_params.state = SEARCH_STATE_SOLVE;
     search_params.cell_id_current = 0;
@@ -146,6 +169,10 @@ static search_state_t handle_next_move(search_move_t next_move)
 }
 
 #if UNIT_TEST == 1
+
+/*
+ * Functions for obtaining private fields in unit tests.
+ */
 
 search_state_t search_state_get(void)
 {
