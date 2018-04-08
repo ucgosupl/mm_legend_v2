@@ -7,6 +7,7 @@
 #include "platform_specific.h"
 
 #include "map.h"
+#include "map_internal.h"
 
 /** State of a single cell in labirynth map. */
 struct map_cell
