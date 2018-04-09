@@ -28,6 +28,7 @@ static void print_unsolved(int *maze);
 static void load_map(int *maze);
 static void print_map(void);
 static void print_floodfill(void);
+static void print_next_cell(void);
 
 TEST_GROUP(mazetool)
 {
@@ -48,8 +49,12 @@ TEST(mazetool, FirstTest)
     print_map();
     load_map(apec2017_maz);
     print_map();
-    solver_path_calc();
+    solver_calc_path_to_center();
     print_floodfill();
+    print_next_cell();
+    solver_calc_path_to_start();
+    print_floodfill();
+    print_next_cell();
 }
 
 static void print_unsolved(int *maze)
@@ -249,6 +254,25 @@ static void print_floodfill(void)
         for (i = 0; i < MAP_WIDTH; i++)
         {
             printf(" %3u ", solver_cell_val_get(j * MAP_WIDTH + i));
+        }
+
+        printf("\n");
+    }
+
+    printf("\n");
+}
+
+static void print_next_cell(void)
+{
+    int32_t i, j;
+
+    printf("Next cell values:\n");
+
+    for (j = MAP_HEIGHT - 1; j >= 0; j--)
+    {
+        for (i = 0; i < MAP_WIDTH; i++)
+        {
+            printf("   %2d %2d   ", solver_cell_id_next_get(j * MAP_WIDTH + i)%16, solver_cell_id_next_get(j * MAP_WIDTH + i)/16);
         }
 
         printf("\n");

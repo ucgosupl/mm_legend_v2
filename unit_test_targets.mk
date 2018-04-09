@@ -43,6 +43,12 @@ unit_test_mazetool :
 unit_test_mazetool_clean :
 	@make -C test/unit_test mazetool_clean
 
+unit_test_search_state_machine :
+	@make -C test/unit_test search_state_machine
+
+unit_test_search_state_machine_clean :
+	@make -C test/unit_test search_state_machine_clean
+
 unit_test_vbat :
 	@make -C test/unit_test vbat
 
@@ -81,6 +87,7 @@ unit_test_template_clean :
 .PHONY: unit_test_map_update unit_test_map_update_clean
 .PHONY: unit_test_map_validate unit_test_map_validate_clean
 .PHONY: unit_test_mazetool unit_test_mazetool_clean
+.PHONY: unit_test_search_state_machine unit_test_search_state_machine_clean
 .PHONY: unit_test_vbat unit_test_vbat_clean
 .PHONY: unit_test_wall_detection unit_test_wall_detection_clean
 .PHONY: unit_test_template unit_test_template_clean

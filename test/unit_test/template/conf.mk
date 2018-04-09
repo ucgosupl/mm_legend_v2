@@ -25,6 +25,7 @@ INC_DIRS := \
 . \
 ../../../src/code \
 ../../../src/hw \
+../common \
 
 # Paths for source files (.c) and (.S)
 # In these paths files are searched recursively in subfolders.

@@ -103,4 +103,56 @@ void map_add_top_wall(int32_t cell_id);
  */
 void map_add_bottom_wall(int32_t cell_id);
 
+/**
+ * Calculate adjacent cell index for left wall.
+ *
+ * Walls seen from current cell are also visible from adjacent cell. This function
+ * calculates adjacent cell index for left wall. Walls on maze borders are
+ * not seen from any other cells. In this case -1 is returned.
+ *
+ * @param cell_id           Current cell id.
+ *
+ * @return                  Adjacent cell id, -1 if current cell on the maze border.
+ */
+int32_t map_cell_adjacent_to_wall_left_get(int32_t cell_id);
+
+/**
+ * Calculate adjacent cell index for right wall.
+ *
+ * Walls seen from current cell are also visible from adjacent cell. This function
+ * calculates adjacent cell index for right wall. Walls on maze borders are
+ * not seen from any other cells. In this case -1 is returned.
+ *
+ * @param cell_id           Current cell id.
+ *
+ * @return                  Adjacent cell id, -1 if current cell on the maze border.
+ */
+int32_t map_cell_adjacent_to_wall_right_get(int32_t cell_id);
+
+/**
+ * Calculate adjacent cell index for top wall.
+ *
+ * Walls seen from current cell are also visible from adjacent cell. This function
+ * calculates adjacent cell index for top wall. Walls on maze borders are
+ * not seen from any other cells. In this case -1 is returned.
+ *
+ * @param cell_id           Current cell id.
+ *
+ * @return                  Adjacent cell id, -1 if current cell on the maze border.
+ */
+int32_t map_cell_adjacent_to_wall_top_get(int32_t cell_id);
+
+/**
+ * Calculate adjacent cell index for bottom wall.
+ *
+ * Walls seen from current cell are also visible from adjacent cell. This function
+ * calculates adjacent cell index for bottom wall. Walls on maze borders are
+ * not seen from any other cells. In this case -1 is returned.
+ *
+ * @param cell_id           Current cell id.
+ *
+ * @return                  Adjacent cell id, -1 if current cell on the maze border.
+ */
+int32_t map_cell_adjacent_to_wall_bottom_get(int32_t cell_id);
+
 #endif /* _MAP_INTERNAL_H_ */
