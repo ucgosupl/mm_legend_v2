@@ -11,22 +11,13 @@ extern "C"
     #include "solver/solver.h"
 }
 
+#include "mock_templates.hpp"
 #include "solver_mocks.hpp"
 
 static SolverCalcPathMock *solverCalcPathToCenterMock = nullptr;
 static SolverCalcPathMock *solverCalcPathToStartMock = nullptr;
 
 static SolverCellNextGetMock *solverCellNextGetMock = nullptr;
-
-int32_t SolverCalcPathMock::getCount()
-{
-    return cnt_;
-}
-
-void SolverCalcPathMock::call()
-{
-    cnt_++;
-}
 
 void solverCalcPathToCenterMockSet(SolverCalcPathMock *mock)
 {
@@ -52,27 +43,6 @@ void solver_calc_path_to_start(void)
     {
         return solverCalcPathToStartMock->call();
     }
-}
-
-SolverCellNextGetMock::SolverCellNextGetMock(int32_t retVal) : retVal_(retVal) {};
-
-int32_t SolverCellNextGetMock::getCount()
-{
-    return cnt_;
-}
-
-int32_t SolverCellNextGetMock::getArg1()
-{
-    return arg1_;
-}
-
-int32_t SolverCellNextGetMock::call(int32_t cell_id)
-{
-    cnt_++;
-
-    arg1_ = cell_id;
-
-    return retVal_;
 }
 
 void solverCellNextGetMockSet(SolverCellNextGetMock *mock)

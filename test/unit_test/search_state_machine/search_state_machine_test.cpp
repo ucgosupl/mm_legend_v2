@@ -6,6 +6,7 @@ extern "C"
     #include "search/search_internal.h"
 }
 
+#include "mock_templates.hpp"
 #include "mocks/solver_mocks.hpp"
 #include "mocks/search_mocks.hpp"
 #include "mocks/profile_mocks.hpp"

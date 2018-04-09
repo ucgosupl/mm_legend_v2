@@ -11,6 +11,7 @@ extern "C"
     #include "profile/profile.h"
 }
 
+#include "mock_templates.hpp"
 #include "profile_mocks.hpp"
 
 static ProfileSearchTurnMoveMock *profileSearchTurnLeftMock = nullptr;
@@ -19,17 +20,6 @@ static ProfileSearchTurnMoveMock *profileSearchTurnAroundMock = nullptr;
 static ProfileSearchTurnMoveMock *profileSearchMoveForwardMock = nullptr;
 
 static ProfileSearchIsCompletedMock *profileSearchIsCompletedMock = nullptr;
-
-int32_t ProfileSearchTurnMoveMock::getCount()
-{
-    return cnt_;
-}
-
-
-void ProfileSearchTurnMoveMock::call()
-{
-    cnt_++;
-}
 
 void profileSearchTurnLeftMockSet(ProfileSearchTurnMoveMock *mock)
 {
@@ -81,20 +71,6 @@ void profile_search_move_forward(void)
     {
         profileSearchMoveForwardMock->call();
     }
-}
-
-ProfileSearchIsCompletedMock::ProfileSearchIsCompletedMock(bool retVal) : retVal_(retVal) {};
-
-int32_t ProfileSearchIsCompletedMock::getCount()
-{
-    return cnt_;
-}
-
-bool ProfileSearchIsCompletedMock::call()
-{
-    cnt_++;
-
-    return retVal_;
 }
 
 void profileSearchIsCompletedMockSet(ProfileSearchIsCompletedMock *mock)
