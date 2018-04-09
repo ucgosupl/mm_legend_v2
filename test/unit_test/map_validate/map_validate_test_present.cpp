@@ -142,6 +142,31 @@ TEST(map_validate_present, LeftPermanentNotAddedIfAlreadyAddedEarlier)
     CHECK_EQUAL(0, mapAddLeftWallMock.getCount());
 }
 
+TEST(map_validate_present, LeftDetectionsFromAdjacentRightAlsoCounts)
+{
+    int32_t i;
+
+    MapAddWallNoWallMock mapAddLeftWallMock;
+
+    mapAddLeftWallMockSet(&mapAddLeftWallMock);
+
+    for (i = 0; i < MAP_DETECTION_THRESHOLD; i++)
+    {
+
+        if (0 == i)
+        {
+            map_validate_wall_right(map_cell_adjacent_to_wall_left_get(REGULAR_CELL), MAP_WALL_PRESENT);
+        }
+        else
+        {
+            map_validate_wall_left(REGULAR_CELL, MAP_WALL_PRESENT);
+        }
+    }
+
+    CHECK_EQUAL(1, mapAddLeftWallMock.getCount());
+    CHECK_EQUAL(REGULAR_CELL, mapAddLeftWallMock.getArg1());
+}
+
 TEST(map_validate_present, RightWallGetCalledCorrectly)
 {
     MapWallGetMock mapWallRightGetMock;
@@ -249,6 +274,31 @@ TEST(map_validate_present, RightPermanentNotAddedIfAlreadyAddedEarlier)
     }
 
     CHECK_EQUAL(0, mapAddRightWallMock.getCount());
+}
+
+TEST(map_validate_present, RightDetectionsFromAdjacentLeftAlsoCounts)
+{
+    int32_t i;
+
+    MapAddWallNoWallMock mapAddRightWallMock;
+
+    mapAddRightWallMockSet(&mapAddRightWallMock);
+
+    for (i = 0; i < MAP_DETECTION_THRESHOLD; i++)
+    {
+
+        if (0 == i)
+        {
+            map_validate_wall_left(map_cell_adjacent_to_wall_right_get(REGULAR_CELL), MAP_WALL_PRESENT);
+        }
+        else
+        {
+            map_validate_wall_right(REGULAR_CELL, MAP_WALL_PRESENT);
+        }
+    }
+
+    CHECK_EQUAL(1, mapAddRightWallMock.getCount());
+    CHECK_EQUAL(REGULAR_CELL, mapAddRightWallMock.getArg1());
 }
 
 TEST(map_validate_present, TopWallGetCalledCorrectly)
@@ -360,6 +410,31 @@ TEST(map_validate_present, TopPermanentNotAddedIfAlreadyAddedEarlier)
     CHECK_EQUAL(0, mapAddTopWallMock.getCount());
 }
 
+TEST(map_validate_present, TopDetectionsFromAdjacentBottomAlsoCounts)
+{
+    int32_t i;
+
+    MapAddWallNoWallMock mapAddTopWallMock;
+
+    mapAddTopWallMockSet(&mapAddTopWallMock);
+
+    for (i = 0; i < MAP_DETECTION_THRESHOLD; i++)
+    {
+
+        if (0 == i)
+        {
+            map_validate_wall_bottom(map_cell_adjacent_to_wall_top_get(REGULAR_CELL), MAP_WALL_PRESENT);
+        }
+        else
+        {
+            map_validate_wall_top(REGULAR_CELL, MAP_WALL_PRESENT);
+        }
+    }
+
+    CHECK_EQUAL(1, mapAddTopWallMock.getCount());
+    CHECK_EQUAL(REGULAR_CELL, mapAddTopWallMock.getArg1());
+}
+
 TEST(map_validate_present, BottomWallGetCalledCorrectly)
 {
     MapWallGetMock mapWallBottomGetMock;
@@ -468,6 +543,33 @@ TEST(map_validate_present, BottomPermanentNotAddedIfAlreadyAddedEarlier)
 
     CHECK_EQUAL(0, mapAddBottomWallMock.getCount());
 }
+
+
+TEST(map_validate_present, BottomDetectionsFromAdjacentTopAlsoCounts)
+{
+    int32_t i;
+
+    MapAddWallNoWallMock mapAddBottomWallMock;
+
+    mapAddBottomWallMockSet(&mapAddBottomWallMock);
+
+    for (i = 0; i < MAP_DETECTION_THRESHOLD; i++)
+    {
+
+        if (0 == i)
+        {
+            map_validate_wall_top(map_cell_adjacent_to_wall_bottom_get(REGULAR_CELL), MAP_WALL_PRESENT);
+        }
+        else
+        {
+            map_validate_wall_bottom(REGULAR_CELL, MAP_WALL_PRESENT);
+        }
+    }
+
+    CHECK_EQUAL(1, mapAddBottomWallMock.getCount());
+    CHECK_EQUAL(REGULAR_CELL, mapAddBottomWallMock.getArg1());
+}
+
 
 TEST(map_validate_present, LeftPermanentAddOtherWallsNotAddedAfterSingleDetection)
 {

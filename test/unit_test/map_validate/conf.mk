@@ -34,6 +34,7 @@ SRC_DIRS := \
 # Additional source files (.c)
 C_SRC_FILES := \
 ../../../src/code/map/map_validate.c \
+../../../src/code/map/map_internal.c \
 
 #
 ###############################################################################

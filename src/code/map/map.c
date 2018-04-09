@@ -188,6 +188,8 @@ void map_add_bottom_wall(int32_t cell_id)
 
 static void add_left(int32_t cell_id, map_wall_state_t state)
 {
+    int32_t cell_adjacent;
+
     if (0 > array_bounds_check(cell_id))
     {
         return;
@@ -202,14 +204,17 @@ static void add_left(int32_t cell_id, map_wall_state_t state)
 
     labirynth_map[cell_id].left = state;
 
-    if (0 != (cell_id % MAP_WIDTH))
+    cell_adjacent = map_cell_adjacent_to_wall_left_get(cell_id);
+    if (0 <= cell_adjacent)
     {
-        labirynth_map[cell_id - 1].right = state;
+        labirynth_map[cell_adjacent].right = state;
     }
 }
 
 static void add_right(int32_t cell_id, map_wall_state_t state)
 {
+    int32_t cell_adjacent;
+
     if (0 > array_bounds_check(cell_id))
     {
         return;
@@ -224,14 +229,17 @@ static void add_right(int32_t cell_id, map_wall_state_t state)
 
     labirynth_map[cell_id].right = state;
 
-    if ((MAP_WIDTH - 1) != (cell_id % MAP_WIDTH))
+    cell_adjacent = map_cell_adjacent_to_wall_right_get(cell_id);
+    if (0 <= cell_adjacent)
     {
-        labirynth_map[cell_id + 1].left = state;
+        labirynth_map[cell_adjacent].left = state;
     }
 }
 
 static void add_top(int32_t cell_id, map_wall_state_t state)
 {
+    int32_t cell_adjacent;
+
     if (0 > array_bounds_check(cell_id))
     {
         return;
@@ -246,14 +254,17 @@ static void add_top(int32_t cell_id, map_wall_state_t state)
 
     labirynth_map[cell_id].top = state;
 
-    if (cell_id < MAP_SIZE - MAP_WIDTH)
+    cell_adjacent = map_cell_adjacent_to_wall_top_get(cell_id);
+    if (0 <= cell_adjacent)
     {
-        labirynth_map[cell_id + MAP_WIDTH].bottom = state;
+        labirynth_map[cell_adjacent].bottom = state;
     }
 }
 
 static void add_bottom(int32_t cell_id, map_wall_state_t state)
 {
+    int32_t cell_adjacent;
+
     if (0 > array_bounds_check(cell_id))
     {
         return;
@@ -268,9 +279,10 @@ static void add_bottom(int32_t cell_id, map_wall_state_t state)
 
     labirynth_map[cell_id].bottom = state;
 
-    if (cell_id >= MAP_WIDTH)
+    cell_adjacent = map_cell_adjacent_to_wall_bottom_get(cell_id);
+    if (0 <= cell_adjacent)
     {
-        labirynth_map[cell_id - MAP_WIDTH].top = state;
+        labirynth_map[cell_adjacent].top = state;
     }
 }
 

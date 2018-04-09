@@ -32,20 +32,22 @@ static struct wall_detection_cnts map_detection_array[MAP_SIZE];
 /**
  * Update wall absence count and inform if wall map should be updated.
  *
- * @param cnts              Pointer to wall counters to be updated.
+ * @param current           Pointer to wall counters of current cell.
+ * @param adjacent          Pointer to wall counters of adjacent cell.
  *
  * @return                  True if wall map should be updated, false otherwise.
  */
-static bool update_absent_cnt_return_should_update(struct detection_cnts *cnts);
+static bool update_absent_cnt_return_should_update(struct detection_cnts *current, struct detection_cnts *adjacent);
 
 /**
  * Update wall presence count and inform if wall map should be updated.
  *
- * @param cnts              Pointer to wall counters to be updated.
+ * @param current           Pointer to wall counters of current cell.
+ * @param adjacent          Pointer to wall counters of adjacent cell.
  *
  * @return                  True if wall map should be updated, false otherwise.
  */
-static bool update_present_cnt_return_should_update(struct detection_cnts *cnts);
+static bool update_present_cnt_return_should_update(struct detection_cnts *current, struct detection_cnts *adjacent);
 
 void map_validate_init(void)
 {
@@ -54,21 +56,30 @@ void map_validate_init(void)
 
 void map_validate_wall_left(int32_t cell_id, map_wall_state_t wall_state)
 {
+    int32_t adjacent_id;
+    struct detection_cnts *adjacent_cnts = NULL;
+
     if (MAP_WALL_UNKNOWN != map_wall_left_get(cell_id))
     {
         return;
     }
 
+    adjacent_id = map_cell_adjacent_to_wall_left_get(cell_id);
+    if (0 <= adjacent_id)
+    {
+        adjacent_cnts = &map_detection_array[adjacent_id].right;
+    }
+
     if (MAP_WALL_ABSENT == wall_state)
     {
-        if (update_absent_cnt_return_should_update(&map_detection_array[cell_id].left))
+        if (update_absent_cnt_return_should_update(&map_detection_array[cell_id].left, adjacent_cnts))
         {
             map_add_left_no_wall(cell_id);
         }
     }
     else if (MAP_WALL_PRESENT == wall_state)
     {
-        if (update_present_cnt_return_should_update(&map_detection_array[cell_id].left))
+        if (update_present_cnt_return_should_update(&map_detection_array[cell_id].left, adjacent_cnts))
         {
             map_add_left_wall(cell_id);
         }
@@ -81,21 +92,30 @@ void map_validate_wall_left(int32_t cell_id, map_wall_state_t wall_state)
 
 void map_validate_wall_right(int32_t cell_id, map_wall_state_t wall_state)
 {
+    int32_t adjacent_id;
+    struct detection_cnts *adjacent_cnts = NULL;
+
     if (MAP_WALL_UNKNOWN != map_wall_right_get(cell_id))
     {
         return;
     }
 
+    adjacent_id = map_cell_adjacent_to_wall_right_get(cell_id);
+    if (0 <= adjacent_id)
+    {
+        adjacent_cnts = &map_detection_array[adjacent_id].left;
+    }
+
     if (MAP_WALL_ABSENT == wall_state)
     {
-        if (update_absent_cnt_return_should_update(&map_detection_array[cell_id].right))
+        if (update_absent_cnt_return_should_update(&map_detection_array[cell_id].right, adjacent_cnts))
         {
             map_add_right_no_wall(cell_id);
         }
     }
     else if (MAP_WALL_PRESENT == wall_state)
     {
-        if (update_present_cnt_return_should_update(&map_detection_array[cell_id].right))
+        if (update_present_cnt_return_should_update(&map_detection_array[cell_id].right, adjacent_cnts))
         {
             map_add_right_wall(cell_id);
         }
@@ -108,21 +128,30 @@ void map_validate_wall_right(int32_t cell_id, map_wall_state_t wall_state)
 
 void map_validate_wall_top(int32_t cell_id, map_wall_state_t wall_state)
 {
+    int32_t adjacent_id;
+    struct detection_cnts *adjacent_cnts = NULL;
+
     if (MAP_WALL_UNKNOWN != map_wall_top_get(cell_id))
     {
         return;
     }
 
+    adjacent_id = map_cell_adjacent_to_wall_top_get(cell_id);
+    if (0 <= adjacent_id)
+    {
+        adjacent_cnts = &map_detection_array[adjacent_id].bottom;
+    }
+
     if (MAP_WALL_ABSENT == wall_state)
     {
-        if (update_absent_cnt_return_should_update(&map_detection_array[cell_id].top))
+        if (update_absent_cnt_return_should_update(&map_detection_array[cell_id].top, adjacent_cnts))
         {
             map_add_top_no_wall(cell_id);
         }
     }
     else if (MAP_WALL_PRESENT == wall_state)
     {
-        if (update_present_cnt_return_should_update(&map_detection_array[cell_id].top))
+        if (update_present_cnt_return_should_update(&map_detection_array[cell_id].top, adjacent_cnts))
         {
             map_add_top_wall(cell_id);
         }
@@ -135,21 +164,30 @@ void map_validate_wall_top(int32_t cell_id, map_wall_state_t wall_state)
 
 void map_validate_wall_bottom(int32_t cell_id, map_wall_state_t wall_state)
 {
+    int32_t adjacent_id;
+    struct detection_cnts *adjacent_cnts = NULL;
+
     if (MAP_WALL_UNKNOWN != map_wall_bottom_get(cell_id))
     {
         return;
     }
 
+    adjacent_id = map_cell_adjacent_to_wall_bottom_get(cell_id);
+    if (0 <= adjacent_id)
+    {
+        adjacent_cnts = &map_detection_array[adjacent_id].top;
+    }
+
     if (MAP_WALL_ABSENT == wall_state)
     {
-        if (update_absent_cnt_return_should_update(&map_detection_array[cell_id].bottom))
+        if (update_absent_cnt_return_should_update(&map_detection_array[cell_id].bottom, adjacent_cnts))
         {
             map_add_bottom_no_wall(cell_id);
         }
     }
     else if (MAP_WALL_PRESENT == wall_state)
     {
-        if (update_present_cnt_return_should_update(&map_detection_array[cell_id].bottom))
+        if (update_present_cnt_return_should_update(&map_detection_array[cell_id].bottom, adjacent_cnts))
         {
             map_add_bottom_wall(cell_id);
         }
@@ -160,38 +198,66 @@ void map_validate_wall_bottom(int32_t cell_id, map_wall_state_t wall_state)
     }
 }
 
-static bool update_absent_cnt_return_should_update(struct detection_cnts *cnts)
+static bool update_absent_cnt_return_should_update(struct detection_cnts *current, struct detection_cnts *adjacent)
 {
-    if (0 < cnts->present)
+    if (0 < current->present)
     {
-        cnts->absent = 0;
-        cnts->present = 0;
+        current->absent = 0;
+        current->present = 0;
+
+        adjacent->absent = 0;
+        adjacent->present = 0;
+
         return false;
     }
 
-    cnts->absent++;
-    if (cnts->absent >= MAP_DETECTION_THRESHOLD)
+    current->absent++;
+    if (NULL != adjacent)
     {
-        cnts->absent = MAP_DETECTION_THRESHOLD;
+        adjacent->absent++;
+    }
+
+    if (current->absent >= MAP_DETECTION_THRESHOLD)
+    {
+        current->absent = MAP_DETECTION_THRESHOLD;
+        if (NULL != adjacent)
+        {
+            adjacent->absent = MAP_DETECTION_THRESHOLD;
+        }
+
         return true;
     }
 
     return false;
 }
 
-static bool update_present_cnt_return_should_update(struct detection_cnts *cnts)
+static bool update_present_cnt_return_should_update(struct detection_cnts *current, struct detection_cnts *adjacent)
 {
-    if (0 < cnts->absent)
+    if (0 < current->absent)
     {
-        cnts->absent = 0;
-        cnts->present = 0;
+        current->absent = 0;
+        current->present = 0;
+
+        adjacent->absent = 0;
+        adjacent->present = 0;
+
         return false;
     }
 
-    cnts->present++;
-    if (cnts->present >= MAP_DETECTION_THRESHOLD)
+    current->present++;
+    if (NULL != adjacent)
     {
-        cnts->present = MAP_DETECTION_THRESHOLD;
+        adjacent->present++;
+    }
+
+    if (current->present >= MAP_DETECTION_THRESHOLD)
+    {
+        current->present = MAP_DETECTION_THRESHOLD;
+        if (NULL != adjacent)
+        {
+            adjacent->absent = MAP_DETECTION_THRESHOLD;
+        }
+
         return true;
     }
 
