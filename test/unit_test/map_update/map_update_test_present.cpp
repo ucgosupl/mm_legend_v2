@@ -7,6 +7,7 @@ extern "C"
     #include "map/map.h"
 }
 
+#include "mock_templates.hpp"
 #include "mocks/map_validate_mocks.hpp"
 
 #define WALL_THRESHOLD          20.0f

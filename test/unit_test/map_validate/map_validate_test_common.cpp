@@ -8,6 +8,7 @@ extern "C"
     #include "map/map_internal.h"
 }
 
+#include "mock_templates.hpp"
 #include "mocks/map_mocks.hpp"
 
 #define REGULAR_CELL    (2 * MAP_WIDTH + 3)

@@ -7,7 +7,7 @@
 #ifndef _SOLVER_MOCKS_HPP_
 #define _SOLVER_MOCKS_HPP_
 
-using SolverCalcPathMock = NoRetNoArgsMock;
+using SolverCalcPathMock = NoRetNoArgMock;
 using SolverCellNextGetMock = Ret1ArgMock<int32_t, int32_t>;
 
 void solverCalcPathToCenterMockSet(SolverCalcPathMock *mock);

@@ -11,25 +11,12 @@ extern "C"
     #include "position/position.h"
 }
 
+#include "mock_templates.hpp"
 #include "position_mocks.hpp"
 
 static PositionGetMock *posXMock = nullptr;
 static PositionGetMock *posYMock = nullptr;
 static PositionGetMock *posAlphaMock = nullptr;
-
-PositionGetMock::PositionGetMock(float retVal) : retVal_(retVal) {};
-
-int32_t PositionGetMock::getCount()
-{
-    return cnt_;
-}
-
-float PositionGetMock::call()
-{
-    cnt_++;
-
-    return retVal_;
-}
 
 void posXMockSet(PositionGetMock *mock)
 {

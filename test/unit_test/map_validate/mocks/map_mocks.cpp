@@ -12,6 +12,7 @@ extern "C"
     #include "map/map_internal.h"
 }
 
+#include "mock_templates.hpp"
 #include "map_mocks.hpp"
 
 static MapWallGetMock *mapWallLeftGetMock = nullptr;
@@ -28,27 +29,6 @@ static MapAddWallNoWallMock *mapAddLeftNoWallMock = nullptr;
 static MapAddWallNoWallMock *mapAddRightNoWallMock = nullptr;
 static MapAddWallNoWallMock *mapAddTopNoWallMock = nullptr;
 static MapAddWallNoWallMock *mapAddBottomNoWallMock = nullptr;
-
-MapWallGetMock::MapWallGetMock(map_wall_state_t retVal) : retVal_(retVal) {};
-
-int32_t MapWallGetMock::getCount()
-{
-    return cnt_;
-}
-
-int32_t MapWallGetMock::getArg1()
-{
-    return arg1_;
-}
-
-map_wall_state_t MapWallGetMock::call(int32_t cell_id)
-{
-    cnt_++;
-
-    arg1_ = cell_id;
-
-    return retVal_;
-}
 
 void mapWallLeftGetMockSet(MapWallGetMock *mock)
 {
@@ -108,23 +88,6 @@ map_wall_state_t map_wall_bottom_get(int32_t cell_id)
     }
 
     return MAP_WALL_UNKNOWN;
-}
-
-int32_t MapAddWallNoWallMock::getCount()
-{
-    return cnt_;
-}
-
-int32_t MapAddWallNoWallMock::getArg1()
-{
-    return arg1_;
-}
-
-void MapAddWallNoWallMock::call(int32_t cell_id)
-{
-    cnt_++;
-
-    arg1_ = cell_id;
 }
 
 void mapAddLeftWallMockSet(MapAddWallNoWallMock *mock)

@@ -22,12 +22,10 @@
 constexpr int32_t ADC_VAL_MIN_ABOVE_THRESHOLD = VBAT_THRESHOLD;
 constexpr int32_t ADC_VAL_MAX_BELOW_THRESHOLD = VBAT_THRESHOLD - 1;
 
-class AdcValGetMock
+class AdcValGetMock : public Ret1ArgMock<int32_t, int32_t>
 {
 private:
-    int32_t cnt_ = 0;
-    int32_t arg1_ = -1;
-    int32_t retVal_ = ADC_MAX_VAL;
+    //int32_t retVal_ = ADC_MAX_VAL;
     int32_t iterOtherVal_ = -1;
     int32_t retValOther_ = 0;
 
@@ -36,8 +34,8 @@ public:
     AdcValGetMock(int32_t retVal);
     AdcValGetMock(int32_t retVal, int32_t iterOtherVal, int32_t retValOther);
 
-    int32_t getCount();
-    int32_t getArg1();
+    //int32_t getCount();
+    //int32_t getArg1();
     int32_t call(int32_t arg1);
 };
 

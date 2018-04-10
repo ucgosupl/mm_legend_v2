@@ -11,6 +11,7 @@ extern "C"
     #include "led/led.h"
 }
 
+#include "mock_templates.hpp"
 #include "led_mocks.hpp"
 
 static LedOnOffMock *ledOnMock = nullptr;
@@ -20,23 +21,6 @@ static LedAllOffMock *ledAllOffMock = nullptr;
 void led_init(void)
 {
 
-}
-
-int32_t LedOnOffMock::getCount()
-{
-    return cnt_;
-}
-
-int32_t LedOnOffMock::getArg1()
-{
-    return arg1_;
-}
-
-void LedOnOffMock::call(int32_t arg1)
-{
-    cnt_++;
-
-    arg1_ = arg1;
 }
 
 void ledOnMockSet(LedOnOffMock *mock)
@@ -63,16 +47,6 @@ void led_off(int32_t id)
     {
         ledOffMock->call(id);
     }
-}
-
-int32_t LedAllOffMock::getCount()
-{
-    return cnt_;
-}
-
-void LedAllOffMock::call()
-{
-    cnt_++;
 }
 
 void ledAllOffMockSet(LedAllOffMock *mock)

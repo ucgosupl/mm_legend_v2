@@ -7,7 +7,7 @@
 #ifndef _PROFILE_MOCKS_HPP_
 #define _PROFILE_MOCKS_HPP_
 
-using ProfileSearchTurnMoveMock = NoRetNoArgsMock;
+using ProfileSearchTurnMoveMock = NoRetNoArgMock;
 using ProfileSearchIsCompletedMock = RetNoArgMock<bool>;
 
 void profileSearchTurnLeftMockSet(ProfileSearchTurnMoveMock *mock);

@@ -11,19 +11,10 @@ extern "C"
     #include "motor/motor.h"
 }
 
+#include "mock_templates.hpp"
 #include "motor_mocks.hpp"
 
 static MotorAllOffMock *motorAllOffMock = nullptr;
-
-int32_t MotorAllOffMock::getCount()
-{
-    return cnt_;
-}
-
-void MotorAllOffMock::call()
-{
-    cnt_++;
-}
 
 void motorAllOffMockSet(MotorAllOffMock *mock)
 {

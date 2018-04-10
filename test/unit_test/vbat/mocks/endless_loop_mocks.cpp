@@ -8,6 +8,7 @@
 
 #include "CppUTest/TestHarness.h"
 
+#include "mock_templates.hpp"
 #include "endless_loop_mocks.hpp"
 
 static EndlessLoopMock *endlessLoopMock = nullptr;
@@ -26,10 +27,8 @@ void EndlessLoopMock::call()
         FAIL("Entered endless loop unexpectedly!");
     }
 
-    /*
-     * Run some iterations first to confirm it's endless loop.
-     */
-    cnt_++;
+    NoRetNoArgMock::call();
+
     if (cnt_ >= iters_)
     {
         isReached_ = true;

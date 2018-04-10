@@ -12,35 +12,13 @@ extern "C"
     #include "map/map_internal.h"
 }
 
+#include "mock_templates.hpp"
 #include "map_validate_mocks.hpp"
 
 static MapValidateWallMock *mapValidateWallLeftMock = nullptr;
 static MapValidateWallMock *mapValidateWallRightMock = nullptr;
 static MapValidateWallMock *mapValidateWallTopMock = nullptr;
 static MapValidateWallMock *mapValidateWallBottomMock = nullptr;
-
-int32_t MapValidateWallMock::getCount()
-{
-    return cnt_;
-}
-
-int32_t MapValidateWallMock::getArg1()
-{
-    return arg1_;
-}
-
-map_wall_state_t MapValidateWallMock::getArg2()
-{
-    return arg2_;
-}
-
-void MapValidateWallMock::call(int32_t cell_id, map_wall_state_t wall_state)
-{
-    cnt_++;
-
-    arg1_ = cell_id;
-    arg2_ = wall_state;
-}
 
 void mapValidateWallLeftMockSet(MapValidateWallMock *mock)
 {

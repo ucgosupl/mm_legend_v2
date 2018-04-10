@@ -9,10 +9,9 @@
 
 constexpr uint32_t ENDLESS_LOOP_REACHED = 0x55AA00FF;
 
-class EndlessLoopMock
+class EndlessLoopMock : NoRetNoArgMock
 {
 private:
-    int32_t cnt_ = 0;
     int32_t iters_ = 0;
     bool isReached_ = false;
 
