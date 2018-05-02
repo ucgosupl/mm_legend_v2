@@ -6,26 +6,13 @@
 
 #include "platform_specific.h"
 
+#include "mock_templates.hpp"
 #include "rtos_mocks.hpp"
 
 static RtosTickCountMock *tickCntMock = nullptr;
 static RtosDelayUntilMock *delayUntilMock = nullptr;
 static RtosCriticalSectionMock *criticalEnterMock = nullptr;
 static RtosCriticalSectionMock *criticalExitMock = nullptr;
-
-RtosTickCountMock::RtosTickCountMock(tick_t retval) : retVal_(retval) {};
-
-int32_t RtosTickCountMock::getCount()
-{
-    return cnt_;
-}
-
-tick_t RtosTickCountMock::call()
-{
-    cnt_++;
-
-    return retVal_;
-}
 
 void rtosTickCountMockSet(RtosTickCountMock *mock)
 {
@@ -38,21 +25,6 @@ tick_t rtos_tick_count_get_mock(void)
 }
 
 RtosDelayUntilMock::RtosDelayUntilMock(int32_t iters) : iters_(iters) {};
-
-int32_t RtosDelayUntilMock::getCount()
-{
-    return cnt_;
-}
-
-tick_t RtosDelayUntilMock::getArg1()
-{
-    return arg1_;
-}
-
-tick_t RtosDelayUntilMock::getArg2()
-{
-    return arg2_;
-}
 
 void RtosDelayUntilMock::call(tick_t *arg1, tick_t arg2)
 {
@@ -90,16 +62,6 @@ void rtos_delay_until_mock(tick_t *last_ptr, tick_t ms)
          */
         throw RTOS_DELAY_UNTIL_MAX_ITERS_REACHED;
     }
-}
-
-int32_t RtosCriticalSectionMock::getCount()
-{
-    return cnt_;
-}
-
-void RtosCriticalSectionMock::call()
-{
-    cnt_++;
 }
 
 void rtos_critical_section_enter_mock(void)

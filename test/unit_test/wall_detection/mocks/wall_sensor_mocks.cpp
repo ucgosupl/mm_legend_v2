@@ -11,30 +11,10 @@ extern "C"
     #include "wall_sensor/wall_sensor.h"
 }
 
+#include "mock_templates.hpp"
 #include "wall_sensor_mocks.hpp"
 
 static WallSensorGetMock *wallSensorGetMock = nullptr;
-
-WallSensorGetMock::WallSensorGetMock(int32_t retVal) : retVal_(retVal) {};
-
-int32_t WallSensorGetMock::getCount()
-{
-    return cnt_;
-}
-
-int32_t WallSensorGetMock::getArg1()
-{
-    return arg1_;
-}
-
-int32_t WallSensorGetMock::call(int32_t cell_id)
-{
-    cnt_++;
-
-    arg1_ = cell_id;
-
-    return retVal_;
-}
 
 void wallSensorGetMockSet(WallSensorGetMock *mock)
 {

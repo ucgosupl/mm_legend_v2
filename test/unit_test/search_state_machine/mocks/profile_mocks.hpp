@@ -7,39 +7,13 @@
 #ifndef _PROFILE_MOCKS_HPP_
 #define _PROFILE_MOCKS_HPP_
 
-class ProfileSearchTurnMoveMock
-{
-private:
-    int32_t cnt_ = 0;
-
-public:
-    ProfileSearchTurnMoveMock() = default;
-
-    int32_t getCount();
-
-    void call();
-};
+using ProfileSearchTurnMoveMock = NoRetNoArgMock;
+using ProfileSearchIsCompletedMock = RetNoArgMock<bool>;
 
 void profileSearchTurnLeftMockSet(ProfileSearchTurnMoveMock *mock);
 void profileSearchTurnRightMockSet(ProfileSearchTurnMoveMock *mock);
 void profileSearchTurnAroundMockSet(ProfileSearchTurnMoveMock *mock);
 void profileSearchMoveForwardMockSet(ProfileSearchTurnMoveMock *mock);
-
-class ProfileSearchIsCompletedMock
-{
-private:
-    int32_t cnt_ = 0;
-
-    bool retVal_ = false;
-
-public:
-    ProfileSearchIsCompletedMock() = default;
-    ProfileSearchIsCompletedMock(bool retVal);
-
-    int32_t getCount();
-
-    bool call();
-};
 
 void profileSearchIsCompletedMockSet(ProfileSearchIsCompletedMock *mock);
 

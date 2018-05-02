@@ -14,14 +14,10 @@ extern "C"
     #include "wall_sensor/wall_sensor.h"
 }
 
+#include "mock_templates.hpp"
 #include "map_update_mocks.hpp"
 
 static MapUpdateMock *mapUpdateMock = nullptr;
-
-int32_t MapUpdateMock::getCount()
-{
-    return cnt_;
-}
 
 struct coords * MapUpdateMock::getArg1()
 {
@@ -31,11 +27,6 @@ struct coords * MapUpdateMock::getArg1()
 struct coords * MapUpdateMock::getArg2()
 {
     return &arg2_;
-}
-
-map_wall_state_t MapUpdateMock::getArg3()
-{
-    return arg3_;
 }
 
 void MapUpdateMock::call(struct coords *sensor_pos, struct coords *wall_pos, map_wall_state_t wall_state)

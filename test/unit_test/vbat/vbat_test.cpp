@@ -8,6 +8,7 @@ extern "C"
     #include "led/led.h"
 }
 
+#include "mock_templates.hpp"
 #include "mocks/rtos_mocks.hpp"
 #include "mocks/adc_mocks.hpp"
 #include "mocks/led_mocks.hpp"

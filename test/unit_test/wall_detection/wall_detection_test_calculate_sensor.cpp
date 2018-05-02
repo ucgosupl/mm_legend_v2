@@ -10,6 +10,7 @@ extern "C"
     #include "wall_sensor/wall_sensor_offsets.h"
 }
 
+#include "mock_templates.hpp"
 #include "mocks/map_update_mocks.hpp"
 
 extern "C" void update_wall_with_sensor(struct coords *robot_pos, int32_t sensor_id, int32_t sensor_data);

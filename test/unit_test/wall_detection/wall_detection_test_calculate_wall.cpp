@@ -11,6 +11,7 @@ extern "C"
     #include "wall_sensor/wall_sensor_offsets.h"
 }
 
+#include "mock_templates.hpp"
 #include "mocks/map_update_mocks.hpp"
 
 extern "C"  map_wall_state_t calculate_wall_pos(struct coords *sensor_pos, int32_t sensor_data, struct coords *wall_pos);
