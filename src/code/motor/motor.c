@@ -38,19 +38,21 @@
 #define MM_TO_TICKS(mm)         \
     (((mm) * GEAR_WHEEL * TICKS_PER_MOTOR_CYCLE) / (GEAR_MOTOR * WHEEL_CIRC_MM))
 
+#define SAMPLING_TIME_S 0.010f
+
 /** Forward velocity controller PID proportional gain. */
-#define FORWARD_PID_P   15.496f
+#define FORWARD_PID_P   3.6f
 /** Forward velocity controller PID integral gain. */
-#define FORWARD_PID_I   0.0f
+#define FORWARD_PID_I   (0.0f * SAMPLING_TIME_S)
 /** Forward velocity controller PID derivative gain. */
-#define FORWARD_PID_D   0.1f
+#define FORWARD_PID_D   (0.04f / SAMPLING_TIME_S)
 
 /** Angular velocity controller PID proportional gain. */
-#define ANGULAR_PID_P   -1.9320f
+#define ANGULAR_PID_P   2.43f
 /** Angular velocity controller PID integral gain. */
-#define ANGULAR_PID_I   0.0f
+#define ANGULAR_PID_I   (0.0f * SAMPLING_TIME_S)
 /** Angular velocity controller PID derivative gain. */
-#define ANGULAR_PID_D   0.1f
+#define ANGULAR_PID_D   (0.0f / SAMPLING_TIME_S)
 
 #define MOTOR_ANGULAR_OFFSET    15
 

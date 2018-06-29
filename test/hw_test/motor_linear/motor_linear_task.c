@@ -17,8 +17,8 @@
 
 
 
-#define SPEED_MM_MS         70
-#define SPEED_ANGULAR       90
+#define SPEED_MM_MS         15
+#define SPEED_ANGULAR       0
 #define SAMPLE_CNT          200
 
 #define MOTOR_IDENT_TASK_STACKSIZE          (configMINIMAL_STACK_SIZE * 8)
@@ -94,4 +94,14 @@ static void motor_linear_task(void *params)
 
         rtos_delay(10);
     }
+}
+
+void imu_task_init(void)
+{
+
+}
+
+float imu_gyro_z_get(void)
+{
+    return 0.0f;
 }

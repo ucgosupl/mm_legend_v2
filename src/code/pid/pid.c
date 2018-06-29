@@ -10,7 +10,7 @@
 #include "pid.h"
 
 /** Maximum influence of integral part on output signal in percent. */
-#define MAX_I_PART      200
+#define MAX_I_PART      30
 
 /**
  * Check anti windup of integral part.
@@ -27,7 +27,8 @@ int32_t pid_init(pid_params_t pid, float p, float i, float d)
     }
 
     pid->err_sum = 0;
-    pid->err_last = 0;
+    pid->y_last = 0;
+    pid->u_last = 0;
 
     pid->p = p;
     pid->i = i;
@@ -48,13 +49,14 @@ float pid_iter(pid_params_t pid, float setval, float output)
     }
 
     e = setval - output;
-    de = e - pid->err_last;
+    de = pid->y_last - output;
     pid->err_sum += e;
 
     anti_windup(pid);
 
-    u = pid->p * e + pid->i * pid->err_sum + pid->d * de;
-    pid->err_last = e;
+    u = pid->u_last + pid->p * e + pid->i * pid->err_sum + pid->d * de;
+    pid->y_last = output;
+    pid->u_last = u;
 
     return u;
 }
