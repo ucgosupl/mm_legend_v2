@@ -43,12 +43,10 @@ SRC_DIRS := \
 ../../../src/hw/encoder \
 ../../../src/hw/hbridge \
 ../../../src/hw/usart \
-../../../src/hw/i2c_master \
 ../../../src/code/vbat \
 ../../../src/code/logger \
 ../../../src/code/pid \
 ../../../src/code/motor \
-../../../src/code/imu \
 ../../../src/utils \
 ../../../src/external/FreeRTOS \
 

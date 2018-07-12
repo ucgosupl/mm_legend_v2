@@ -13,8 +13,9 @@ struct pid_params
     float p;            /** Proportional gain. */
     float i;            /** Integral gain. */
     float d;            /** Derivative gain. */
-    float err_last;     /** Last error value. */
     float err_sum;      /** Sum of errors from all iterations. */
+    float y_last;       /** Last output value. */
+    float u_last;       /** Control signal in last iteration. */
 };
 
 /** Object containing PID controller internal parameters. */

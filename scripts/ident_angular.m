@@ -1,4 +1,4 @@
-file = '../data/motor_ang_0_300.txt';
+file = '../data/motor_ang_ident_200_15.txt';
 
 motor_data = importdata(file);
 
