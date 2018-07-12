@@ -13,12 +13,11 @@
 /* Project includes */
 #include "button/button.h"
 #include "motor/motor.h"
-#include "imu/imu.h"
 
 
 
-#define SPEED_MM_MS         15
-#define SPEED_ANGULAR       0
+#define SPEED_MM_MS         10
+#define SPEED_ANGULAR       180
 #define SAMPLE_CNT          200
 
 #define MOTOR_IDENT_TASK_STACKSIZE          (configMINIMAL_STACK_SIZE * 8)
@@ -28,10 +27,9 @@ struct motor_params
 {
     int32_t left;
     int32_t right;
-    int32_t ang;
 };
 
-static struct motor_params encoder_data[SAMPLE_CNT];
+static struct motor_params wheel_data[SAMPLE_CNT];
 static struct motor_params u_data[SAMPLE_CNT];
 
 static void motor_linear_task(void *params);
@@ -39,7 +37,6 @@ static void motor_linear_task(void *params);
 void motor_linear_task_init(void)
 {
     button_init();
-    imu_task_init();
     motor_task_init();
 
     rtos_task_create(motor_linear_task, "motor_l",
@@ -67,9 +64,8 @@ static void motor_linear_task(void *params)
             {
                 last = rtos_tick_count_get();
 
-                encoder_data[i].left = (int32_t)motor_vleft_get();
-                encoder_data[i].right = (int32_t)motor_vright_get();
-                encoder_data[i].ang = (int32_t)(imu_gyro_z_get()*100.0);
+                wheel_data[i].left = (int32_t)motor_vleft_get();
+                wheel_data[i].right = (int32_t)motor_vright_get();
 
                 u_data[i].left = (int32_t)motor_uleft_get();
                 u_data[i].right = (int32_t)motor_uright_get();
@@ -82,8 +78,8 @@ static void motor_linear_task(void *params)
 
             for (i = 0; i < SAMPLE_CNT; i++)
             {
-                printf("%d\t%d\t%d\t%d\t%d\n", encoder_data[i].left, encoder_data[i].right,
-                        encoder_data[i].ang, u_data[i].left, u_data[i].right);
+                printf("%d\t%d\t%d\t%d\n", wheel_data[i].left, wheel_data[i].right,
+                        u_data[i].left, u_data[i].right);
             }
         }
 
@@ -94,14 +90,4 @@ static void motor_linear_task(void *params)
 
         rtos_delay(10);
     }
-}
-
-void imu_task_init(void)
-{
-
-}
-
-float imu_gyro_z_get(void)
-{
-    return 0.0f;
 }
