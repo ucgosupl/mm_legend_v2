@@ -54,7 +54,7 @@
 /** Angular velocity controller PID derivative gain. */
 #define ANGULAR_PID_D   (0.0f / SAMPLING_TIME_S)
 
-#define MOTOR_ANGULAR_OFFSET    15
+#define MOTOR_ANGULAR_OFFSET    0
 
 #define ROBOT_WIDTH_MM  80.0f
 
