@@ -41,11 +41,11 @@
 #define SAMPLING_TIME_S 0.010f
 
 /** Forward velocity controller PID proportional gain. */
-#define FORWARD_PID_P   3.6f
+#define FORWARD_PID_P   2.0f
 /** Forward velocity controller PID integral gain. */
-#define FORWARD_PID_I   (0.0f * SAMPLING_TIME_S)
+#define FORWARD_PID_I   (1.0f * SAMPLING_TIME_S)
 /** Forward velocity controller PID derivative gain. */
-#define FORWARD_PID_D   (0.04f / SAMPLING_TIME_S)
+#define FORWARD_PID_D   (0.0f / SAMPLING_TIME_S)
 
 /** Angular velocity controller PID proportional gain. */
 #define ANGULAR_PID_P   1.0f
