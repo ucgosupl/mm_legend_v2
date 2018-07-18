@@ -48,9 +48,9 @@
 #define FORWARD_PID_D   (0.04f / SAMPLING_TIME_S)
 
 /** Angular velocity controller PID proportional gain. */
-#define ANGULAR_PID_P   2.0f
+#define ANGULAR_PID_P   1.0f
 /** Angular velocity controller PID integral gain. */
-#define ANGULAR_PID_I   (8.0f * SAMPLING_TIME_S)
+#define ANGULAR_PID_I   (1.0f * SAMPLING_TIME_S)
 /** Angular velocity controller PID derivative gain. */
 #define ANGULAR_PID_D   (0.0f / SAMPLING_TIME_S)
 
