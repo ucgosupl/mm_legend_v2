@@ -102,7 +102,7 @@ float motor_vright_get(void)
 
 void motor_vlinear_set(float val)
 {
-    motor_params.vlinear = MM_TO_TICKS(val * SAMPLING_TIME_S);
+    motor_params.vlinear = MM_TO_TICKS(2.0f * val * SAMPLING_TIME_S);
 }
 
 void motor_vangular_set(float val)
