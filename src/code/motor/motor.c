@@ -191,7 +191,8 @@ static int32_t motor_power_limits(float u)
     {
         retval = 0;
     }
-    else {
+    else
+    {
         /* Input value correct, don't need to do anything. */
         retval = u_int;
     }
