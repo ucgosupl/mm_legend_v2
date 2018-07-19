@@ -14,8 +14,6 @@
 #include "button/button.h"
 #include "motor/motor.h"
 
-
-
 #define SPEED_MM_S          500
 #define SPEED_ANGULAR       45
 #define SAMPLE_CNT          200
@@ -30,7 +28,6 @@ struct motor_params
 };
 
 static struct motor_params wheel_data[SAMPLE_CNT];
-static struct motor_params u_data[SAMPLE_CNT];
 
 static void motor_linear_task(void *params);
 
@@ -56,6 +53,9 @@ static void motor_linear_task(void *params)
         {
             rtos_delay(2000);
 
+            motor_pid_linear_reset();
+            motor_pid_angular_reset();
+
             motor_vlinear_set(SPEED_MM_S);
             motor_vangular_set(SPEED_ANGULAR);
 
@@ -67,9 +67,6 @@ static void motor_linear_task(void *params)
                 wheel_data[i].left = (int32_t)motor_vleft_get();
                 wheel_data[i].right = (int32_t)motor_vright_get();
 
-                u_data[i].left = (int32_t)motor_uleft_get();
-                u_data[i].right = (int32_t)motor_uright_get();
-
                 rtos_delay_until(&last, 10);
             }
 
@@ -78,9 +75,7 @@ static void motor_linear_task(void *params)
 
             for (i = 0; i < SAMPLE_CNT; i++)
             {
-                printf("%d\t%d\t%d\t%d\n",
-                        wheel_data[i].left, wheel_data[i].right,
-                        u_data[i].left, u_data[i].right);
+                printf("%d\t%d\n", wheel_data[i].left, wheel_data[i].right);
             }
         }
 

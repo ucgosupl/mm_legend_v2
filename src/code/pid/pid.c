@@ -26,15 +26,20 @@ int32_t pid_init(pid_params_t pid, float p, float i, float d)
         return -EINVAL;
     }
 
-    pid->err_sum = 0;
-    pid->y_last = 0;
-    pid->u_last = 0;
+    pid_reset(pid);
 
     pid->p = p;
     pid->i = i;
     pid->d = d;
 
     return 0;
+}
+
+void pid_reset(pid_params_t pid)
+{
+    pid->err_sum = 0;
+    pid->y_last = 0;
+    pid->u_last = 0;
 }
 
 float pid_iter(pid_params_t pid, float setval, float output)

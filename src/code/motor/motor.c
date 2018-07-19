@@ -65,9 +65,6 @@ struct motor_params
 
     int32_t vleft_read;
     int32_t vright_read;
-
-    float u_left;
-    float u_right;
 };
 
 static struct motor_params motor_params;
@@ -111,20 +108,20 @@ void motor_vangular_set(float val)
             ROBOT_WIDTH_MM * SAMPLING_TIME_S / 360.0f);
 }
 
-float motor_uleft_get(void)
-{
-    return motor_params.u_left;
-}
-
-float motor_uright_get(void)
-{
-    return motor_params.u_right;
-}
-
 void motor_all_off(void)
 {
     hbridge_left_speed_set(0);
     hbridge_right_speed_set(0);
+}
+
+void motor_pid_linear_reset(void)
+{
+    pid_reset(&forward_pid);
+}
+
+void motor_pid_angular_reset(void)
+{
+    pid_reset(&angular_pid);
 }
 
 static void motor_task(void *params)
@@ -160,11 +157,11 @@ static void motor_task(void *params)
         u_right = u_forward + u_angular - MOTOR_ANGULAR_OFFSET;
 
         /* Limits */
-        motor_params.u_left = motor_power_limits(u_left);
-        motor_params.u_right = motor_power_limits(u_right);
+        u_left = motor_power_limits(u_left);
+        u_right = motor_power_limits(u_right);
 
-        hbridge_left_speed_set(motor_params.u_left);
-        hbridge_right_speed_set(motor_params.u_right);
+        hbridge_left_speed_set(u_left);
+        hbridge_right_speed_set(u_right);
 
         rtos_delay_until(&last, 10);
     }
