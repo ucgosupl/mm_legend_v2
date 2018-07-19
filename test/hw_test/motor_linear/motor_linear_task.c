@@ -16,8 +16,8 @@
 
 
 
-#define SPEED_MM_MS         10
-#define SPEED_ANGULAR       180
+#define SPEED_MM_S          500
+#define SPEED_ANGULAR       45
 #define SAMPLE_CNT          200
 
 #define MOTOR_IDENT_TASK_STACKSIZE          (configMINIMAL_STACK_SIZE * 8)
@@ -56,7 +56,7 @@ static void motor_linear_task(void *params)
         {
             rtos_delay(2000);
 
-            motor_vlinear_set(SPEED_MM_MS);
+            motor_vlinear_set(SPEED_MM_S);
             motor_vangular_set(SPEED_ANGULAR);
 
             /* Collect encoder data every 10ms */
@@ -78,7 +78,8 @@ static void motor_linear_task(void *params)
 
             for (i = 0; i < SAMPLE_CNT; i++)
             {
-                printf("%d\t%d\t%d\t%d\n", wheel_data[i].left, wheel_data[i].right,
+                printf("%d\t%d\t%d\t%d\n",
+                        wheel_data[i].left, wheel_data[i].right,
                         u_data[i].left, u_data[i].right);
             }
         }
