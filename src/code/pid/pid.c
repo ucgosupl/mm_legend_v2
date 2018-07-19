@@ -10,7 +10,7 @@
 #include "pid.h"
 
 /** Maximum influence of integral part on output signal in percent. */
-#define MAX_I_PART      30
+#define MAX_I_PART      10
 
 /**
  * Check anti windup of integral part.
