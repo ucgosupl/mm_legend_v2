@@ -131,6 +131,7 @@ static void motor_task(void *params)
 {
     (void) params;
 
+    float forward;
     float angle;
     float u_forward = 0;
     float u_angular = 0;
@@ -144,10 +145,12 @@ static void motor_task(void *params)
 
         motor_params.vleft_read = encoder_left_read();
         motor_params.vright_read = encoder_right_read();
+
+        forward = motor_params.vright_read + motor_params.vleft_read;
         angle = motor_params.vright_read - motor_params.vleft_read;
 
         /* Forward controller */
-        u_forward = pid_iter(&forward_pid, motor_params.vlinear, motor_params.vleft_read);
+        u_forward = pid_iter(&forward_pid, motor_params.vlinear, forward);
 
         /* Angular controller */
         u_angular = pid_iter(&angular_pid, motor_params.vangular, angle);
