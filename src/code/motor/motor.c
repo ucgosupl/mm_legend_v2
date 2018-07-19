@@ -41,20 +41,20 @@
 #define SAMPLING_TIME_S 0.010f
 
 /** Forward velocity controller PID proportional gain. */
-#define FORWARD_PID_P   3.6f
+#define FORWARD_PID_P   2.0f
 /** Forward velocity controller PID integral gain. */
-#define FORWARD_PID_I   (0.0f * SAMPLING_TIME_S)
+#define FORWARD_PID_I   (1.0f * SAMPLING_TIME_S)
 /** Forward velocity controller PID derivative gain. */
-#define FORWARD_PID_D   (0.04f / SAMPLING_TIME_S)
+#define FORWARD_PID_D   (0.0f / SAMPLING_TIME_S)
 
 /** Angular velocity controller PID proportional gain. */
-#define ANGULAR_PID_P   2.0f
+#define ANGULAR_PID_P   1.0f
 /** Angular velocity controller PID integral gain. */
-#define ANGULAR_PID_I   (8.0f * SAMPLING_TIME_S)
+#define ANGULAR_PID_I   (1.0f * SAMPLING_TIME_S)
 /** Angular velocity controller PID derivative gain. */
 #define ANGULAR_PID_D   (0.0f / SAMPLING_TIME_S)
 
-#define MOTOR_ANGULAR_OFFSET    15
+#define MOTOR_ANGULAR_OFFSET    0
 
 #define ROBOT_WIDTH_MM  80.0f
 
@@ -102,12 +102,12 @@ float motor_vright_get(void)
 
 void motor_vlinear_set(float val)
 {
-    motor_params.vlinear = MM_TO_TICKS(val);
+    motor_params.vlinear = MM_TO_TICKS(2.0f * val * SAMPLING_TIME_S);
 }
 
 void motor_vangular_set(float val)
 {
-    motor_params.vangular = MM_TO_TICKS(val * 2.0f * 2.0f * M_PI *
+    motor_params.vangular = MM_TO_TICKS(val * 2.0f * M_PI *
             ROBOT_WIDTH_MM * SAMPLING_TIME_S / 360.0f);
 }
 
@@ -131,6 +131,7 @@ static void motor_task(void *params)
 {
     (void) params;
 
+    float forward;
     float angle;
     float u_forward = 0;
     float u_angular = 0;
@@ -144,10 +145,12 @@ static void motor_task(void *params)
 
         motor_params.vleft_read = encoder_left_read();
         motor_params.vright_read = encoder_right_read();
+
+        forward = motor_params.vright_read + motor_params.vleft_read;
         angle = motor_params.vright_read - motor_params.vleft_read;
 
         /* Forward controller */
-        u_forward = pid_iter(&forward_pid, motor_params.vlinear, motor_params.vleft_read);
+        u_forward = pid_iter(&forward_pid, motor_params.vlinear, forward);
 
         /* Angular controller */
         u_angular = pid_iter(&angular_pid, motor_params.vangular, angle);
@@ -188,7 +191,8 @@ static int32_t motor_power_limits(float u)
     {
         retval = 0;
     }
-    else {
+    else
+    {
         /* Input value correct, don't need to do anything. */
         retval = u_int;
     }
