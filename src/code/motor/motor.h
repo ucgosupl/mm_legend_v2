@@ -45,7 +45,14 @@ void motor_vangular_set(float val);
  */
 void motor_all_off(void);
 
-float motor_uleft_get(void);
-float motor_uright_get(void);
+/**
+ * Reset state of linear velocity PID controller.
+ */
+void motor_pid_linear_reset(void);
+
+/**
+ * Reset state of angular velocity PID controller.
+ */
+void motor_pid_angular_reset(void);
 
 #endif /* _MOTOR_H_ */

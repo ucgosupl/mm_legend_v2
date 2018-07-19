@@ -34,6 +34,13 @@ typedef struct pid_params * pid_params_t;
 int32_t pid_init(pid_params_t pid, float p, float i, float d);
 
 /**
+ * Reset state of PID controller.
+ *
+ * @param pid           PID controller to be reset.
+ */
+void pid_reset(pid_params_t pid);
+
+/**
  * Calculate single iteration of PID controller.
  *
  * @param pid           PID controller object.
