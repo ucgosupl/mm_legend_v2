@@ -11,7 +11,7 @@
 #include "usart.h"
 
 /** USART baud rate. */
-#define USART_BAUD_RATE             115200
+#define USART_BAUD_RATE             9600
 
 /** Pin number used for USART TX - PA09. */
 #define USART_TX_PIN                9
