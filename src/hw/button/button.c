@@ -10,10 +10,10 @@
 
 #include "button.h"
 
-/** Switch 1 pin number - PB01 */
-#define SW1_PIN         1
-/** Switch 2 pin number - PB02 */
-#define SW2_PIN         2
+/** Switch 1 pin number - PB03 */
+#define SW1_PIN         3
+/** Switch 2 pin number - PB04 */
+#define SW2_PIN         4
 
 void button_init(void)
 {
